@@ -33,6 +33,14 @@ private slots:
 
     void on_plateSampleDeleteButton_clicked();
 
+    void on_loadPlateTestSetButton_clicked();
+
+    void on_plateTestTree_itemClicked(QTreeWidgetItem *item, int column);
+
+    void on_testPlateChangeTagButton_clicked();
+
+    void on_savePlateTrainButton_clicked();
+
 private:
     cv::Size HOGWinSize = cv::Size(16, 16);
     cv::Size HOGBlockSize = cv::Size(16, 16);
@@ -41,13 +49,15 @@ private:
     int HOGNBits = 9;
     cv::HOGDescriptor *hog = new cv::HOGDescriptor(HOGWinSize, HOGBlockSize, HOGBlockStride, HOGCellSize, HOGNBits);
 
-    int sum;
+    int sampleSum;
+    int testSum;
+    bool standardPlateTestSet = false;
 
     QList<QDir*> plateTrainDirs;
     QList<QStringList> plateTrainImgFileNames;
 
     QList<QDir*> plateTestDirs;
-    QList<QStringList> platTestImgFileNames;
+    QList<QStringList> plateTestImgFileNames;
 
     Ui::SVMTrainner *ui;
 
@@ -63,6 +73,10 @@ private:
     QImage Mat2QImage(cv::Mat mat, QImage::Format format);
 
     void refreshPlateSampleTree();
+
+    void refreshPlateTestSampleTree();
+
+    void generateTestSetByTrainSet();
 };
 
 #endif // SVMTRAINNER_H

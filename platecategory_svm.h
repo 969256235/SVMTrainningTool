@@ -48,6 +48,7 @@ public:
 
     static bool PreparePlateTrainningDirectory(QString path);
 
+    static bool checkTestDirectory(QString path);
 };
 
 #endif // PLATECATEGORY_SVM_H

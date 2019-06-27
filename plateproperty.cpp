@@ -15,7 +15,7 @@ PlateProperty::PlateProperty(QWidget *parent) :
 
     this->ui->trainPathCheckBox->setChecked(Property::plateTrainPathDefault);
     this->ui->resultPathCheckBox->setChecked(Property::plateResultPathDefault);
-    this->ui->resultPathCheckBox->setChecked(Property::plateResultPathDefault);
+    this->ui->testPathCheckBox->setChecked(Property::plateTestLoadDefault);
     this->ui->resultLoadCheckBox->setChecked(Property::plateRusultLoadDefault);
 
     this->ui->similarytyCheck->setChecked(Property::similarityCheck);

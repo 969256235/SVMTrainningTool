@@ -169,3 +169,28 @@ bool PlateCategory_SVM::PreparePlateTrainningDirectory(QString path)
 
     return success;
 }
+
+bool PlateCategory_SVM::checkTestDirectory(QString path)
+{
+    QDir dir;
+    try {
+        QString platesDiretory = path + "\\plates";
+        if(dir.exists(platesDiretory) == false)
+        {
+            return false;
+        }
+        for(int index_plateCategory = 0; index_plateCategory < PlateCategoryString.size(); index_plateCategory++)
+        {
+            QString plateCategoryDirectory = platesDiretory + "\\" + PlateCategoryString[index_plateCategory];
+            if(dir.exists(plateCategoryDirectory) == false)
+            {
+                return  false;
+            }
+        }
+
+    } catch (std::exception) {
+        return  false;
+    }
+
+    return true;
+}

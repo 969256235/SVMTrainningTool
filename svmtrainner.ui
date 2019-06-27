@@ -72,7 +72,7 @@
        <widget class="QPushButton" name="savePlateTrainButton">
         <property name="geometry">
          <rect>
-          <x>490</x>
+          <x>210</x>
           <y>0</y>
           <width>81</width>
           <height>31</height>
@@ -87,7 +87,7 @@
          <rect>
           <x>0</x>
           <y>40</y>
-          <width>121</width>
+          <width>141</width>
           <height>541</height>
          </rect>
         </property>
@@ -103,12 +103,12 @@
          </property>
         </column>
        </widget>
-       <widget class="QTreeWidget" name="treeWidget">
+       <widget class="QTreeWidget" name="plateTestTree">
         <property name="geometry">
          <rect>
-          <x>470</x>
+          <x>490</x>
           <y>40</y>
-          <width>131</width>
+          <width>141</width>
           <height>541</height>
          </rect>
         </property>
@@ -121,7 +121,7 @@
        <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
-          <x>130</x>
+          <x>150</x>
           <y>40</y>
           <width>331</width>
           <height>541</height>
@@ -165,141 +165,337 @@
            <property name="title">
             <string>Imfo</string>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout">
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <widget class="QWidget" name="plateSampleImfo" native="true">
-              <layout class="QVBoxLayout" name="verticalLayout_2">
-               <item>
-                <layout class="QGridLayout" name="plateSampleImfoGrid">
-                 <item row="0" column="1" colspan="2">
-                  <widget class="QLabel" name="plateSampleName">
-                   <property name="font">
-                    <font>
-                     <family>Times New Roman</family>
-                     <pointsize>10</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="0">
-                  <widget class="QLabel" name="plateHogSizeLabel">
-                   <property name="font">
-                    <font>
-                     <family>Times New Roman</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>HOG维度：</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="1">
-                  <widget class="QLabel" name="plateHogSize">
-                   <property name="font">
-                    <font>
-                     <family>Times New Roman</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="2">
-                  <widget class="QPushButton" name="plateSampleChangeButton">
-                   <property name="text">
-                    <string>更改标签</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="1">
-                  <widget class="QComboBox" name="plateSampleLabelCombo">
-                   <property name="font">
-                    <font>
-                     <family>Times New Roman</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <item>
-                    <property name="text">
-                     <string>非车牌</string>
-                    </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_3">
+              <item>
+               <widget class="QWidget" name="plateSampleImfo" native="true">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <layout class="QHBoxLayout" name="horizontalLayout_5">
+                 <item>
+                  <layout class="QGridLayout" name="plateSampleImfoGrid">
+                   <item row="0" column="1" colspan="2">
+                    <widget class="QLabel" name="plateSampleName">
+                     <property name="font">
+                      <font>
+                       <family>Times New Roman</family>
+                       <pointsize>10</pointsize>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </widget>
                    </item>
-                   <item>
-                    <property name="text">
-                     <string>普通车牌</string>
-                    </property>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="plateHogSizeLabel">
+                     <property name="font">
+                      <font>
+                       <family>Times New Roman</family>
+                       <pointsize>12</pointsize>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>HOG维度：</string>
+                     </property>
+                    </widget>
                    </item>
-                  </widget>
-                 </item>
-                 <item row="3" column="0">
-                  <widget class="QLabel" name="plateSampleLabelLabel">
-                   <property name="font">
-                    <font>
-                     <family>Times New Roman</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>标签：</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="plateSampleNameLabel">
-                   <property name="font">
-                    <font>
-                     <family>Times New Roman</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>文件名：</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="1">
-                  <widget class="QLabel" name="plateSampleSize">
-                   <property name="font">
-                    <font>
-                     <family>Times New Roman</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="0">
-                  <widget class="QLabel" name="plateSampleSizeLabel">
-                   <property name="font">
-                    <font>
-                     <family>Times New Roman</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>原图尺寸：</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="4" column="2">
-                  <widget class="QPushButton" name="plateSampleDeleteButton">
-                   <property name="text">
-                    <string>删除样本</string>
-                   </property>
-                  </widget>
+                   <item row="2" column="1">
+                    <widget class="QLabel" name="plateHogSize">
+                     <property name="font">
+                      <font>
+                       <family>Times New Roman</family>
+                       <pointsize>12</pointsize>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="2">
+                    <widget class="QPushButton" name="plateSampleChangeButton">
+                     <property name="text">
+                      <string>更改标签</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="1">
+                    <widget class="QComboBox" name="plateSampleLabelCombo">
+                     <property name="font">
+                      <font>
+                       <family>Times New Roman</family>
+                       <pointsize>10</pointsize>
+                      </font>
+                     </property>
+                     <item>
+                      <property name="text">
+                       <string>非车牌</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>普通车牌</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="plateSampleLabelLabel">
+                     <property name="font">
+                      <font>
+                       <family>Times New Roman</family>
+                       <pointsize>12</pointsize>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>标签：</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="plateSampleNameLabel">
+                     <property name="font">
+                      <font>
+                       <family>Times New Roman</family>
+                       <pointsize>12</pointsize>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>文件名：</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QLabel" name="plateSampleSize">
+                     <property name="font">
+                      <font>
+                       <family>Times New Roman</family>
+                       <pointsize>12</pointsize>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="plateSampleSizeLabel">
+                     <property name="font">
+                      <font>
+                       <family>Times New Roman</family>
+                       <pointsize>12</pointsize>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>原图尺寸：</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="2">
+                    <widget class="QPushButton" name="plateSampleDeleteButton">
+                     <property name="text">
+                      <string>删除样本</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
                  </item>
                 </layout>
-               </item>
-              </layout>
-             </widget>
+               </widget>
+              </item>
+              <item>
+               <widget class="QWidget" name="plateTestImfo" native="true">
+                <layout class="QVBoxLayout" name="verticalLayout_2">
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout">
+                   <item>
+                    <layout class="QGridLayout" name="gridLayout">
+                     <item row="2" column="1">
+                      <widget class="QLabel" name="testPlateHogSize">
+                       <property name="font">
+                        <font>
+                         <family>Times New Roman</family>
+                         <pointsize>12</pointsize>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="1">
+                      <widget class="QLabel" name="testPlateSampleSize">
+                       <property name="font">
+                        <font>
+                         <family>Times New Roman</family>
+                         <pointsize>12</pointsize>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="0">
+                      <widget class="QLabel" name="testPlateSampleSizeLabel">
+                       <property name="font">
+                        <font>
+                         <family>Times New Roman</family>
+                         <pointsize>12</pointsize>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>原图尺寸：</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="2" column="0">
+                      <widget class="QLabel" name="testPlateHogSizeLabel">
+                       <property name="font">
+                        <font>
+                         <family>Times New Roman</family>
+                         <pointsize>12</pointsize>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>HOG维度：</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="4" column="0">
+                      <widget class="QLabel" name="testPlateSampleLabelLabel">
+                       <property name="font">
+                        <font>
+                         <family>Times New Roman</family>
+                         <pointsize>12</pointsize>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>正确标签：</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="0">
+                      <widget class="QLabel" name="testPlateSampleNameLabel">
+                       <property name="font">
+                        <font>
+                         <family>Times New Roman</family>
+                         <pointsize>12</pointsize>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>文件名：</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="4" column="2">
+                      <widget class="QPushButton" name="testPlateChangeTagButton">
+                       <property name="text">
+                        <string>更改标签</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="4" column="1">
+                      <widget class="QComboBox" name="plateTestRighTagCombo">
+                       <property name="font">
+                        <font>
+                         <family>Times New Roman</family>
+                         <pointsize>10</pointsize>
+                        </font>
+                       </property>
+                       <item>
+                        <property name="text">
+                         <string>未知</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>非车牌</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>普通车牌</string>
+                        </property>
+                       </item>
+                      </widget>
+                     </item>
+                     <item row="0" column="1" colspan="2">
+                      <widget class="QLabel" name="testPlateSampleName">
+                       <property name="font">
+                        <font>
+                         <family>Times New Roman</family>
+                         <pointsize>10</pointsize>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <widget class="QWidget" name="plateTestResult" native="true">
+                     <layout class="QHBoxLayout" name="horizontalLayout_2">
+                      <item>
+                       <widget class="QLabel" name="plateTestResultLabel">
+                        <property name="font">
+                         <font>
+                          <family>Times New Roman</family>
+                          <pointsize>12</pointsize>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>测试结果：</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QComboBox" name="plateTestResultCombo">
+                        <property name="font">
+                         <font>
+                          <family>Times New Roman</family>
+                          <pointsize>10</pointsize>
+                         </font>
+                        </property>
+                        <item>
+                         <property name="text">
+                          <string>非车牌</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>普通车牌</string>
+                         </property>
+                        </item>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QPushButton" name="pushButton">
+                        <property name="font">
+                         <font>
+                          <family>Times New Roman</family>
+                          <pointsize>8</pointsize>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>加入训练库</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
             </item>
            </layout>
           </widget>
@@ -309,7 +505,7 @@
        <widget class="QPushButton" name="loadPlateTestSetButton">
         <property name="geometry">
          <rect>
-          <x>210</x>
+          <x>290</x>
           <y>0</y>
           <width>71</width>
           <height>31</height>
@@ -322,7 +518,7 @@
        <widget class="QPushButton" name="generatePlateTestSetButton">
         <property name="geometry">
          <rect>
-          <x>280</x>
+          <x>360</x>
           <y>0</y>
           <width>71</width>
           <height>31</height>
@@ -335,7 +531,7 @@
        <widget class="QPushButton" name="startPlateTestButton">
         <property name="geometry">
          <rect>
-          <x>350</x>
+          <x>510</x>
           <y>0</y>
           <width>71</width>
           <height>31</height>
@@ -348,7 +544,7 @@
        <widget class="QPushButton" name="singlePlateTestButton">
         <property name="geometry">
          <rect>
-          <x>420</x>
+          <x>580</x>
           <y>0</y>
           <width>71</width>
           <height>31</height>
@@ -356,6 +552,19 @@
         </property>
         <property name="text">
          <string>单张图测试</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="loadPlateTrainResultButton">
+        <property name="geometry">
+         <rect>
+          <x>430</x>
+          <y>0</y>
+          <width>81</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>加载训练结果</string>
         </property>
        </widget>
       </widget>

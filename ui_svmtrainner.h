@@ -50,9 +50,10 @@ public:
     QHBoxLayout *horizontalLayout;
     QLabel *plateHogLabel;
     QGroupBox *plateSampleImfoBox;
-    QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout_4;
+    QHBoxLayout *horizontalLayout_3;
     QWidget *plateSampleImfo;
-    QVBoxLayout *verticalLayout_2;
+    QHBoxLayout *horizontalLayout_5;
     QGridLayout *plateSampleImfoGrid;
     QLabel *plateSampleName;
     QLabel *plateHogSizeLabel;
@@ -64,10 +65,29 @@ public:
     QLabel *plateSampleSize;
     QLabel *plateSampleSizeLabel;
     QPushButton *plateSampleDeleteButton;
+    QWidget *plateTestImfo;
+    QVBoxLayout *verticalLayout_2;
+    QVBoxLayout *verticalLayout;
+    QGridLayout *gridLayout;
+    QLabel *testPlateHogSize;
+    QLabel *testPlateSampleSize;
+    QLabel *testPlateSampleSizeLabel;
+    QLabel *testPlateHogSizeLabel;
+    QLabel *testPlateSampleLabelLabel;
+    QLabel *testPlateSampleNameLabel;
+    QPushButton *testPlateChangeTagButton;
+    QComboBox *plateTestRighTagCombo;
+    QLabel *testPlateSampleName;
+    QWidget *plateTestResult;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *plateTestResultLabel;
+    QComboBox *plateTestResultCombo;
+    QPushButton *pushButton;
     QPushButton *loadPlateTestSetButton;
     QPushButton *generatePlateTestSetButton;
     QPushButton *startPlateTestButton;
     QPushButton *singlePlateTestButton;
+    QPushButton *loadPlateTrainResultButton;
     QWidget *charTab;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
@@ -99,18 +119,18 @@ public:
         loadPlateSetButton->setGeometry(QRect(70, 0, 71, 31));
         savePlateTrainButton = new QPushButton(plateTab);
         savePlateTrainButton->setObjectName(QString::fromUtf8("savePlateTrainButton"));
-        savePlateTrainButton->setGeometry(QRect(490, 0, 81, 31));
+        savePlateTrainButton->setGeometry(QRect(210, 0, 81, 31));
         plateSampleTree = new QTreeWidget(plateTab);
         plateSampleTree->setObjectName(QString::fromUtf8("plateSampleTree"));
-        plateSampleTree->setGeometry(QRect(0, 40, 121, 541));
+        plateSampleTree->setGeometry(QRect(0, 40, 141, 541));
         plateSampleTree->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         plateSampleTree->header()->setMinimumSectionSize(50);
         plateTestTree = new QTreeWidget(plateTab);
         plateTestTree->setObjectName(QString::fromUtf8("plateTestTree"));
-        plateTestTree->setGeometry(QRect(470, 40, 131, 541));
+        plateTestTree->setGeometry(QRect(490, 40, 141, 541));
         layoutWidget = new QWidget(plateTab);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(130, 40, 331, 541));
+        layoutWidget->setGeometry(QRect(150, 40, 331, 541));
         verticalLayout_3 = new QVBoxLayout(layoutWidget);
         verticalLayout_3->setSpacing(6);
         verticalLayout_3->setContentsMargins(11, 11, 11, 11);
@@ -146,16 +166,20 @@ public:
 
         plateSampleImfoBox = new QGroupBox(layoutWidget);
         plateSampleImfoBox->setObjectName(QString::fromUtf8("plateSampleImfoBox"));
-        verticalLayout = new QVBoxLayout(plateSampleImfoBox);
-        verticalLayout->setSpacing(6);
-        verticalLayout->setContentsMargins(11, 11, 11, 11);
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        horizontalLayout_4 = new QHBoxLayout(plateSampleImfoBox);
+        horizontalLayout_4->setSpacing(6);
+        horizontalLayout_4->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         plateSampleImfo = new QWidget(plateSampleImfoBox);
         plateSampleImfo->setObjectName(QString::fromUtf8("plateSampleImfo"));
-        verticalLayout_2 = new QVBoxLayout(plateSampleImfo);
-        verticalLayout_2->setSpacing(6);
-        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        plateSampleImfo->setEnabled(true);
+        horizontalLayout_5 = new QHBoxLayout(plateSampleImfo);
+        horizontalLayout_5->setSpacing(6);
+        horizontalLayout_5->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
         plateSampleImfoGrid = new QGridLayout();
         plateSampleImfoGrid->setSpacing(6);
         plateSampleImfoGrid->setObjectName(QString::fromUtf8("plateSampleImfoGrid"));
@@ -192,7 +216,7 @@ public:
         plateSampleLabelCombo->addItem(QString());
         plateSampleLabelCombo->addItem(QString());
         plateSampleLabelCombo->setObjectName(QString::fromUtf8("plateSampleLabelCombo"));
-        plateSampleLabelCombo->setFont(font1);
+        plateSampleLabelCombo->setFont(font);
 
         plateSampleImfoGrid->addWidget(plateSampleLabelCombo, 3, 1, 1, 1);
 
@@ -226,26 +250,141 @@ public:
         plateSampleImfoGrid->addWidget(plateSampleDeleteButton, 4, 2, 1, 1);
 
 
-        verticalLayout_2->addLayout(plateSampleImfoGrid);
+        horizontalLayout_5->addLayout(plateSampleImfoGrid);
 
 
-        verticalLayout->addWidget(plateSampleImfo);
+        horizontalLayout_3->addWidget(plateSampleImfo);
+
+        plateTestImfo = new QWidget(plateSampleImfoBox);
+        plateTestImfo->setObjectName(QString::fromUtf8("plateTestImfo"));
+        verticalLayout_2 = new QVBoxLayout(plateTestImfo);
+        verticalLayout_2->setSpacing(6);
+        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setSpacing(6);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        gridLayout = new QGridLayout();
+        gridLayout->setSpacing(6);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        testPlateHogSize = new QLabel(plateTestImfo);
+        testPlateHogSize->setObjectName(QString::fromUtf8("testPlateHogSize"));
+        testPlateHogSize->setFont(font1);
+
+        gridLayout->addWidget(testPlateHogSize, 2, 1, 1, 1);
+
+        testPlateSampleSize = new QLabel(plateTestImfo);
+        testPlateSampleSize->setObjectName(QString::fromUtf8("testPlateSampleSize"));
+        testPlateSampleSize->setFont(font1);
+
+        gridLayout->addWidget(testPlateSampleSize, 1, 1, 1, 1);
+
+        testPlateSampleSizeLabel = new QLabel(plateTestImfo);
+        testPlateSampleSizeLabel->setObjectName(QString::fromUtf8("testPlateSampleSizeLabel"));
+        testPlateSampleSizeLabel->setFont(font1);
+
+        gridLayout->addWidget(testPlateSampleSizeLabel, 1, 0, 1, 1);
+
+        testPlateHogSizeLabel = new QLabel(plateTestImfo);
+        testPlateHogSizeLabel->setObjectName(QString::fromUtf8("testPlateHogSizeLabel"));
+        testPlateHogSizeLabel->setFont(font1);
+
+        gridLayout->addWidget(testPlateHogSizeLabel, 2, 0, 1, 1);
+
+        testPlateSampleLabelLabel = new QLabel(plateTestImfo);
+        testPlateSampleLabelLabel->setObjectName(QString::fromUtf8("testPlateSampleLabelLabel"));
+        testPlateSampleLabelLabel->setFont(font1);
+
+        gridLayout->addWidget(testPlateSampleLabelLabel, 4, 0, 1, 1);
+
+        testPlateSampleNameLabel = new QLabel(plateTestImfo);
+        testPlateSampleNameLabel->setObjectName(QString::fromUtf8("testPlateSampleNameLabel"));
+        testPlateSampleNameLabel->setFont(font1);
+
+        gridLayout->addWidget(testPlateSampleNameLabel, 0, 0, 1, 1);
+
+        testPlateChangeTagButton = new QPushButton(plateTestImfo);
+        testPlateChangeTagButton->setObjectName(QString::fromUtf8("testPlateChangeTagButton"));
+
+        gridLayout->addWidget(testPlateChangeTagButton, 4, 2, 1, 1);
+
+        plateTestRighTagCombo = new QComboBox(plateTestImfo);
+        plateTestRighTagCombo->addItem(QString());
+        plateTestRighTagCombo->addItem(QString());
+        plateTestRighTagCombo->addItem(QString());
+        plateTestRighTagCombo->setObjectName(QString::fromUtf8("plateTestRighTagCombo"));
+        plateTestRighTagCombo->setFont(font);
+
+        gridLayout->addWidget(plateTestRighTagCombo, 4, 1, 1, 1);
+
+        testPlateSampleName = new QLabel(plateTestImfo);
+        testPlateSampleName->setObjectName(QString::fromUtf8("testPlateSampleName"));
+        testPlateSampleName->setFont(font);
+
+        gridLayout->addWidget(testPlateSampleName, 0, 1, 1, 2);
+
+
+        verticalLayout->addLayout(gridLayout);
+
+        plateTestResult = new QWidget(plateTestImfo);
+        plateTestResult->setObjectName(QString::fromUtf8("plateTestResult"));
+        horizontalLayout_2 = new QHBoxLayout(plateTestResult);
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        plateTestResultLabel = new QLabel(plateTestResult);
+        plateTestResultLabel->setObjectName(QString::fromUtf8("plateTestResultLabel"));
+        plateTestResultLabel->setFont(font1);
+
+        horizontalLayout_2->addWidget(plateTestResultLabel);
+
+        plateTestResultCombo = new QComboBox(plateTestResult);
+        plateTestResultCombo->addItem(QString());
+        plateTestResultCombo->addItem(QString());
+        plateTestResultCombo->setObjectName(QString::fromUtf8("plateTestResultCombo"));
+        plateTestResultCombo->setFont(font);
+
+        horizontalLayout_2->addWidget(plateTestResultCombo);
+
+        pushButton = new QPushButton(plateTestResult);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        QFont font2;
+        font2.setFamily(QString::fromUtf8("Times New Roman"));
+        font2.setPointSize(8);
+        pushButton->setFont(font2);
+
+        horizontalLayout_2->addWidget(pushButton);
+
+
+        verticalLayout->addWidget(plateTestResult);
+
+
+        verticalLayout_2->addLayout(verticalLayout);
+
+
+        horizontalLayout_3->addWidget(plateTestImfo);
+
+
+        horizontalLayout_4->addLayout(horizontalLayout_3);
 
 
         verticalLayout_3->addWidget(plateSampleImfoBox);
 
         loadPlateTestSetButton = new QPushButton(plateTab);
         loadPlateTestSetButton->setObjectName(QString::fromUtf8("loadPlateTestSetButton"));
-        loadPlateTestSetButton->setGeometry(QRect(210, 0, 71, 31));
+        loadPlateTestSetButton->setGeometry(QRect(290, 0, 71, 31));
         generatePlateTestSetButton = new QPushButton(plateTab);
         generatePlateTestSetButton->setObjectName(QString::fromUtf8("generatePlateTestSetButton"));
-        generatePlateTestSetButton->setGeometry(QRect(280, 0, 71, 31));
+        generatePlateTestSetButton->setGeometry(QRect(360, 0, 71, 31));
         startPlateTestButton = new QPushButton(plateTab);
         startPlateTestButton->setObjectName(QString::fromUtf8("startPlateTestButton"));
-        startPlateTestButton->setGeometry(QRect(350, 0, 71, 31));
+        startPlateTestButton->setGeometry(QRect(510, 0, 71, 31));
         singlePlateTestButton = new QPushButton(plateTab);
         singlePlateTestButton->setObjectName(QString::fromUtf8("singlePlateTestButton"));
-        singlePlateTestButton->setGeometry(QRect(420, 0, 71, 31));
+        singlePlateTestButton->setGeometry(QRect(580, 0, 71, 31));
+        loadPlateTrainResultButton = new QPushButton(plateTab);
+        loadPlateTrainResultButton->setObjectName(QString::fromUtf8("loadPlateTrainResultButton"));
+        loadPlateTrainResultButton->setGeometry(QRect(430, 0, 81, 31));
         mainTab->addTab(plateTab, QString());
         charTab = new QWidget();
         charTab->setObjectName(QString::fromUtf8("charTab"));
@@ -298,10 +437,28 @@ public:
         plateSampleSize->setText(QString());
         plateSampleSizeLabel->setText(QApplication::translate("SVMTrainner", "\345\216\237\345\233\276\345\260\272\345\257\270\357\274\232", nullptr));
         plateSampleDeleteButton->setText(QApplication::translate("SVMTrainner", "\345\210\240\351\231\244\346\240\267\346\234\254", nullptr));
+        testPlateHogSize->setText(QString());
+        testPlateSampleSize->setText(QString());
+        testPlateSampleSizeLabel->setText(QApplication::translate("SVMTrainner", "\345\216\237\345\233\276\345\260\272\345\257\270\357\274\232", nullptr));
+        testPlateHogSizeLabel->setText(QApplication::translate("SVMTrainner", "HOG\347\273\264\345\272\246\357\274\232", nullptr));
+        testPlateSampleLabelLabel->setText(QApplication::translate("SVMTrainner", "\346\255\243\347\241\256\346\240\207\347\255\276\357\274\232", nullptr));
+        testPlateSampleNameLabel->setText(QApplication::translate("SVMTrainner", "\346\226\207\344\273\266\345\220\215\357\274\232", nullptr));
+        testPlateChangeTagButton->setText(QApplication::translate("SVMTrainner", "\346\233\264\346\224\271\346\240\207\347\255\276", nullptr));
+        plateTestRighTagCombo->setItemText(0, QApplication::translate("SVMTrainner", "\346\234\252\347\237\245", nullptr));
+        plateTestRighTagCombo->setItemText(1, QApplication::translate("SVMTrainner", "\351\235\236\350\275\246\347\211\214", nullptr));
+        plateTestRighTagCombo->setItemText(2, QApplication::translate("SVMTrainner", "\346\231\256\351\200\232\350\275\246\347\211\214", nullptr));
+
+        testPlateSampleName->setText(QString());
+        plateTestResultLabel->setText(QApplication::translate("SVMTrainner", "\346\265\213\350\257\225\347\273\223\346\236\234\357\274\232", nullptr));
+        plateTestResultCombo->setItemText(0, QApplication::translate("SVMTrainner", "\351\235\236\350\275\246\347\211\214", nullptr));
+        plateTestResultCombo->setItemText(1, QApplication::translate("SVMTrainner", "\346\231\256\351\200\232\350\275\246\347\211\214", nullptr));
+
+        pushButton->setText(QApplication::translate("SVMTrainner", "\345\212\240\345\205\245\350\256\255\347\273\203\345\272\223", nullptr));
         loadPlateTestSetButton->setText(QApplication::translate("SVMTrainner", "\350\275\275\345\205\245\346\265\213\350\257\225\351\233\206", nullptr));
         generatePlateTestSetButton->setText(QApplication::translate("SVMTrainner", "\347\224\237\346\210\220\346\265\213\350\257\225\351\233\206", nullptr));
         startPlateTestButton->setText(QApplication::translate("SVMTrainner", "\350\277\233\350\241\214\346\265\213\350\257\225", nullptr));
         singlePlateTestButton->setText(QApplication::translate("SVMTrainner", "\345\215\225\345\274\240\345\233\276\346\265\213\350\257\225", nullptr));
+        loadPlateTrainResultButton->setText(QApplication::translate("SVMTrainner", "\345\212\240\350\275\275\350\256\255\347\273\203\347\273\223\346\236\234", nullptr));
         mainTab->setTabText(mainTab->indexOf(plateTab), QApplication::translate("SVMTrainner", "\350\275\246\347\211\214\350\256\255\347\273\203", nullptr));
         mainTab->setTabText(mainTab->indexOf(charTab), QApplication::translate("SVMTrainner", "\345\255\227\347\254\246\350\256\255\347\273\203", nullptr));
     } // retranslateUi

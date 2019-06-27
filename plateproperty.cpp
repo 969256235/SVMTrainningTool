@@ -16,7 +16,7 @@ PlateProperty::PlateProperty(QWidget *parent) :
     this->ui->trainPathCheckBox->setChecked(Property::plateTrainPathDefault);
     this->ui->resultPathCheckBox->setChecked(Property::plateResultPathDefault);
     this->ui->testPathCheckBox->setChecked(Property::plateTestLoadDefault);
-    this->ui->resultLoadCheckBox->setChecked(Property::plateRusultLoadDefault);
+    this->ui->resultLoadCheckBox->setChecked(Property::plateResultLoadDefault);
 
     this->ui->similarytyCheck->setChecked(Property::similarityCheck);
     this->ui->thresholdForNonplate->setValue(Property::thresholdForSimilarity[0]);
@@ -24,6 +24,7 @@ PlateProperty::PlateProperty(QWidget *parent) :
 
     this->ui->generateTestSetCheckBox->setChecked(Property::generateTestSetByTrainSet);
     this->ui->testSetPercentage->setValue(Property::testSetPercent);
+    this->ui->plateMultiplePercentage->setValue((int)(Property::maxMultiple * 100));
 }
 
 PlateProperty::~PlateProperty()
@@ -54,8 +55,6 @@ void PlateProperty::on_testPathButton_clicked()
 
 void PlateProperty::on_OKButton_clicked()
 {
-    std::cout<<Property::plateTrainPath.toLocal8Bit().toStdString()<<std::endl;
-
     if((this->ui->trainPathCheckBox->checkState() && this->ui->trainPathEdit->text().isEmpty()) ||
             ((this->ui->resultPathCheckBox->checkState() ||  this->ui->resultLoadCheckBox->checkState()) && this->ui->resultPathEdit->text().isEmpty()) ||
             (this->ui->testPathCheckBox->checkState() && this->ui->testPathEdit->text().isEmpty()))
@@ -82,7 +81,7 @@ void PlateProperty::on_OKButton_clicked()
     Property::plateTrainPathDefault = this->ui->trainPathCheckBox->checkState();
     Property::plateResultPathDefault = this->ui->resultPathCheckBox->checkState();
     Property::plateTestLoadDefault = this->ui->testPathCheckBox->checkState();
-    Property::plateRusultLoadDefault = this->ui->resultLoadCheckBox->checkState();
+    Property::plateResultLoadDefault = this->ui->resultLoadCheckBox->checkState();
 
     Property::similarityCheck = this->ui->similarytyCheck->checkState();
     Property::thresholdForSimilarity[0] = this->ui->thresholdForNonplate->value();
@@ -90,6 +89,7 @@ void PlateProperty::on_OKButton_clicked()
 
     Property::generateTestSetByTrainSet = this->ui->generateTestSetCheckBox->checkState();
     Property::testSetPercent = this->ui->testSetPercentage->value();
+    Property::maxMultiple = (float)this->ui->plateMultiplePercentage->value() / 100.0f;
 
     this->close();
 }

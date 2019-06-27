@@ -54,6 +54,10 @@ public:
     QCheckBox *generateTestSetCheckBox;
     QSpinBox *testSetPercentage;
     QLabel *percentLabel;
+    QHBoxLayout *horizontalLayout;
+    QLabel *allowedMultipleLabel;
+    QSpinBox *plateMultiplePercentage;
+    QLabel *plateMultiplePercentLabel;
     QCheckBox *similarytyCheck;
     QGridLayout *gridLayout_5;
     QLabel *layout;
@@ -68,7 +72,7 @@ public:
     {
         if (PlateProperty->objectName().isEmpty())
             PlateProperty->setObjectName(QString::fromUtf8("PlateProperty"));
-        PlateProperty->resize(415, 574);
+        PlateProperty->resize(362, 548);
         verticalLayout_5 = new QVBoxLayout(PlateProperty);
         verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
         groupBox = new QGroupBox(PlateProperty);
@@ -213,6 +217,32 @@ public:
 
         verticalLayout->addLayout(addedPercentage);
 
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        allowedMultipleLabel = new QLabel(groupBox);
+        allowedMultipleLabel->setObjectName(QString::fromUtf8("allowedMultipleLabel"));
+        allowedMultipleLabel->setFont(font);
+
+        horizontalLayout->addWidget(allowedMultipleLabel);
+
+        plateMultiplePercentage = new QSpinBox(groupBox);
+        plateMultiplePercentage->setObjectName(QString::fromUtf8("plateMultiplePercentage"));
+        plateMultiplePercentage->setMinimum(100);
+        plateMultiplePercentage->setMaximum(300);
+        plateMultiplePercentage->setSingleStep(10);
+        plateMultiplePercentage->setValue(100);
+
+        horizontalLayout->addWidget(plateMultiplePercentage);
+
+        plateMultiplePercentLabel = new QLabel(groupBox);
+        plateMultiplePercentLabel->setObjectName(QString::fromUtf8("plateMultiplePercentLabel"));
+        plateMultiplePercentLabel->setFont(font3);
+
+        horizontalLayout->addWidget(plateMultiplePercentLabel);
+
+
+        verticalLayout->addLayout(horizontalLayout);
+
         similarytyCheck = new QCheckBox(groupBox);
         similarytyCheck->setObjectName(QString::fromUtf8("similarytyCheck"));
         similarytyCheck->setFont(font3);
@@ -294,6 +324,8 @@ public:
         testPathCheckBox->setText(QApplication::translate("PlateProperty", "\350\256\276\344\270\272\351\273\230\350\256\244\345\200\274", nullptr));
         generateTestSetCheckBox->setText(QApplication::translate("PlateProperty", "\344\273\216\350\256\255\347\273\203\351\233\206\344\270\255\346\212\275\345\217\226\346\265\213\350\257\225\351\233\206 \346\212\275\345\217\226\346\257\224\344\276\213\357\274\232", nullptr));
         percentLabel->setText(QApplication::translate("PlateProperty", "%", nullptr));
+        allowedMultipleLabel->setText(QApplication::translate("PlateProperty", "\346\240\267\346\234\254\351\233\206\345\267\256\345\274\202\345\200\215\346\225\260\346\234\200\345\244\247\345\200\274\357\274\232", nullptr));
+        plateMultiplePercentLabel->setText(QApplication::translate("PlateProperty", "%", nullptr));
         similarytyCheck->setText(QApplication::translate("PlateProperty", "\345\257\274\345\205\245\350\256\255\347\273\203\345\272\223\346\227\266\345\211\224\351\231\244\347\233\270\344\274\274\345\233\276\345\203\217", nullptr));
         layout->setText(QString());
         pushButton_2->setText(QApplication::translate("PlateProperty", "Cancel", nullptr));

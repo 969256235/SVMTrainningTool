@@ -5,7 +5,7 @@
 
 #include <QString>
 #include <opencv2/opencv.hpp>
-#include <qtextcodec.h>
+#include <QList>
 
 enum PlateCategory
 {

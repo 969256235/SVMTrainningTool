@@ -41,6 +41,16 @@ private slots:
 
     void on_savePlateTrainButton_clicked();
 
+    void on_plateRefreshButton_clicked();
+
+    void on_generatePlateTestSetButton_clicked();
+
+    void on_equalizePlateTrainButton_clicked();
+
+    void on_loadPlateTrainResultButton_clicked();
+
+    void on_singlePlateTestButton_clicked();
+
 private:
     cv::Size HOGWinSize = cv::Size(16, 16);
     cv::Size HOGBlockSize = cv::Size(16, 16);
@@ -52,6 +62,10 @@ private:
     int sampleSum;
     int testSum;
     bool standardPlateTestSet = false;
+
+    bool plateTrainned = false;
+
+    bool afterTest = false;
 
     QList<QDir*> plateTrainDirs;
     QList<QStringList> plateTrainImgFileNames;

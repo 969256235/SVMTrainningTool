@@ -8,13 +8,14 @@ QString Property::plateTestPath = "";
 bool Property::plateTrainPathDefault = false;
 bool Property::plateResultPathDefault = false;
 bool Property::plateTestLoadDefault = false;
-bool Property::plateRusultLoadDefault = false;
+bool Property::plateResultLoadDefault = false;
 
 bool Property::similarityCheck = false;
 float Property::thresholdForSimilarity[2] = {0.96f, 0.97f};
 
 bool Property::generateTestSetByTrainSet = false;
 short Property::testSetPercent = 30;
+float Property::maxMultiple = 1.3f;
 
 Property::Property()
 {

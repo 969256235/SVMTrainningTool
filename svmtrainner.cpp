@@ -215,6 +215,7 @@ cv::Mat SVMTrainner::getHogdescriptorVisualImage(cv::Mat &origImg, std::vector<f
     return visual_image;
 }
 
+//Mat转QImage
 QImage SVMTrainner::Mat2QImage(cv::Mat mat, QImage::Format format)
 {
     cv::Mat temp = mat.clone();
@@ -262,13 +263,14 @@ void SVMTrainner::refreshPlateTestSampleTree()
     this->ui->plateOriginalLabel->clear();
     this->ui->plateHogLabel->clear();
     this->ui->plateSampleImfo->hide();
+    this->ui->plateTestImfo->hide();
 
     this->testSum = 0;
 
-    int k, i;
+    int k, i, index;
     QTreeWidgetItem *tempGroup;
     QTreeWidgetItem *tempSample;
-    for(k = 0; k < plateTestDirs.size(); k++)
+    for(k = 0, index = 0; k < plateTestDirs.size(); k++)
     {
         testSum += plateTestImgFileNames[k].size();      
         if(k >= PlateCategoryString.size())
@@ -291,7 +293,12 @@ void SVMTrainner::refreshPlateTestSampleTree()
             {
                 tempSample = new QTreeWidgetItem(tempGroup);
                 tempSample->setText(0, plateTestImgFileNames[k].at(i));
-                tempSample->setWhatsThis(0,QString::number(k) + "." + QString::number(i));
+                if(!afterTest)
+                    tempSample->setWhatsThis(0,QString::number(k) + "." + QString::number(i));
+                else {
+                    tempSample->setWhatsThis(0,QString::number(k) + "." + QString::number(i) + "." + QString::number(plateTestResults[index]));
+                }
+                index++;
             }
         }
         else {
@@ -299,8 +306,46 @@ void SVMTrainner::refreshPlateTestSampleTree()
             {
                 tempSample = new QTreeWidgetItem(this->ui->plateTestTree);
                 tempSample->setText(0, plateTestImgFileNames[k].at(i));
-                tempSample->setWhatsThis(0,QString::number(-1) + "." + QString::number(i));
+                if(!afterTest)
+                    tempSample->setWhatsThis(0,QString::number(-1) + "." + QString::number(i));
+                else {
+                    tempSample->setWhatsThis(0,QString::number(-1) + "." + QString::number(i) + "." + QString::number(plateTestResults[i]));
+                }
             }
+        }
+    }
+
+    if(!afterTest)
+    {
+        this->ui->plateTestResult->hide();
+        this->ui->singleOrErrorPlateTree->clear();
+    }else if(standardPlateTestSet){
+        this->ui->plateTestResult->show();
+        refreshSingleOrErrorTree();
+    }
+}
+
+//刷新车牌的错误或单张图库
+void SVMTrainner::refreshSingleOrErrorTree()
+{
+    this->ui->singleOrErrorPlateTree->clear();
+    this->ui->plateOriginalLabel->clear();
+    this->ui->plateHogLabel->clear();
+    this->ui->plateTestImfo->hide();
+
+    int k, i, index;
+    QTreeWidgetItem *tempGroup;
+    QTreeWidgetItem *tempSample;
+    for(k = 0, index = 0; k < plateSingleOrErrorDirs.size(); k++)
+    {
+        tempGroup = new QTreeWidgetItem(this->ui->singleOrErrorPlateTree);
+        tempGroup->setText(0, PlateCategoryString[k] + "(" + QString::number(plateSingleOrErrorImgFileNames[k].size()) + ")");
+        for(i = 0; i < plateSingleOrErrorImgFileNames[k].size(); i++)
+        {
+            tempSample = new QTreeWidgetItem(tempGroup);
+            tempSample->setText(0, plateSingleOrErrorImgFileNames[k].at(i));
+            tempSample->setWhatsThis(0,QString::number(k) + "." + QString::number(i) + "." + QString::number(plateTestResults[index]));
+            index++;
         }
     }
 }
@@ -379,6 +424,9 @@ void SVMTrainner::on_loadPlateSetButton_clicked()
     this->ui->plateSampleTree->clear();
     this->ui->plateOriginalLabel->clear();
     this->ui->plateHogLabel->clear();
+
+    this->ui->plateSampleImfo->hide();
+    this->ui->plateTestImfo->hide();
 
     int i, j, k;
 
@@ -476,6 +524,8 @@ void SVMTrainner::on_plateSampleTree_itemClicked(QTreeWidgetItem *item, int colu
 //开始车牌训练
 void SVMTrainner::on_plateTrainButton_clicked()
 {
+    afterTest = false;
+
     if(plateTrainDirs.empty())
     {
         QMessageBox::information(this, "Warnning!", "未装载训练集！", QMessageBox::Ok);
@@ -519,6 +569,8 @@ void SVMTrainner::on_plateTrainButton_clicked()
     }
 
     plateTrainned = PlateCategory_SVM::Train(descriptorMat, labelMat);
+
+    refreshPlateTestSampleTree();
 }
 
 //更改车牌训练集样本标签
@@ -545,8 +597,8 @@ void SVMTrainner::on_plateSampleChangeButton_clicked()
     if(QFile::exists(plateTrainDirs[newLabel]->path() +  temp->text(0)))
     {
         QFile file(plateTrainDirs[formerLabel]->path() + temp->text(0));
-        temp->setText(0, temp->text(0) + "(1)");
-        if(!file.rename(temp->text(0))) return;
+        temp->setText(0, temp->text(0).left(temp->text(0).lastIndexOf(".")) + "(1)" + ".jpg");
+        if(!file.rename(plateTrainDirs[formerLabel]->path() + "\\" + temp->text(0))) return;
     }
     QFile::copy(plateTrainDirs[formerLabel]->path() + "\\" + temp->text(0), plateTrainDirs[newLabel]->path() + "\\" + temp->text(0));
     QFile::remove(plateTrainDirs[formerLabel]->path() + "\\" + temp->text(0));
@@ -602,6 +654,10 @@ void SVMTrainner::on_plateSampleDeleteButton_clicked()
 //加载车牌测试库
 void SVMTrainner::on_loadPlateTestSetButton_clicked()
 {
+    afterTest = false;
+    singleTest = false;
+    this->ui->plateTestImfo->hide();
+
     if(!Property::plateTestLoadDefault)
     {
         Property::plateTestPath = QFileDialog::getExistingDirectory(this,tr("Select Test Set Path"),Property::plateTestPath);
@@ -615,6 +671,7 @@ void SVMTrainner::on_loadPlateTestSetButton_clicked()
     }
 
     this->ui->plateTestTree->clear();
+    this->ui->singleOrErrorPlateTree->clear();
 
     plateTestDirs.clear();
     plateTestImgFileNames.clear();
@@ -691,6 +748,16 @@ void SVMTrainner::on_plateTestTree_itemClicked(QTreeWidgetItem *item, int column
     this->ui->plateHogLabel->setPixmap(pixmap);
 
     this->ui->plateTestRighTagCombo->setCurrentIndex(item->whatsThis(0).section(".",0,0).toInt() + 1);
+
+    if(afterTest && (item->whatsThis(0).section(".",0,0).toInt() >= 0 || plateTestDirs.size() == 1))
+    {
+        this->ui->plateTestResultCombo->setCurrentIndex(item->whatsThis(0).section(".",2,2).toInt());
+        this->ui->plateTestResult->show();
+    }
+    else this->ui->plateTestResult->hide();
+
+    if(singleTest) this->ui->rightPlateTag->hide();
+    else this->ui->rightPlateTag->show();
 }
 
 //保存车牌训练成果
@@ -801,6 +868,7 @@ void SVMTrainner::on_testPlateChangeTagButton_clicked()
         plateTestImgFileNames[newLabel].insert(plateTestImgFileNames[newLabel].size(), temp->text(0));
     }
 
+    afterTest = false;
     refreshPlateTestSampleTree();
 }
 
@@ -831,7 +899,7 @@ void SVMTrainner::on_equalizePlateTrainButton_clicked()
     int i, k;
     for(k = 1; k < plateTrainImgFileNames.size(); k++)
     {
-        if(plateTrainImgFileNames[k].size() < plateTrainImgFileNames[k - 1].size())
+        if(plateTrainImgFileNames[k].size() < plateTrainImgFileNames[k - 1].size() && plateTrainImgFileNames[k].size() > 0)
         {
             leastIndex = k;
         }
@@ -892,49 +960,156 @@ void SVMTrainner::on_loadPlateTrainResultButton_clicked()
 //单图测试
 void SVMTrainner::on_singlePlateTestButton_clicked()
 {
+    plateTestResults.clear();
+    standardPlateTestSet = false;
+
+    this->ui->plateTestTree->clear();
+    plateTestDirs.clear();
+    plateTestImgFileNames.clear();
+
     if(!PlateCategory_SVM::isReady)
     {
         QMessageBox::information(this, "Warnning!", "请先进行训练或载入训练成果", QMessageBox::Ok);
         return;
     }
 
-    QString path = QFileDialog::getOpenFileName(this,tr("Select Image to Test"),"", "image file(*.jpg)");
-    cv::Mat originalMat = cv::imread(path.toLocal8Bit().toStdString());
+    QString singleImagePath = QFileDialog::getOpenFileName(this,tr("Select Image to Test"),"", "image file(*.jpg)");
+    QStringList temp = singleImagePath.split("/");
 
-    if(originalMat.empty())
+    int result = (int)PlateCategory_SVM::Test(singleImagePath);
+    this->ui->plateTestResultCombo->setCurrentIndex(result);
+
+    plateTestDirs.insert(0, new QDir(singleImagePath.left(singleImagePath.lastIndexOf("/"))));
+    QStringList path;
+    path.insert(0, temp.at(temp.size() - 1));
+    plateTestImgFileNames.insert(0, path);
+
+    singleTest = true;
+    afterTest = true;
+    plateTestResults.insert(0, result);
+
+    refreshPlateTestSampleTree();
+
+    this->on_plateTestTree_itemClicked(this->ui->plateTestTree->itemAt(0, 0), 0);
+    this->ui->plateTestTree->setCurrentItem(this->ui->plateTestTree->itemAt(0, 0), 0);
+}
+
+//纠正及加入训练集
+void SVMTrainner::on_correctPlateButton_clicked()
+{
+    int label = this->ui->plateTestResultCombo->currentIndex();
+    if(!plateTrainDirs.empty())
     {
-        QMessageBox::information(NULL, "Warnning", "图片加载错误！",QMessageBox::Ok);
+        QTreeWidgetItem *temp = this->ui->plateTestTree->currentItem();
+
+        plateTrainImgFileNames[label]<<temp->text(0);
+
+        if(QFile::exists(plateTrainDirs[label]->path() + "\\" + plateTrainImgFileNames[label].at(plateTrainImgFileNames[label].size() - 1)))
+        {
+            QFile file(plateTestDirs[0]->path() + "\\" + temp->text(0));
+            temp->setText(0, temp->text(0).left(temp->text(0).lastIndexOf(".")) + "(1)" + ".jpg");
+            if(!file.rename(plateTestDirs[0]->path() + "\\" + temp->text(0))) return;
+        }
+
+        if(!standardPlateTestSet)
+        {
+            QFile::copy(plateTestDirs[0]->path() + "\\" + temp->text(0), plateTrainDirs[label]->path() + "\\" + plateTrainImgFileNames[label].at(plateTrainImgFileNames[label].size() - 1));
+        }
+        else {
+            int formerLabel = this->ui->plateTestTree->currentItem()->whatsThis(0).section(".",0,0).toInt();
+            QFile::copy(plateTestDirs[formerLabel]->path() + "\\" + temp->text(0), plateTrainDirs[label]->path() + "\\" + plateTrainImgFileNames[label].at(plateTrainImgFileNames[label].size() - 1));
+        }
+        refreshPlateSampleTree();
         return;
     }
 
-    QStringList temp = path.split("/");
-    this->ui->testPlateSampleName->setText(temp.at(temp.size() - 1));
-    this->ui->testPlateSampleSize->setText(QString::number(originalMat.cols) + " x " + QString::number(originalMat.rows));
+    if(!Property::plateTrainPathDefault)
+    {
+        Property::plateTrainPath = QFileDialog::getExistingDirectory(this,tr("Select Trainning Set Path"),Property::plateTrainPath);
+        if(Property::plateTrainPath.isEmpty()) return;
+    }
 
-    cv::Mat resizedMat;
-    cv::resize(originalMat, resizedMat, cv::Size(this->ui->plateOriginalLabel->size().width(), this->ui->plateOriginalLabel->size().height()));
-    std::cout<<resizedMat.cols<<"  "<<this->ui->plateOriginalLabel->width()<<std::endl;
+    if(!QDir(Property::plateTrainPath).exists())
+    {
+        QMessageBox::information(this, "Error!", "路径有误！", QMessageBox::Ok);
+        return;
+    }
 
-    QImage image = Mat2QImage(resizedMat,QImage::Format_Grayscale8);
-    QPixmap pixmap = QPixmap::fromImage(image);
-    this->ui->plateOriginalLabel->setPixmap(pixmap);
+    if(!PlateCategory_SVM::PreparePlateTrainningDirectory(Property::plateTrainPath))
+    {
+        QMessageBox::about(NULL, "Warning!", "训练库装载失败!");
+        return;
+    }
 
-    cv::resize(originalMat, resizedMat, PlateCategory_SVM::HOGWinSize);
-    std::vector<float> descriptor = PlateCategory_SVM::ComputeHogDescriptors(resizedMat);
-    this->ui->testPlateHogSize->setText(QString::number(descriptor.size()));
+    QTreeWidgetItem *temp = this->ui->plateTestTree->currentItem();
+    if(temp == nullptr)
+    {
+        QMessageBox::information(this, "Error!", "装入失败！");
+        return;
+    }
 
-    cv::Mat hogMat = getHogdescriptorVisualImage(resizedMat, descriptor, PlateCategory_SVM::HOGWinSize, PlateCategory_SVM::HOGCellSize, 1, 2.0);
+    if(!standardPlateTestSet)
+    {
+        QFile::copy(plateTestDirs[0]->path() + "\\" + temp->text(0), Property::plateTrainPath + "\\plates\\" + PlateCategoryString[this->ui->plateTestResultCombo->currentIndex()] + "\\" + temp->text(0));
+    }else {
+        int formerLabel = this->ui->plateTestTree->currentItem()->whatsThis(0).section(".",0,0).toInt();
+        QFile::copy(plateTestDirs[formerLabel]->path() + "\\" + temp->text(0), plateTrainDirs[label]->path() + "\\" + plateTrainImgFileNames[label].at(plateTrainImgFileNames[label].size() - 1));
+    }
+}
 
-    cv::resize(hogMat, hogMat, cv::Size(this->ui->plateHogLabel->size().width(), this->ui->plateHogLabel->size().height()));
-    image = Mat2QImage(hogMat,QImage::Format_Grayscale8);
-    pixmap = QPixmap::fromImage(image);
-    this->ui->plateHogLabel->setPixmap(pixmap);
+//批量测试车牌
+void SVMTrainner::on_startPlateTestButton_clicked()
+{
+    if(plateTestDirs.empty())
+    {
+        QMessageBox::information(this, "Warnning!", "无效的测试集!", QMessageBox::Ok);
+        return;
+    }
 
-    int result = (int)PlateCategory_SVM::Test(originalMat);
+    if(!PlateCategory_SVM::isReady)
+    {
+        QMessageBox::information(this, "Warnning!", "请先进行训练或载入训练成果", QMessageBox::Ok);
+        return;
+    }
 
-    this->ui->plateSampleImfo->hide();
-    this->ui->plateTestImfo->show();
-    this->ui->plateTestResultCombo->setCurrentIndex(result);
-    this->ui->rightPlateTag->hide();
-    this->ui->plateTestResult->show();
+    plateTestResults.clear();
+    plateSingleOrErrorDirs.clear();
+    plateSingleOrErrorImgFileNames.clear();
+
+    int i, k, index;
+    int tag;
+    if(!standardPlateTestSet)
+    {
+        for(i = 0; i < plateTestImgFileNames[0].size(); i++)
+        {
+            plateTestResults.insert(i, PlateCategory_SVM::Test(plateTestDirs[0]->path() + "\\" + plateTestImgFileNames[0].at(i)));
+        }
+    }
+    else {
+        for(k = 0, index = 0; k < PlateCategoryString.size(); k++)
+        {
+            plateSingleOrErrorDirs.insert(k, plateTestDirs[k]);
+            plateSingleOrErrorImgFileNames.insert(k, QStringList());
+            for(i = 0; i < plateTestImgFileNames[k].size(); i++)
+            {
+                tag = PlateCategory_SVM::Test(plateTestDirs[k]->path() + "\\" + plateTestImgFileNames[k].at(i));
+                plateTestResults.insert(index, tag);
+                index++;
+
+                if(tag != k)
+                {
+                    plateSingleOrErrorImgFileNames[k].insert(plateSingleOrErrorImgFileNames[k].size() - 1, plateTestImgFileNames[k].at(i));
+                }
+            }
+        }
+    }
+
+    afterTest = true;
+    refreshPlateTestSampleTree();
+}
+
+//查看错误图
+void SVMTrainner::on_singleOrErrorPlateTree_itemClicked(QTreeWidgetItem *item, int column)
+{
+
 }

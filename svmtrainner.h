@@ -51,6 +51,12 @@ private slots:
 
     void on_singlePlateTestButton_clicked();
 
+    void on_correctPlateButton_clicked();
+
+    void on_singleOrErrorPlateTree_itemClicked(QTreeWidgetItem *item, int column);
+
+    void on_startPlateTestButton_clicked();
+
 private:
     cv::Size HOGWinSize = cv::Size(16, 16);
     cv::Size HOGBlockSize = cv::Size(16, 16);
@@ -61,17 +67,24 @@ private:
 
     int sampleSum;
     int testSum;
+
+    QList<int> plateTestResults;
     bool standardPlateTestSet = false;
 
     bool plateTrainned = false;
 
     bool afterTest = false;
 
+    bool singleTest = false;
+
     QList<QDir*> plateTrainDirs;
     QList<QStringList> plateTrainImgFileNames;
 
     QList<QDir*> plateTestDirs;
     QList<QStringList> plateTestImgFileNames;
+
+    QList<QDir*> plateSingleOrErrorDirs;
+    QList<QStringList> plateSingleOrErrorImgFileNames;
 
     Ui::SVMTrainner *ui;
 
@@ -89,6 +102,8 @@ private:
     void refreshPlateSampleTree();
 
     void refreshPlateTestSampleTree();
+
+    void refreshSingleOrErrorTree();
 
     void generateTestSetByTrainSet();
 };

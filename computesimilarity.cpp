@@ -1,9 +1,10 @@
 ﻿#include "computesimilarity.h"
 
-computeSimilarity::computeSimilarity(QList<QDir *> dirs_, QList<QStringList> imgFileNames_)
+computeSimilarity::computeSimilarity(QList<QDir *> dirs_, QList<QStringList> imgFileNames_, bool mode_)
 {
     this->dirs = dirs_;
     this->imgFileNames = imgFileNames_;
+    this->mode = mode_;
 }
 
 float computeSimilarity::computeSimilarityOfMats(QString matPath1, QString matPath2)
@@ -47,7 +48,7 @@ float computeSimilarity::computeSimilarityOfMats(QString matPath1, QString matPa
 
 void computeSimilarity::run()
 {
-    int i, j, k;
+    int i, j, k, threshold;
 
     float dis;
     for(k = 0; k < dirs.size(); k++)
@@ -55,15 +56,29 @@ void computeSimilarity::run()
         for(i = 0; i < imgFileNames[k].size() - 1; i++)
             for(j = i + 1; j < imgFileNames[k].size(); j++)
             {
-                QString consoleLine = "\n" + QTime::currentTime().toString() +  ":\nComputing the similarity of " + QString::number(i) + "th and " + QString::number(j) + "th images from the " + QString::number(k) + "th dircetory\n";
-                consoleLine = QString::fromLocal8Bit(consoleLine.toUtf8());
+                QString consoleLine = "Computing the similarity of " + QString::number(i) + "th and " + QString::number(j) + "th images from the " + QString::number(k) + "th dircetory";
                 emit consoleWrite(consoleLine);
                 dis = computeSimilarityOfMats(dirs[k]->path() + "\\" + imgFileNames[k].at(i), dirs[k]->path() + "\\" + imgFileNames[k].at(j));
-                if(dis > Property::thresholdForSimilarity[k])
+                if(mode)
                 {
-                    imgFileNames[k].removeAt(j);
-                    emit deleteItem(k, j);
-                    j--;
+                    if(dis > (k > 1 ? 1:Property::thresholdForSimilarity[k]))
+                    {
+                        imgFileNames[k].removeAt(j);
+                        emit deleteItem(k, j);
+                        j--;
+                    }
+                }
+                else {
+                    if(k <= 1) threshold = 0;
+                    else if(k <= 27) threshold = 1;
+                    else if(k <= 37) threshold = 2;
+                    else threshold = 3;
+                    if(dis > Property::charThresholdForSimilarity[threshold])
+                    {
+                        imgFileNames[k].removeAt(j);
+                        emit deleteItem(k, j);
+                        j--;
+                    }
                 }
             }
     }

@@ -6,6 +6,8 @@ cv::Size PlateChar_SVM::HOGBlockSize = cv::Size(16, 16);
 cv::Size PlateChar_SVM::HOGBlockStride = cv::Size(8,8);
 cv::Size PlateChar_SVM::HOGCellSize = cv::Size(8, 8);
 int PlateChar_SVM::HOGNBits = 9;
+int PlateChar_SVM::HOGSize = 36 * ((HOGWinSize.width - HOGBlockSize.width) / HOGBlockStride.width + 1) * ((HOGWinSize.height - HOGBlockSize.height) / HOGBlockStride.height + 1);
+
 cv::Ptr<cv::ml::SVM> PlateChar_SVM::svm = nullptr;
 
 PlateChar_SVM::PlateChar_SVM()

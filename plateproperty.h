@@ -6,7 +6,6 @@
 #include <QDir>
 #include <QMessageBox>
 
-//#include "platecategory_svm.h"
 #include "property.h"
 
 namespace Ui {

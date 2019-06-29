@@ -13,7 +13,7 @@ class computeSimilarity : public QThread
 {
     Q_OBJECT
 public:
-    computeSimilarity(QList<QDir*> dirs_, QList<QStringList> imgFileNames_);
+    computeSimilarity(QList<QDir*> dirs_, QList<QStringList> imgFileNames_, bool mode_);
 
     float computeSimilarityOfMats(QString matPath1, QString matPath2);
 
@@ -34,6 +34,8 @@ private:
     cv::Size HOGCellSize = cv::Size(8, 8);
     int HOGNBits = 9;
     cv::HOGDescriptor *hog = new cv::HOGDescriptor(HOGWinSize, HOGBlockSize, HOGBlockStride, HOGCellSize, HOGNBits);
+
+    bool mode; //true:Plate false:Char
 
     QList<QDir*> dirs;
     QList<QStringList> imgFileNames;

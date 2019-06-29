@@ -21,6 +21,7 @@ public:
     static cv::Size HOGBlockStride;
     static cv::Size HOGCellSize;
     static int HOGNBits;
+    static int HOGSize;
 
     PlateChar_SVM();
 

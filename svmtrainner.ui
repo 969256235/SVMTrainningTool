@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1031</width>
-    <height>666</height>
+    <height>669</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="mainTab">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <property name="iconSize">
        <size>
@@ -625,6 +625,1680 @@
        <attribute name="title">
         <string>字符训练</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_9">
+        <item>
+         <layout class="QHBoxLayout" name="charTrainButtons">
+          <item>
+           <widget class="QPushButton" name="charPropertyButton">
+            <property name="text">
+             <string>训练配置</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="loadCharSetButton">
+            <property name="text">
+             <string>装入训练库</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="equalizeCharTrainButton">
+            <property name="text">
+             <string>均衡训练集</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="charTrainButton">
+            <property name="text">
+             <string>进行训练</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="saveCharTrainButton">
+            <property name="text">
+             <string>保存训练成果</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="loadCharTestSetButton">
+            <property name="text">
+             <string>载入测试集</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="loadCharTrainResultButton">
+            <property name="text">
+             <string>加载训练结果</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="charRefreshButton">
+            <property name="text">
+             <string>刷新</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="generateCharTestSetButton">
+            <property name="text">
+             <string>生成测试集</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="startCharTestButton">
+            <property name="text">
+             <string>批量测试</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="singleCharTestButton">
+            <property name="text">
+             <string>单张图测试</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QTreeWidget" name="charSampleTree">
+            <property name="minimumSize">
+             <size>
+              <width>129</width>
+              <height>536</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>450</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="horizontalScrollBarPolicy">
+             <enum>Qt::ScrollBarAsNeeded</enum>
+            </property>
+            <attribute name="headerMinimumSectionSize">
+             <number>50</number>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>样本集</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_8">
+            <property name="spacing">
+             <number>6</number>
+            </property>
+            <item>
+             <widget class="QGroupBox" name="charGreyBox">
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>329</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="title">
+               <string>灰度图</string>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_10">
+               <item>
+                <widget class="QLabel" name="charOriginalLabel">
+                 <property name="minimumSize">
+                  <size>
+                   <width>150</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>150</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="charHogBox">
+              <property name="minimumSize">
+               <size>
+                <width>329</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>329</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="title">
+               <string>Hog</string>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_11">
+               <item>
+                <widget class="QLabel" name="charHogLabel">
+                 <property name="minimumSize">
+                  <size>
+                   <width>150</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>150</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="charSampleImfoBox">
+              <property name="minimumSize">
+               <size>
+                <width>329</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>329</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="title">
+               <string>Imfo</string>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_12">
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_13">
+                 <item>
+                  <widget class="QWidget" name="charSampleImfo" native="true">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_14">
+                    <item>
+                     <layout class="QGridLayout" name="plateSampleImfoGrid_2">
+                      <item row="0" column="1" colspan="2">
+                       <widget class="QLabel" name="charSampleName">
+                        <property name="font">
+                         <font>
+                          <family>Times New Roman</family>
+                          <pointsize>10</pointsize>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string/>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="0">
+                       <widget class="QLabel" name="charHogSizeLabel">
+                        <property name="font">
+                         <font>
+                          <family>Times New Roman</family>
+                          <pointsize>12</pointsize>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>HOG维度：</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="1">
+                       <widget class="QLabel" name="charHogSize">
+                        <property name="font">
+                         <font>
+                          <family>Times New Roman</family>
+                          <pointsize>12</pointsize>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string/>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="3" column="2">
+                       <widget class="QPushButton" name="charSampleChangeButton">
+                        <property name="text">
+                         <string>更改标签</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="3" column="1">
+                       <widget class="QComboBox" name="charSampleLabelCombo">
+                        <property name="font">
+                         <font>
+                          <family>Times New Roman</family>
+                          <pointsize>10</pointsize>
+                         </font>
+                        </property>
+                        <item>
+                         <property name="text">
+                          <string>非字符</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>穗</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>A</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>B</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>C</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>D</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>E</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>F</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>G</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>H</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>I</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>J</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>K</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>L</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>M</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>N</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>O</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>P</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>Q</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>R</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>S</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>T</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>U</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>V</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>W</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>X</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>Y</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>Z</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>0</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>1</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>2</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>3</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>4</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>5</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>6</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>7</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>8</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>9</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>点</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>京</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>津</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>沪</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>渝</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>蒙</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>新</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>藏</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>宁</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>桂</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>港</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>澳</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>黑</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>吉</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>辽</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>晋</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>冀</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>青</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>鲁</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>豫</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>苏</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>皖</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>浙</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>闽</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>赣</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>湘</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>鄂</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>粤</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>琼</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>甘</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>陕</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>贵</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>云</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>川</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>警</string>
+                         </property>
+                        </item>
+                       </widget>
+                      </item>
+                      <item row="3" column="0">
+                       <widget class="QLabel" name="charSampleLabelLabel">
+                        <property name="font">
+                         <font>
+                          <family>Times New Roman</family>
+                          <pointsize>12</pointsize>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>标签：</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="0">
+                       <widget class="QLabel" name="charSampleNameLabel">
+                        <property name="font">
+                         <font>
+                          <family>Times New Roman</family>
+                          <pointsize>12</pointsize>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>文件名：</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="1">
+                       <widget class="QLabel" name="charSampleSize">
+                        <property name="font">
+                         <font>
+                          <family>Times New Roman</family>
+                          <pointsize>12</pointsize>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string/>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="0">
+                       <widget class="QLabel" name="charSampleSizeLabel">
+                        <property name="font">
+                         <font>
+                          <family>Times New Roman</family>
+                          <pointsize>12</pointsize>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>原图尺寸：</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="4" column="2">
+                       <widget class="QPushButton" name="charSampleDeleteButton">
+                        <property name="text">
+                         <string>删除样本</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QWidget" name="charTestImfo" native="true">
+                   <layout class="QVBoxLayout" name="verticalLayout_10">
+                    <item>
+                     <layout class="QVBoxLayout" name="verticalLayout_11">
+                      <item>
+                       <layout class="QGridLayout" name="gridLayout_2">
+                        <item row="2" column="1">
+                         <widget class="QLabel" name="testCharHogSize">
+                          <property name="font">
+                           <font>
+                            <family>Times New Roman</family>
+                            <pointsize>12</pointsize>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string/>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="1">
+                         <widget class="QLabel" name="testCharSampleSize">
+                          <property name="font">
+                           <font>
+                            <family>Times New Roman</family>
+                            <pointsize>12</pointsize>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string/>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="0">
+                         <widget class="QLabel" name="testCharSampleSizeLabel">
+                          <property name="font">
+                           <font>
+                            <family>Times New Roman</family>
+                            <pointsize>12</pointsize>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>原图尺寸：</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="2" column="0">
+                         <widget class="QLabel" name="testCharHogSizeLabel">
+                          <property name="font">
+                           <font>
+                            <family>Times New Roman</family>
+                            <pointsize>12</pointsize>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>HOG维度：</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="testCharSampleNameLabel">
+                          <property name="font">
+                           <font>
+                            <family>Times New Roman</family>
+                            <pointsize>12</pointsize>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>文件名：</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="1" colspan="2">
+                         <widget class="QLabel" name="testCharSampleName">
+                          <property name="font">
+                           <font>
+                            <family>Times New Roman</family>
+                            <pointsize>10</pointsize>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string/>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </item>
+                      <item>
+                       <widget class="QWidget" name="rightCharTag" native="true">
+                        <layout class="QHBoxLayout" name="horizontalLayout_15">
+                         <item>
+                          <widget class="QLabel" name="testCharSampleLabelLabel">
+                           <property name="font">
+                            <font>
+                             <family>Times New Roman</family>
+                             <pointsize>10</pointsize>
+                            </font>
+                           </property>
+                           <property name="text">
+                            <string>正确标签：</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QComboBox" name="charTestRighTagCombo">
+                           <property name="font">
+                            <font>
+                             <family>Times New Roman</family>
+                             <pointsize>10</pointsize>
+                            </font>
+                           </property>
+                           <item>
+                            <property name="text">
+                             <string>非字符</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>穗</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>A</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>B</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>C</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>D</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>E</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>F</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>G</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>H</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>I</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>J</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>K</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>L</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>M</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>N</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>O</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>P</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>Q</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>R</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>S</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>T</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>U</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>V</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>W</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>X</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>Y</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>Z</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>0</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>1</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>2</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>3</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>4</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>5</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>6</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>7</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>8</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>9</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>点</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>京</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>津</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>沪</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>渝</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>蒙</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>新</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>藏</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>宁</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>桂</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>港</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>澳</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>黑</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>吉</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>辽</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>晋</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>冀</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>青</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>鲁</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>豫</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>苏</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>皖</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>浙</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>闽</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>赣</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>湘</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>鄂</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>粤</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>琼</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>甘</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>陕</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>贵</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>云</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>川</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>警</string>
+                            </property>
+                           </item>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QPushButton" name="testCharChangeTagButton">
+                           <property name="font">
+                            <font>
+                             <family>Times New Roman</family>
+                             <pointsize>8</pointsize>
+                            </font>
+                           </property>
+                           <property name="text">
+                            <string>更改标签</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QWidget" name="charTestResult" native="true">
+                        <layout class="QHBoxLayout" name="horizontalLayout_16">
+                         <item>
+                          <widget class="QLabel" name="charTestResultLabel">
+                           <property name="font">
+                            <font>
+                             <family>Times New Roman</family>
+                             <pointsize>10</pointsize>
+                            </font>
+                           </property>
+                           <property name="text">
+                            <string>测试结果：</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QComboBox" name="charTestResultCombo">
+                           <property name="font">
+                            <font>
+                             <family>Times New Roman</family>
+                             <pointsize>10</pointsize>
+                            </font>
+                           </property>
+                           <item>
+                            <property name="text">
+                             <string>非字符</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>穗</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>A</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>B</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>C</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>D</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>E</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>F</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>G</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>H</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>I</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>J</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>K</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>L</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>M</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>N</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>O</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>P</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>Q</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>R</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>S</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>T</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>U</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>V</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>W</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>X</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>Y</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>Z</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>0</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>1</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>2</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>3</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>4</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>5</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>6</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>7</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>8</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>9</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>点</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>京</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>津</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>沪</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>渝</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>蒙</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>新</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>藏</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>宁</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>桂</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>港</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>澳</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>黑</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>吉</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>辽</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>晋</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>冀</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>青</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>鲁</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>豫</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>苏</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>皖</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>浙</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>闽</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>赣</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>湘</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>鄂</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>粤</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>琼</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>甘</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>陕</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>贵</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>云</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>川</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>警</string>
+                            </property>
+                           </item>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QPushButton" name="correctCharButton">
+                           <property name="font">
+                            <font>
+                             <family>Times New Roman</family>
+                             <pointsize>8</pointsize>
+                            </font>
+                           </property>
+                           <property name="text">
+                            <string>加入训练库</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QTreeWidget" name="charTestTree">
+            <property name="minimumSize">
+             <size>
+              <width>129</width>
+              <height>536</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>450</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <column>
+             <property name="text">
+              <string>测试集</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_12">
+            <item>
+             <widget class="QTreeWidget" name="singleOrErrorCharTree">
+              <property name="minimumSize">
+               <size>
+                <width>378</width>
+                <height>150</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>150</height>
+               </size>
+              </property>
+              <column>
+               <property name="text">
+                <string/>
+               </property>
+              </column>
+             </widget>
+            </item>
+            <item>
+             <widget class="QTextBrowser" name="charConsole"/>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -644,7 +2318,7 @@
      <x>0</x>
      <y>0</y>
      <width>1031</width>
-     <height>23</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

@@ -29,7 +29,7 @@ const QList<QString> PlateCategoryString =
 {
     "非车牌",
     "普通车牌",
-    /*"普通车牌_两行",
+    "普通车牌_两行",
     "內集车牌",
     "澳门车牌_内",
     "澳门车牌",
@@ -40,7 +40,7 @@ const QList<QString> PlateCategoryString =
     "警牌",
     "军牌",
     "军牌_两行",
-    "新能源"*/
+    "新能源"
 };
 
 enum PlateColor

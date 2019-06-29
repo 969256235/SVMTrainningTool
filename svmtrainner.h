@@ -8,7 +8,10 @@
 
 #include "plateproperty.h"
 #include "platecategory_svm.h"
+#include "platechar_svm.h"
 #include "computesimilarity.h"
+#include "platetestthread.h"
+#include "charproperty.h"
 
 namespace Ui {
 class SVMTrainner;
@@ -23,6 +26,8 @@ public:
     ~SVMTrainner();
 
     bool trainSetLoaded = false;
+
+    bool charTrainSetLoaded = false;
 
 private slots:
     void on_platePropertyButton_clicked();
@@ -61,29 +66,50 @@ private slots:
 
     void on_startPlateTestButton_clicked();
 
+    void on_charPropertyButton_clicked();
+
+    void on_loadCharSetButton_clicked();
+
+    void on_charSampleTree_itemClicked(QTreeWidgetItem *item, int column);
+
+    void on_charTrainButton_clicked();
+
+    void on_saveCharTrainButton_clicked();
+
 private:
     class computeSimilarity *computerThread;
+    class PlateTestThread *plateTestThread;
 
-    cv::Size HOGWinSize = cv::Size(16, 16);
-    cv::Size HOGBlockSize = cv::Size(16, 16);
-    cv::Size HOGBlockStride = cv::Size(8,8);
-    cv::Size HOGCellSize = cv::Size(8, 8);
-    int HOGNBits = 9;
-    cv::HOGDescriptor *hog = new cv::HOGDescriptor(HOGWinSize, HOGBlockSize, HOGBlockStride, HOGCellSize, HOGNBits);
+    class computeSimilarity *charComputerThread;
+    class PlateTestThread *charTestThread;
 
     int sampleSum;
     int testSum;
     int currentPlateFrom = 0;
 
+    int charSampleSum;
+    int charTestSum;
+    int currentCharFrom = 0;
+
     QList<int> plateTestResults;
     QList<int> errorPlateTag;
     bool standardPlateTestSet = false;
+
+    QList<int> charTestResults;
+    QList<int> errorCharTag;
+    bool standardCharTestSet = false;
 
     bool plateTrainned = false;
 
     bool afterTest = false;
 
     bool singleTest = false;
+
+    bool charTrainned = false;
+
+    bool afterCharTest = false;
+
+    bool singleCharTest = false;
 
     QList<QDir*> plateTrainDirs;
     QList<QStringList> plateTrainImgFileNames;
@@ -93,6 +119,15 @@ private:
 
     QList<QDir*> plateSingleOrErrorDirs;
     QList<QStringList> plateSingleOrErrorImgFileNames;
+
+    QList<QDir*> charTrainDirs;
+    QList<QStringList> charTrainImgFileNames;
+
+    QList<QDir*> charTestDirs;
+    QList<QStringList> charTestImgFileNames;
+
+    QList<QDir*> charSingleOrErrorDirs;
+    QList<QStringList> charSingleOrErrorImgFileNames;
 
     Ui::SVMTrainner *ui;
 
@@ -119,6 +154,32 @@ private:
 
     void finishedComputing();
 
+    void testedOne(int i, int tag);
+
+    void standardTestedOne(int k, int i, int index, int tag);
+
+    void finishTesting();
+
+    //字符训练操作
+    void refreshCharSampleTree();
+
+    void refreshCharTestSampleTree();
+
+    void refreshCharSingleOrErrorTree();
+
+    void generateCharTestSetByTrainSet();
+
+    void charSampleFilter(int k, int j);
+
+    void charConsoleOutput(QString consoleLine);
+
+    void finishedCharComputing();
+
+    //void testedOne(int i, int tag);
+
+    //void standardTestedOne(int k, int i, int index, int tag);
+
+    //void finishTesting();
 };
 
 #endif // SVMTRAINNER_H

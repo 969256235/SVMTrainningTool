@@ -25,24 +25,29 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        charproperty.cpp \
         computesimilarity.cpp \
         main.cpp \
         platecategory_svm.cpp \
         platechar_svm.cpp \
         plateproperty.cpp \
+        platetestthread.cpp \
         property.cpp \
         svmtrainner.cpp
 
 HEADERS += \
+        charproperty.h \
         computesimilarity.h \
         platecategory.h \
         platecategory_svm.h \
         platechar_svm.h \
         plateproperty.h \
+        platetestthread.h \
         property.h \
         svmtrainner.h
 
 FORMS += \
+        charproperty.ui \
         plateproperty.ui \
         svmtrainner.ui
 

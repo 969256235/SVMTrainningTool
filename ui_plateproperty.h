@@ -58,6 +58,9 @@ public:
     QLabel *allowedMultipleLabel;
     QSpinBox *plateMultiplePercentage;
     QLabel *plateMultiplePercentLabel;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *minPlateSampleLabel;
+    QSpinBox *minPlateSampleBox;
     QCheckBox *similarytyCheck;
     QGridLayout *gridLayout_5;
     QLabel *layout;
@@ -72,7 +75,7 @@ public:
     {
         if (PlateProperty->objectName().isEmpty())
             PlateProperty->setObjectName(QString::fromUtf8("PlateProperty"));
-        PlateProperty->resize(362, 548);
+        PlateProperty->resize(362, 573);
         verticalLayout_5 = new QVBoxLayout(PlateProperty);
         verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
         groupBox = new QGroupBox(PlateProperty);
@@ -243,6 +246,27 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        minPlateSampleLabel = new QLabel(groupBox);
+        minPlateSampleLabel->setObjectName(QString::fromUtf8("minPlateSampleLabel"));
+        QFont font4;
+        font4.setFamily(QString::fromUtf8("Times New Roman"));
+        font4.setPointSize(8);
+        minPlateSampleLabel->setFont(font4);
+
+        horizontalLayout_2->addWidget(minPlateSampleLabel);
+
+        minPlateSampleBox = new QSpinBox(groupBox);
+        minPlateSampleBox->setObjectName(QString::fromUtf8("minPlateSampleBox"));
+        minPlateSampleBox->setMaximum(65535);
+        minPlateSampleBox->setSingleStep(50);
+
+        horizontalLayout_2->addWidget(minPlateSampleBox);
+
+
+        verticalLayout->addLayout(horizontalLayout_2);
+
         similarytyCheck = new QCheckBox(groupBox);
         similarytyCheck->setObjectName(QString::fromUtf8("similarytyCheck"));
         similarytyCheck->setFont(font3);
@@ -326,6 +350,7 @@ public:
         percentLabel->setText(QApplication::translate("PlateProperty", "%", nullptr));
         allowedMultipleLabel->setText(QApplication::translate("PlateProperty", "\346\240\267\346\234\254\351\233\206\345\267\256\345\274\202\345\200\215\346\225\260\346\234\200\345\244\247\345\200\274\357\274\232", nullptr));
         plateMultiplePercentLabel->setText(QApplication::translate("PlateProperty", "%", nullptr));
+        minPlateSampleLabel->setText(QApplication::translate("PlateProperty", "\346\234\200\345\260\217\346\240\267\346\234\254\346\225\260\357\274\210\345\235\207\350\241\241\345\214\226\346\227\266\345\260\221\344\272\216\350\257\245\346\225\260\351\207\217\347\232\204\346\240\267\346\234\254\351\233\206\344\274\232\350\242\253\346\227\240\350\247\206\357\274\211\357\274\232", nullptr));
         similarytyCheck->setText(QApplication::translate("PlateProperty", "\345\257\274\345\205\245\350\256\255\347\273\203\345\272\223\346\227\266\345\211\224\351\231\244\347\233\270\344\274\274\345\233\276\345\203\217", nullptr));
         layout->setText(QString());
         pushButton_2->setText(QApplication::translate("PlateProperty", "Cancel", nullptr));

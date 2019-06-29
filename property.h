@@ -24,6 +24,7 @@ public:
     static bool generateTestSetByTrainSet; //是否从训练集中抽取除测试集
     static short testSetPercent; //抽取测试集的比例
     static float maxMultiple; //允许的样本训练数据倍数差
+    static int minPlateSampleNum;
 
 };
 

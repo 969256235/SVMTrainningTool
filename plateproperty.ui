@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>362</width>
-    <height>548</height>
+    <height>573</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -254,6 +254,33 @@
           </property>
           <property name="text">
            <string>%</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLabel" name="minPlateSampleLabel">
+          <property name="font">
+           <font>
+            <family>Times New Roman</family>
+            <pointsize>8</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>最小样本数（均衡化时少于该数量的样本集会被无视）：</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="minPlateSampleBox">
+          <property name="maximum">
+           <number>65535</number>
+          </property>
+          <property name="singleStep">
+           <number>50</number>
           </property>
          </widget>
         </item>

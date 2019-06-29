@@ -25,6 +25,7 @@ PlateProperty::PlateProperty(QWidget *parent) :
     this->ui->generateTestSetCheckBox->setChecked(Property::generateTestSetByTrainSet);
     this->ui->testSetPercentage->setValue(Property::testSetPercent);
     this->ui->plateMultiplePercentage->setValue((int)(Property::maxMultiple * 100));
+    this->ui->minPlateSampleBox->setValue(Property::minPlateSampleNum);
 }
 
 PlateProperty::~PlateProperty()
@@ -90,6 +91,7 @@ void PlateProperty::on_OKButton_clicked()
     Property::generateTestSetByTrainSet = this->ui->generateTestSetCheckBox->checkState();
     Property::testSetPercent = this->ui->testSetPercentage->value();
     Property::maxMultiple = (float)this->ui->plateMultiplePercentage->value() / 100.0f;
+    Property::minPlateSampleNum = this->ui->minPlateSampleBox->value();
 
     this->close();
 }

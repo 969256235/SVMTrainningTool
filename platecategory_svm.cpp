@@ -29,7 +29,6 @@ void PlateCategory_SVM::SavePlateSample(cv::Mat matPlate, PlateCategory plateCat
     QString fileName = libPath + "/plates/" + PlateCategoryString[plateCategory] + "/" + name + ".jpg";
 
     std::string str = fileName.toLocal8Bit().toStdString();
-    std::cout<<str<<std::endl;
     if(cv::imwrite(str, mat))
         std::cout<<"succeed"<<std::endl;
 }

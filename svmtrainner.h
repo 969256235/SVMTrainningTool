@@ -4,9 +4,11 @@
 #include <QMainWindow>
 #include <QTreeWidgetItem>
 #include <QListWidgetItem>
+#include <QThread>
 
 #include "plateproperty.h"
 #include "platecategory_svm.h"
+#include "computesimilarity.h"
 
 namespace Ui {
 class SVMTrainner;
@@ -19,6 +21,8 @@ class SVMTrainner : public QMainWindow
 public:
     explicit SVMTrainner(QWidget *parent = nullptr);
     ~SVMTrainner();
+
+    bool trainSetLoaded = false;
 
 private slots:
     void on_platePropertyButton_clicked();
@@ -58,6 +62,8 @@ private slots:
     void on_startPlateTestButton_clicked();
 
 private:
+    class computeSimilarity *computerThread;
+
     cv::Size HOGWinSize = cv::Size(16, 16);
     cv::Size HOGBlockSize = cv::Size(16, 16);
     cv::Size HOGBlockStride = cv::Size(8,8);
@@ -67,8 +73,10 @@ private:
 
     int sampleSum;
     int testSum;
+    int currentPlateFrom = 0;
 
     QList<int> plateTestResults;
+    QList<int> errorPlateTag;
     bool standardPlateTestSet = false;
 
     bool plateTrainned = false;
@@ -88,8 +96,6 @@ private:
 
     Ui::SVMTrainner *ui;
 
-    float computeSimilarity(QString matPath1, QString matPath2);
-
     cv::Mat getHogdescriptorVisualImage(cv::Mat& origImg,
         std::vector<float>& descriptorValues,
         cv::Size winSize,
@@ -106,6 +112,13 @@ private:
     void refreshSingleOrErrorTree();
 
     void generateTestSetByTrainSet();
+
+    void sampleFilter(int k, int j);
+
+    void consoleOutput(QString consoleLine);
+
+    void finishedComputing();
+
 };
 
 #endif // SVMTRAINNER_H

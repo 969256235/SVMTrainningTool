@@ -16,6 +16,7 @@ float Property::thresholdForSimilarity[2] = {0.96f, 0.97f};
 bool Property::generateTestSetByTrainSet = false;
 short Property::testSetPercent = 30;
 float Property::maxMultiple = 1.3f;
+int Property::minPlateSampleNum = 300;
 
 Property::Property()
 {

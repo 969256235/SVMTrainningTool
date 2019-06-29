@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        computesimilarity.cpp \
         main.cpp \
         platecategory_svm.cpp \
         platechar_svm.cpp \
@@ -33,6 +34,7 @@ SOURCES += \
         svmtrainner.cpp
 
 HEADERS += \
+        computesimilarity.h \
         platecategory.h \
         platecategory_svm.h \
         platechar_svm.h \

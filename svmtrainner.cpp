@@ -16,6 +16,9 @@ SVMTrainner::SVMTrainner(QWidget *parent) :
     this->ui->plateSampleImfo->hide();
     this->ui->plateTestResult->hide();
     this->ui->plateTestImfo->hide();
+    this->ui->charSampleImfo->hide();
+    this->ui->charTestResult->hide();
+    this->ui->charTestImfo->hide();
 }
 
 SVMTrainner::~SVMTrainner()
@@ -1316,6 +1319,7 @@ void SVMTrainner::on_singleOrErrorPlateTree_itemClicked(QTreeWidgetItem *item, i
     this->ui->rightPlateTag->show();
 }
 
+//字符训练部分
 //刷新字符训练样本树
 void SVMTrainner::refreshCharSampleTree()
 {
@@ -1714,9 +1718,9 @@ void SVMTrainner::on_charTrainButton_clicked()
 //更改字符训练样本的标签
 void SVMTrainner::on_charSampleChangeButton_clicked()
 {
-    if((this->ui->plateSampleLabelCombo->currentIndex()== this->ui->plateSampleTree->currentItem()->whatsThis(0).section(".",0 ,0).toInt())) return;
+    if((this->ui->charSampleLabelCombo->currentIndex()== this->ui->charSampleTree->currentItem()->whatsThis(0).section(".",0 ,0).toInt())) return;
 
-    QMessageBox:: StandardButton result= QMessageBox::information(NULL, "Make Sure", "确认要更改标签吗?",QMessageBox::Yes|QMessageBox::No);
+    QMessageBox:: StandardButton result = QMessageBox::information(NULL, "Make Sure", "确认要更改标签吗?",QMessageBox::Yes|QMessageBox::No);
     switch (result)
     {
     case QMessageBox::Yes:
@@ -1727,29 +1731,190 @@ void SVMTrainner::on_charSampleChangeButton_clicked()
         break;
     }
 
-    QTreeWidgetItem *temp = this->ui->plateSampleTree->currentItem();
+    QTreeWidgetItem *temp = this->ui->charSampleTree->currentItem();
     int formerLabel = temp->whatsThis(0).section(".",0 ,0).toInt();
     int newLabel = this->ui->plateSampleLabelCombo->currentIndex();
     int formerIndex = temp->whatsThis(0).section(".",1 ,1).toInt();
 
-    if(QFile::exists(plateTrainDirs[newLabel]->path() +  temp->text(0)))
+    if(QFile::exists(charTrainDirs[newLabel]->path() +  temp->text(0)))
     {
-        QFile file(plateTrainDirs[formerLabel]->path() + temp->text(0));
+        QFile file(charTrainDirs[formerLabel]->path() + temp->text(0));
         temp->setText(0, temp->text(0).left(temp->text(0).lastIndexOf(".")) + "(1)" + ".jpg");
-        if(!file.rename(plateTrainDirs[formerLabel]->path() + "\\" + temp->text(0))) return;
+        if(!file.rename(charTrainDirs[formerLabel]->path() + "\\" + temp->text(0))) return;
     }
-    QFile::copy(plateTrainDirs[formerLabel]->path() + "\\" + temp->text(0), plateTrainDirs[newLabel]->path() + "\\" + temp->text(0));
-    QFile::remove(plateTrainDirs[formerLabel]->path() + "\\" + temp->text(0));
+    QFile::copy(charTrainDirs[formerLabel]->path() + "\\" + temp->text(0), charTrainDirs[newLabel]->path() + "\\" + temp->text(0));
+    QFile::remove(charTrainDirs[formerLabel]->path() + "\\" + temp->text(0));
 
-    plateTrainImgFileNames[formerLabel].removeAt(formerIndex);
-    plateTrainImgFileNames[newLabel].insert(plateTrainImgFileNames[newLabel].size(), temp->text(0));
+    charTrainImgFileNames[formerLabel].removeAt(formerIndex);
+    charTrainImgFileNames[newLabel].insert(charTrainImgFileNames[newLabel].size(), temp->text(0));
 
-    refreshPlateSampleTree();
-    consoleOutput("更改完成");
+    refreshCharSampleTree();
+    charConsoleOutput("更改完成");
 
-    this->ui->plateSampleTree->expandItem(this->ui->plateSampleTree->topLevelItem(formerLabel));
+    this->ui->charSampleTree->expandItem(this->ui->charSampleTree->topLevelItem(formerLabel));
 }
 
+//删除车牌训练集样本
+void SVMTrainner::on_charSampleDeleteButton_clicked()
+{
+    bool deleteLocal = false;
+
+    QMessageBox:: StandardButton result = QMessageBox::information(NULL, "Make Sure", "确认删除?",QMessageBox::Yes|QMessageBox::No);
+    switch (result)
+    {
+    case QMessageBox::Yes:
+        break;
+    case QMessageBox::No:
+        return;
+    default:
+        break;
+    }
+
+    result= QMessageBox::information(NULL, "Make Sure", "是否删除本地文件?",QMessageBox::Yes|QMessageBox::No);
+    switch (result)
+    {
+    case QMessageBox::Yes:
+        deleteLocal = true;
+        break;
+    case QMessageBox::No:
+        break;
+    default:
+        break;
+    }
+
+    QTreeWidgetItem *temp = this->ui->charSampleTree->currentItem();
+    int label = temp->whatsThis(0).section(".", 0, 0).toInt();
+    int index = temp->whatsThis(0).section(".", 1, 1).toInt();
+
+    charTrainImgFileNames[label].removeAt(index);
+
+    if(deleteLocal)
+    {
+        QFile::remove(charTrainDirs[label]->path() + "\\" + temp->text(0));
+    }
+
+    refreshCharSampleTree();
+    charConsoleOutput("样本已删除");
+
+    this->ui->charSampleTree->expandItem(this->ui->charSampleTree->topLevelItem(label));
+}
+
+//加载字符测试库
+void SVMTrainner::on_loadCharTestSetButton_clicked()
+{
+    if(charTestThread != nullptr)
+    {
+        QMessageBox::information(this, "Warnning!", "当前仍有测试在进行", QMessageBox::Ok);
+        return;
+    }
+
+    afterCharTest = false;
+    singleCharTest = false;
+    this->ui->charTestImfo->hide();
+
+    if(!Property::charTestLoadDefault)
+    {
+        Property::charTestPath = QFileDialog::getExistingDirectory(this,tr("Select Test Set Path"),Property::charTestPath);
+        if(Property::charTestPath.isEmpty()) return;
+    }
+
+    if(!QDir(Property::charTestPath).exists())
+    {
+        QMessageBox::information(this, "Error!", "路径有误！", QMessageBox::Ok);
+        return;
+    }
+
+    this->ui->charTestTree->clear();
+    this->ui->singleOrErrorCharTree->clear();
+
+    charTestDirs.clear();
+    charTestImgFileNames.clear();
+    QStringList nameFilters;
+    nameFilters << "*.jpg" << "*.png" << "*.bmp";
+
+    this->standardCharTestSet = PlateChar_SVM::checkTestDirectory(Property::charTestPath);
+
+    int i;
+    if(standardCharTestSet)
+    {
+        for(i = 0; i < PlateCharString.size(); i++)
+        {
+            charTestDirs.insert(i, new QDir(Property::charTestPath + "\\chars\\" + PlateCharString[i]));
+            charTestImgFileNames.insert(i, charTestDirs[i]->entryList(nameFilters));
+        }
+    }
+    else {
+        charTestDirs.insert(0, new QDir(Property::charTestPath));
+        charTestImgFileNames.insert(0, charTestDirs[0]->entryList(nameFilters));
+    }
+
+    refreshCharTestSampleTree();
+    charConsoleOutput("载入完成");
+}
+
+//查看字符测试样本
+void SVMTrainner::on_charTestTree_itemClicked(QTreeWidgetItem *item, int column)
+{
+    this->ui->charOriginalLabel->clear();
+    this->ui->charHogLabel->clear();
+    this->ui->charSampleImfo->hide();
+    this->ui->rightCharTag->show();
+
+    if(!afterCharTest) this->ui->charTestResult->hide();
+
+    if(item->whatsThis(0).split(".").size() == 1)
+    {
+        this->ui->charTestImfo->hide();
+        return;
+    }
+
+    currentCharFrom = 2;
+    this->ui->charTestImfo->show();
+    this->ui->testCharSampleName->setText(item->text(0));
+
+    int index = item->whatsThis(0).section(".",0,0).toInt();
+    if(!standardCharTestSet) index = 0;
+    if(index < 0) index = charTestDirs.size() - 1;
+
+    cv::Mat originalMat = cv::imread(charTestDirs[index]->path().toLocal8Bit().toStdString() + "\\" + item->text(0).toLocal8Bit().toStdString(),cv::ImreadModes::IMREAD_GRAYSCALE);
+    if(originalMat.empty())
+    {
+        QMessageBox::information(NULL, "Warnning", "该图片路径有误！请刷新系统",QMessageBox::Ok);
+        return;
+    }
+
+    this->ui->testCharSampleSize->setText(QString::number(originalMat.cols) + " x " + QString::number(originalMat.rows));
+
+    cv::Mat resizedMat;
+    cv::resize(originalMat, resizedMat, cv::Size(this->ui->charOriginalLabel->size().width(), this->ui->charOriginalLabel->size().height()));
+
+    QImage image = Mat2QImage(resizedMat,QImage::Format_Grayscale8);
+    QPixmap pixmap = QPixmap::fromImage(image);
+    this->ui->charOriginalLabel->setPixmap(pixmap);
+
+    cv::resize(originalMat, resizedMat, PlateChar_SVM::HOGWinSize);
+    std::vector<float> descriptor = PlateChar_SVM::ComputeHogDescriptors(resizedMat);
+    this->ui->testCharHogSize->setText(QString::number(descriptor.size()));
+
+    cv::Mat hogMat = getHogdescriptorVisualImage(resizedMat, descriptor, PlateChar_SVM::HOGWinSize, PlateChar_SVM::HOGCellSize, 1, 2.0);
+
+    cv::resize(hogMat, hogMat, cv::Size(this->ui->charHogLabel->size().width(), this->ui->charHogLabel->size().height()));
+    image = Mat2QImage(hogMat,QImage::Format_Grayscale8);
+    pixmap = QPixmap::fromImage(image);
+    this->ui->charHogLabel->setPixmap(pixmap);
+
+    this->ui->charTestRighTagCombo->setCurrentIndex(item->whatsThis(0).section(".",0,0).toInt() + 1);
+
+    if(afterCharTest && (item->whatsThis(0).section(".",0,0).toInt() >= 0 || plateTestDirs.size() == 1))
+    {
+        this->ui->charTestResultCombo->setCurrentIndex(item->whatsThis(0).section(".",2,2).toInt());
+        this->ui->charTestResult->show();
+    }
+    else this->ui->charTestResult->hide();
+
+    if(singleCharTest) this->ui->rightCharTag->hide();
+    else this->ui->rightCharTag->show();
+}
 
 //保存字符训练结果
 void SVMTrainner::on_saveCharTrainButton_clicked()
@@ -1777,3 +1942,178 @@ void SVMTrainner::on_saveCharTrainButton_clicked()
     charConsoleOutput("已保存为" + Property::charResultPath + "/" + Property::charResultName + ".xml");
 }
 
+//更改字符测试集样本的标签
+void SVMTrainner::on_testCharChangeTagButton_clicked()
+{
+    if(charTestThread != nullptr)
+    {
+        QMessageBox::information(this, "Warnning!", "当前仍有测试在进行", QMessageBox::Ok);
+        return;
+    }
+
+    int newLabel;
+    if(currentCharFrom == 3) return;
+
+    //对于未知数据进行标准测试库构建
+    if(!standardCharTestSet && this->ui->charTestRighTagCombo->currentIndex() != 0)
+    {
+        QMessageBox:: StandardButton generateSet = QMessageBox::information(NULL, "Make Sure", "对非标准测试集内的数据更改标签，将建立标准数据集，且未被分配标签的测试数据将不再有效，是否确认操作？",QMessageBox::Yes|QMessageBox::No);
+        switch (generateSet)
+        {
+           case QMessageBox::Yes:
+           break;
+           case QMessageBox::No:
+           return;
+           default:
+            break;
+        }
+        QString originalPath = Property::charTestPath;
+        if(!Property::charTestLoadDefault)
+        {
+             Property::charTestPath = QFileDialog::getExistingDirectory(this,tr("Select Trainning Set Path"),Property::charTestPath);
+            if(Property::charTestPath.isEmpty()) return;
+        }
+        if(!PlateChar_SVM::PrepareCharTrainningDirectory(Property::charTestPath))
+        {
+            QMessageBox::about(NULL, "Warning!", "测试库建立失败!");
+            return;
+        }
+
+        QStringList nameFilters;
+        nameFilters << "*.jpg" << "*.png" << "*.bmp";
+
+        this->standardCharTestSet = true;
+
+        int i;
+        for(i = 0; i < PlateCharString.size(); i++)
+        {
+            charTestDirs.insert(i, new QDir(Property::charTestPath + "\\chars\\" + PlateCharString[i]));
+            charTestImgFileNames.insert(i, charTestDirs[i]->entryList(nameFilters));
+        }
+        charTestDirs.insert(i, new QDir(originalPath));
+        charTestImgFileNames.insert(i, charTestDirs[i]->entryList(nameFilters));
+
+        QTreeWidgetItem *temp = this->ui->charTestTree->currentItem();
+        int formerLabel = i;
+        int newLabel = this->ui->charTestRighTagCombo->currentIndex() - 1;
+        int formerIndex = temp->whatsThis(0).section(".",1 ,1).toInt();
+
+        if(QFile::exists(charTestDirs[newLabel]->path() +  temp->text(0)))
+        {
+             QFile file(charTestDirs[formerLabel]->path() + temp->text(0));
+            temp->setText(0, temp->text(0) + "(1)");
+            if(!file.rename(temp->text(0))) return;
+         }
+        QFile::copy(charTestDirs[formerLabel]->path() + "\\" + temp->text(0), charTestDirs[newLabel]->path() + "\\" + temp->text(0));
+        QFile::remove(charTestDirs[formerLabel]->path() + "\\" + temp->text(0));
+
+        charTestImgFileNames[formerLabel].removeAt(formerIndex);
+        charTestImgFileNames[newLabel].insert(charTestImgFileNames[newLabel].size(), temp->text(0));
+
+        charConsoleOutput("已成功建立了标准测试库:" + Property::plateTestPath);
+        }
+    else {
+        if((this->ui->charTestRighTagCombo->currentIndex() - 1 == this->ui->charTestTree->currentItem()->whatsThis(0).section(".",0 ,0).toInt()) ||
+                this->ui->charTestRighTagCombo->currentIndex() == 0) return;
+
+        QTreeWidgetItem *temp = this->ui->charTestTree->currentItem();
+        int formerLabel = temp->whatsThis(0).section(".",0 ,0).toInt();
+        newLabel = this->ui->charTestRighTagCombo->currentIndex() - 1;
+        int formerIndex = temp->whatsThis(0).section(".",1 ,1).toInt();
+
+        if(formerLabel < 0) formerLabel = charTestDirs.size() - 1;
+        if(newLabel < 0) newLabel = charTestDirs.size() - 1;
+
+        if(QFile::exists(charTestDirs[newLabel]->path() +  temp->text(0)))
+        {
+            QFile file(charTrainDirs[formerLabel]->path() + temp->text(0));
+            temp->setText(0, temp->text(0) + "(1)");
+            if(!file.rename(temp->text(0))) return;
+        }
+        QFile::copy(charTestDirs[formerLabel]->path() + "\\" + temp->text(0), charTestDirs[newLabel]->path() + "\\" + temp->text(0));
+        QFile::remove(charTestDirs[formerLabel]->path() + "\\" + temp->text(0));
+
+        charTestImgFileNames[formerLabel].removeAt(formerIndex);
+        charTestImgFileNames[newLabel].insert(charTestImgFileNames[newLabel].size(), temp->text(0));
+    }
+
+    afterCharTest = false;
+    refreshCharTestSampleTree();
+    this->ui->charTestTree->expandItem(this->ui->charTestTree->topLevelItem(newLabel));
+    charConsoleOutput("更改完成");
+}
+
+//刷新字符训练系统
+void SVMTrainner::on_charRefreshButton_clicked()
+{
+    refreshCharSampleTree();
+    refreshCharTestSampleTree();
+    refreshCharSingleOrErrorTree();
+}
+
+//生成测试集
+void SVMTrainner::on_generateCharTestSetButton_clicked()
+{
+    if(charTestThread != nullptr)
+    {
+        QMessageBox::information(this, "Warnning!", "当前仍有测试在进行", QMessageBox::Ok);
+        return;
+    }
+    generateCharTestSetByTrainSet();
+}
+
+//均衡化字符训练样本集
+void SVMTrainner::on_equalizeCharTrainButton_clicked()
+{
+    if(charTrainDirs.empty())
+    {
+        QMessageBox::information(this, "Warnning!", "未装载训练集！", QMessageBox::Ok);
+        return;
+    }
+
+    int leastIndex = 0;
+
+    int i, k;
+    for(k = 0; k < charTrainImgFileNames.size() - 1; k++)
+    {
+        if(charTrainImgFileNames[k + 1].size() < charTrainImgFileNames[k].size() || charTrainImgFileNames[k].size() < Property::minCharSampleNum)
+        {
+            leastIndex = k + 1;
+        }
+    }
+
+    if(plateTrainImgFileNames[k].size() < Property::minCharSampleNum)
+    {
+        consoleOutput("已无法再削减");
+        return;
+    }
+
+    int formerSize;
+    QString output = "";
+    for(k = 0; k < plateTrainImgFileNames.size(); k++)
+    {
+        if(k == leastIndex) continue;
+
+        formerSize = plateTrainImgFileNames[k].size();
+        float p = ((float)formerSize - (float)plateTrainImgFileNames[leastIndex].size() * Property::maxMultiple) / (float)plateTrainImgFileNames[k].size();
+        if(p <= 0.0f)
+        {
+            output += PlateCategoryString[k] + "已无法再削减\n";
+            continue;
+        }
+
+        for(i = 0; i < plateTrainImgFileNames[k].size(); i++)
+        {
+            if(((float)random(1000)) / 1000.0 < p)
+            {
+                plateTrainImgFileNames[k].removeAt(i);
+                i--;
+            }
+        }
+        output += PlateCategoryString[k] + "减少了" + QString::number(formerSize - plateTrainImgFileNames[k].size()) + "个样本";
+        if(k != plateTrainImgFileNames.size() - 1) output += "\n";
+    }
+    consoleOutput(output);
+
+    refreshPlateSampleTree();
+}

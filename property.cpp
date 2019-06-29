@@ -34,7 +34,7 @@ float Property::charThresholdForSimilarity[4] = {0.96f, 0.97f, 0.95f, 0.95f};
 bool Property::charGenerateTestSetByTrainSet = false;
 short Property::charTestSetPercent = 30;
 float Property::charMaxMultiple = 1.5f;
-int Property::charMinPlateSampleNum = 100;
+int Property::minCharSampleNum = 100;
 
 Property::Property()
 {

@@ -42,7 +42,7 @@ public:
     static bool charGenerateTestSetByTrainSet; //是否从训练集中抽取除测试集
     static short charTestSetPercent; //抽取测试集的比例
     static float charMaxMultiple; //允许的样本训练数据倍数差
-    static int charMinPlateSampleNum;
+    static int minCharSampleNum;
 };
 
 #endif // PROPERTY_H

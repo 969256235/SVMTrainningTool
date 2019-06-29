@@ -1447,6 +1447,11 @@
                            </property>
                            <item>
                             <property name="text">
+                             <string>未知</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
                              <string>非字符</string>
                             </property>
                            </item>

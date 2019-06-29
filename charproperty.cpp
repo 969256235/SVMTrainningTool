@@ -25,7 +25,7 @@ CharProperty::CharProperty(QWidget *parent) :
     this->ui->generateTestSetCheckBox->setChecked(Property::charGenerateTestSetByTrainSet);
     this->ui->testSetPercentage->setValue(Property::charTestSetPercent);
     this->ui->plateMultiplePercentage->setValue((int)(Property::charMaxMultiple * 100));
-    this->ui->minPlateSampleBox->setValue(Property::charMinPlateSampleNum);
+    this->ui->minPlateSampleBox->setValue(Property::minCharSampleNum);
 }
 
 CharProperty::~CharProperty()
@@ -99,7 +99,7 @@ void CharProperty::on_OKButton_clicked()
     Property::charGenerateTestSetByTrainSet = this->ui->generateTestSetCheckBox->checkState();
     Property::charTestSetPercent = this->ui->testSetPercentage->value();
     Property::charMaxMultiple = (float)this->ui->plateMultiplePercentage->value() / 100.0f;
-    Property::charMinPlateSampleNum = this->ui->minPlateSampleBox->value();
+    Property::minCharSampleNum = this->ui->minPlateSampleBox->value();
 
     this->close();
 }

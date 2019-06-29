@@ -47,6 +47,7 @@ public:
 
     static bool PrepareCharTrainningDirectory(QString path);
 
+    static bool checkTestDirectory(QString path);
 };
 
 #endif // PLATECHAR_SVM_H

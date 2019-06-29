@@ -80,7 +80,7 @@ PlateChar PlateChar_SVM::Test(cv::Mat matTest)
     std::vector<float> descriptor = ComputeHogDescriptors(matTest);
     cv::Mat testDescriptor = cv::Mat::zeros(1,descriptor.size(),CV_32FC1);
     for (int i = 0;i < descriptor.size();i++) {
-        testDescriptor.at<uchar>(0,i) = descriptor[i];
+        testDescriptor.at<float>(0,i) = descriptor[i];
     }
     float predict = svm->predict(testDescriptor);
     result = (PlateChar)((int)predict);
@@ -143,4 +143,29 @@ bool PlateChar_SVM::PrepareCharTrainningDirectory(QString path)
         success = false;
     }
     return success;
+}
+
+bool PlateChar_SVM::checkTestDirectory(QString path)
+{
+    QDir dir;
+    try {
+        QString charsDiretory = path + "\\chars";
+        if(dir.exists(charsDiretory) == false)
+        {
+            return false;
+        }
+        for(int index_charCategory = 0; index_charCategory < PlateCharString.size(); index_charCategory++)
+        {
+            QString charDirectory = charsDiretory + "\\" + PlateCharString[index_charCategory];
+            if(dir.exists(charDirectory) == false)
+            {
+                return  false;
+            }
+        }
+
+    } catch (std::exception) {
+        return  false;
+    }
+
+    return true;
 }

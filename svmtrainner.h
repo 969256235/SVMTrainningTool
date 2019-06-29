@@ -76,6 +76,16 @@ private slots:
 
     void on_saveCharTrainButton_clicked();
 
+    void on_charSampleChangeButton_clicked();
+
+    void on_charSampleDeleteButton_clicked();
+
+    void on_loadCharTestSetButton_clicked();
+
+    void on_charTestTree_itemClicked(QTreeWidgetItem *item, int column);
+
+    void on_testCharChangeTagButton_clicked();
+
 private:
     class computeSimilarity *computerThread;
     class PlateTestThread *plateTestThread;

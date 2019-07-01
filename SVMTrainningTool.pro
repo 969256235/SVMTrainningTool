@@ -56,6 +56,7 @@ INCLUDEPATH += D:\Functional\OpenCV\opencv\build\include
 LIBS += -LD:\Functional\OpenCV\opencv\build\x64\vc15\lib\
         -lopencv_world410d \
 
+RC_ICONS = icon.ico
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

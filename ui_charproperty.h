@@ -63,23 +63,27 @@ public:
     QSpinBox *minPlateSampleBox;
     QCheckBox *similarytyCheck;
     QGridLayout *gridLayout_5;
-    QPushButton *OKButton;
-    QLabel *letterSimilarity;
-    QDoubleSpinBox *thresholdForNonChar;
-    QPushButton *cancelButton;
-    QLabel *layout;
     QLabel *numSimilarity;
+    QLabel *cncharSimilarity;
+    QDoubleSpinBox *thresholdForNum;
+    QLabel *layout;
+    QPushButton *OKButton;
+    QDoubleSpinBox *thresholdForNonChar;
+    QDoubleSpinBox *thresholdForCnchar;
+    QPushButton *cancelButton;
+    QLabel *charHogWinSizeLabel;
+    QLabel *letterSimilarity;
     QDoubleSpinBox *thresholdForLetter;
     QLabel *noncharSimilarity;
-    QDoubleSpinBox *thresholdForNum;
-    QDoubleSpinBox *thresholdForCnchar;
-    QLabel *cncharSimilarity;
+    QSpinBox *charHogWinSizeY;
+    QLabel *charHogWinSizeMultipleLabel;
+    QSpinBox *charHogWInSizeX;
 
     void setupUi(QDialog *CharProperty)
     {
         if (CharProperty->objectName().isEmpty())
             CharProperty->setObjectName(QString::fromUtf8("CharProperty"));
-        CharProperty->resize(389, 622);
+        CharProperty->resize(389, 651);
         horizontalLayout_3 = new QHBoxLayout(CharProperty);
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         groupBox = new QGroupBox(CharProperty);
@@ -279,54 +283,17 @@ public:
 
         gridLayout_5 = new QGridLayout();
         gridLayout_5->setObjectName(QString::fromUtf8("gridLayout_5"));
-        OKButton = new QPushButton(groupBox);
-        OKButton->setObjectName(QString::fromUtf8("OKButton"));
-
-        gridLayout_5->addWidget(OKButton, 6, 2, 1, 1);
-
-        letterSimilarity = new QLabel(groupBox);
-        letterSimilarity->setObjectName(QString::fromUtf8("letterSimilarity"));
-        letterSimilarity->setFont(font);
-
-        gridLayout_5->addWidget(letterSimilarity, 3, 0, 1, 1);
-
-        thresholdForNonChar = new QDoubleSpinBox(groupBox);
-        thresholdForNonChar->setObjectName(QString::fromUtf8("thresholdForNonChar"));
-        thresholdForNonChar->setDecimals(3);
-        thresholdForNonChar->setMaximum(1.000000000000000);
-        thresholdForNonChar->setSingleStep(0.010000000000000);
-
-        gridLayout_5->addWidget(thresholdForNonChar, 0, 2, 1, 1);
-
-        cancelButton = new QPushButton(groupBox);
-        cancelButton->setObjectName(QString::fromUtf8("cancelButton"));
-
-        gridLayout_5->addWidget(cancelButton, 6, 3, 1, 1);
-
-        layout = new QLabel(groupBox);
-        layout->setObjectName(QString::fromUtf8("layout"));
-
-        gridLayout_5->addWidget(layout, 6, 0, 1, 1);
-
         numSimilarity = new QLabel(groupBox);
         numSimilarity->setObjectName(QString::fromUtf8("numSimilarity"));
         numSimilarity->setFont(font);
 
-        gridLayout_5->addWidget(numSimilarity, 1, 0, 1, 1);
+        gridLayout_5->addWidget(numSimilarity, 1, 0, 1, 2);
 
-        thresholdForLetter = new QDoubleSpinBox(groupBox);
-        thresholdForLetter->setObjectName(QString::fromUtf8("thresholdForLetter"));
-        thresholdForLetter->setDecimals(3);
-        thresholdForLetter->setMaximum(1.000000000000000);
-        thresholdForLetter->setSingleStep(0.010000000000000);
+        cncharSimilarity = new QLabel(groupBox);
+        cncharSimilarity->setObjectName(QString::fromUtf8("cncharSimilarity"));
+        cncharSimilarity->setFont(font);
 
-        gridLayout_5->addWidget(thresholdForLetter, 3, 2, 1, 1);
-
-        noncharSimilarity = new QLabel(groupBox);
-        noncharSimilarity->setObjectName(QString::fromUtf8("noncharSimilarity"));
-        noncharSimilarity->setFont(font);
-
-        gridLayout_5->addWidget(noncharSimilarity, 0, 0, 1, 1);
+        gridLayout_5->addWidget(cncharSimilarity, 3, 0, 1, 2);
 
         thresholdForNum = new QDoubleSpinBox(groupBox);
         thresholdForNum->setObjectName(QString::fromUtf8("thresholdForNum"));
@@ -334,7 +301,25 @@ public:
         thresholdForNum->setMaximum(1.000000000000000);
         thresholdForNum->setSingleStep(0.010000000000000);
 
-        gridLayout_5->addWidget(thresholdForNum, 1, 2, 1, 1);
+        gridLayout_5->addWidget(thresholdForNum, 1, 3, 1, 3);
+
+        layout = new QLabel(groupBox);
+        layout->setObjectName(QString::fromUtf8("layout"));
+
+        gridLayout_5->addWidget(layout, 5, 0, 1, 2);
+
+        OKButton = new QPushButton(groupBox);
+        OKButton->setObjectName(QString::fromUtf8("OKButton"));
+
+        gridLayout_5->addWidget(OKButton, 5, 2, 1, 4);
+
+        thresholdForNonChar = new QDoubleSpinBox(groupBox);
+        thresholdForNonChar->setObjectName(QString::fromUtf8("thresholdForNonChar"));
+        thresholdForNonChar->setDecimals(3);
+        thresholdForNonChar->setMaximum(1.000000000000000);
+        thresholdForNonChar->setSingleStep(0.010000000000000);
+
+        gridLayout_5->addWidget(thresholdForNonChar, 0, 3, 1, 3);
 
         thresholdForCnchar = new QDoubleSpinBox(groupBox);
         thresholdForCnchar->setObjectName(QString::fromUtf8("thresholdForCnchar"));
@@ -342,13 +327,65 @@ public:
         thresholdForCnchar->setMaximum(1.000000000000000);
         thresholdForCnchar->setSingleStep(0.010000000000000);
 
-        gridLayout_5->addWidget(thresholdForCnchar, 5, 2, 1, 1);
+        gridLayout_5->addWidget(thresholdForCnchar, 3, 3, 1, 3);
 
-        cncharSimilarity = new QLabel(groupBox);
-        cncharSimilarity->setObjectName(QString::fromUtf8("cncharSimilarity"));
-        cncharSimilarity->setFont(font);
+        cancelButton = new QPushButton(groupBox);
+        cancelButton->setObjectName(QString::fromUtf8("cancelButton"));
 
-        gridLayout_5->addWidget(cncharSimilarity, 5, 0, 1, 1);
+        gridLayout_5->addWidget(cancelButton, 5, 7, 1, 1);
+
+        charHogWinSizeLabel = new QLabel(groupBox);
+        charHogWinSizeLabel->setObjectName(QString::fromUtf8("charHogWinSizeLabel"));
+        charHogWinSizeLabel->setFont(font);
+
+        gridLayout_5->addWidget(charHogWinSizeLabel, 4, 0, 1, 2);
+
+        letterSimilarity = new QLabel(groupBox);
+        letterSimilarity->setObjectName(QString::fromUtf8("letterSimilarity"));
+        letterSimilarity->setFont(font);
+
+        gridLayout_5->addWidget(letterSimilarity, 2, 0, 1, 2);
+
+        thresholdForLetter = new QDoubleSpinBox(groupBox);
+        thresholdForLetter->setObjectName(QString::fromUtf8("thresholdForLetter"));
+        thresholdForLetter->setDecimals(3);
+        thresholdForLetter->setMaximum(1.000000000000000);
+        thresholdForLetter->setSingleStep(0.010000000000000);
+
+        gridLayout_5->addWidget(thresholdForLetter, 2, 3, 1, 3);
+
+        noncharSimilarity = new QLabel(groupBox);
+        noncharSimilarity->setObjectName(QString::fromUtf8("noncharSimilarity"));
+        noncharSimilarity->setFont(font);
+
+        gridLayout_5->addWidget(noncharSimilarity, 0, 0, 1, 3);
+
+        charHogWinSizeY = new QSpinBox(groupBox);
+        charHogWinSizeY->setObjectName(QString::fromUtf8("charHogWinSizeY"));
+        QFont font5;
+        font5.setFamily(QString::fromUtf8("ADMUI3Lg"));
+        font5.setPointSize(10);
+        charHogWinSizeY->setFont(font5);
+        charHogWinSizeY->setMinimum(8);
+        charHogWinSizeY->setMaximum(1024);
+        charHogWinSizeY->setSingleStep(8);
+
+        gridLayout_5->addWidget(charHogWinSizeY, 4, 7, 1, 1);
+
+        charHogWinSizeMultipleLabel = new QLabel(groupBox);
+        charHogWinSizeMultipleLabel->setObjectName(QString::fromUtf8("charHogWinSizeMultipleLabel"));
+        charHogWinSizeMultipleLabel->setFont(font3);
+
+        gridLayout_5->addWidget(charHogWinSizeMultipleLabel, 4, 6, 1, 1);
+
+        charHogWInSizeX = new QSpinBox(groupBox);
+        charHogWInSizeX->setObjectName(QString::fromUtf8("charHogWInSizeX"));
+        charHogWInSizeX->setFont(font5);
+        charHogWInSizeX->setMinimum(8);
+        charHogWInSizeX->setMaximum(1024);
+        charHogWInSizeX->setSingleStep(8);
+
+        gridLayout_5->addWidget(charHogWInSizeX, 4, 2, 1, 4);
 
 
         verticalLayout->addLayout(gridLayout_5);
@@ -384,13 +421,15 @@ public:
         plateMultiplePercentLabel->setText(QApplication::translate("CharProperty", "%", nullptr));
         minPlateSampleLabel->setText(QApplication::translate("CharProperty", "\346\234\200\345\260\217\346\240\267\346\234\254\346\225\260\357\274\210\345\235\207\350\241\241\345\214\226\346\227\266\345\260\221\344\272\216\350\257\245\346\225\260\351\207\217\347\232\204\346\240\267\346\234\254\351\233\206\344\274\232\350\242\253\346\227\240\350\247\206\357\274\211\357\274\232", nullptr));
         similarytyCheck->setText(QApplication::translate("CharProperty", "\345\257\274\345\205\245\350\256\255\347\273\203\345\272\223\346\227\266\345\211\224\351\231\244\347\233\270\344\274\274\345\233\276\345\203\217", nullptr));
-        OKButton->setText(QApplication::translate("CharProperty", "OK", nullptr));
-        letterSimilarity->setText(QApplication::translate("CharProperty", "\345\255\227\346\257\215\347\233\270\344\274\274\345\272\246\351\230\210\345\200\274\357\274\232", nullptr));
-        cancelButton->setText(QApplication::translate("CharProperty", "Cancel", nullptr));
-        layout->setText(QString());
         numSimilarity->setText(QApplication::translate("CharProperty", "\346\225\260\345\255\227\347\233\270\344\274\274\345\272\246\351\230\210\345\200\274\357\274\232", nullptr));
-        noncharSimilarity->setText(QApplication::translate("CharProperty", "\351\235\236\345\255\227\347\254\246\347\233\270\344\274\274\345\272\246\351\230\210\345\200\274\357\274\232", nullptr));
         cncharSimilarity->setText(QApplication::translate("CharProperty", "\346\225\260\345\255\227\347\233\270\344\274\274\345\272\246\351\230\210\345\200\274\357\274\232", nullptr));
+        layout->setText(QString());
+        OKButton->setText(QApplication::translate("CharProperty", "OK", nullptr));
+        cancelButton->setText(QApplication::translate("CharProperty", "Cancel", nullptr));
+        charHogWinSizeLabel->setText(QApplication::translate("CharProperty", "Hog\347\252\227\345\217\243\345\260\272\345\257\270:", nullptr));
+        letterSimilarity->setText(QApplication::translate("CharProperty", "\345\255\227\346\257\215\347\233\270\344\274\274\345\272\246\351\230\210\345\200\274\357\274\232", nullptr));
+        noncharSimilarity->setText(QApplication::translate("CharProperty", "\351\235\236\345\255\227\347\254\246\347\233\270\344\274\274\345\272\246\351\230\210\345\200\274\357\274\232", nullptr));
+        charHogWinSizeMultipleLabel->setText(QApplication::translate("CharProperty", "X", nullptr));
     } // retranslateUi
 
 };

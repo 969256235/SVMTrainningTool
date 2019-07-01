@@ -7,6 +7,7 @@
 #include <QMessageBox>
 
 #include "property.h"
+#include "platecategory_svm.h"
 
 namespace Ui {
 class PlateProperty;

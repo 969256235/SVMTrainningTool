@@ -63,19 +63,23 @@ public:
     QSpinBox *minPlateSampleBox;
     QCheckBox *similarytyCheck;
     QGridLayout *gridLayout_5;
-    QLabel *layout;
-    QPushButton *pushButton_2;
-    QPushButton *OKButton;
     QLabel *plateSimilarity;
-    QLabel *nonplateSimilarity;
+    QLabel *plateHogWinSizeLabel;
+    QLabel *layout;
     QDoubleSpinBox *thresholdForNonplate;
+    QPushButton *OKButton;
+    QSpinBox *plateHogWinSizeY;
+    QLabel *nonplateSimilarity;
     QDoubleSpinBox *thresholdForPlate;
+    QPushButton *pushButton_2;
+    QLabel *plateHogWinSizeMultipleLabel;
+    QSpinBox *plateHogWInSizeX;
 
     void setupUi(QDialog *PlateProperty)
     {
         if (PlateProperty->objectName().isEmpty())
             PlateProperty->setObjectName(QString::fromUtf8("PlateProperty"));
-        PlateProperty->resize(362, 573);
+        PlateProperty->resize(395, 601);
         verticalLayout_5 = new QVBoxLayout(PlateProperty);
         verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
         groupBox = new QGroupBox(PlateProperty);
@@ -275,32 +279,22 @@ public:
 
         gridLayout_5 = new QGridLayout();
         gridLayout_5->setObjectName(QString::fromUtf8("gridLayout_5"));
-        layout = new QLabel(groupBox);
-        layout->setObjectName(QString::fromUtf8("layout"));
-
-        gridLayout_5->addWidget(layout, 2, 0, 1, 1);
-
-        pushButton_2 = new QPushButton(groupBox);
-        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
-
-        gridLayout_5->addWidget(pushButton_2, 2, 3, 1, 1);
-
-        OKButton = new QPushButton(groupBox);
-        OKButton->setObjectName(QString::fromUtf8("OKButton"));
-
-        gridLayout_5->addWidget(OKButton, 2, 2, 1, 1);
-
         plateSimilarity = new QLabel(groupBox);
         plateSimilarity->setObjectName(QString::fromUtf8("plateSimilarity"));
         plateSimilarity->setFont(font);
 
-        gridLayout_5->addWidget(plateSimilarity, 1, 0, 1, 1);
+        gridLayout_5->addWidget(plateSimilarity, 1, 0, 1, 2);
 
-        nonplateSimilarity = new QLabel(groupBox);
-        nonplateSimilarity->setObjectName(QString::fromUtf8("nonplateSimilarity"));
-        nonplateSimilarity->setFont(font);
+        plateHogWinSizeLabel = new QLabel(groupBox);
+        plateHogWinSizeLabel->setObjectName(QString::fromUtf8("plateHogWinSizeLabel"));
+        plateHogWinSizeLabel->setFont(font);
 
-        gridLayout_5->addWidget(nonplateSimilarity, 0, 0, 1, 1);
+        gridLayout_5->addWidget(plateHogWinSizeLabel, 2, 0, 1, 2);
+
+        layout = new QLabel(groupBox);
+        layout->setObjectName(QString::fromUtf8("layout"));
+
+        gridLayout_5->addWidget(layout, 3, 0, 1, 1);
 
         thresholdForNonplate = new QDoubleSpinBox(groupBox);
         thresholdForNonplate->setObjectName(QString::fromUtf8("thresholdForNonplate"));
@@ -308,7 +302,30 @@ public:
         thresholdForNonplate->setMaximum(1.000000000000000);
         thresholdForNonplate->setSingleStep(0.010000000000000);
 
-        gridLayout_5->addWidget(thresholdForNonplate, 0, 2, 1, 1);
+        gridLayout_5->addWidget(thresholdForNonplate, 0, 2, 1, 4);
+
+        OKButton = new QPushButton(groupBox);
+        OKButton->setObjectName(QString::fromUtf8("OKButton"));
+
+        gridLayout_5->addWidget(OKButton, 3, 2, 1, 4);
+
+        plateHogWinSizeY = new QSpinBox(groupBox);
+        plateHogWinSizeY->setObjectName(QString::fromUtf8("plateHogWinSizeY"));
+        QFont font5;
+        font5.setFamily(QString::fromUtf8("ADMUI3Lg"));
+        font5.setPointSize(10);
+        plateHogWinSizeY->setFont(font5);
+        plateHogWinSizeY->setMinimum(8);
+        plateHogWinSizeY->setMaximum(1024);
+        plateHogWinSizeY->setSingleStep(8);
+
+        gridLayout_5->addWidget(plateHogWinSizeY, 2, 7, 1, 1);
+
+        nonplateSimilarity = new QLabel(groupBox);
+        nonplateSimilarity->setObjectName(QString::fromUtf8("nonplateSimilarity"));
+        nonplateSimilarity->setFont(font);
+
+        gridLayout_5->addWidget(nonplateSimilarity, 0, 0, 1, 2);
 
         thresholdForPlate = new QDoubleSpinBox(groupBox);
         thresholdForPlate->setObjectName(QString::fromUtf8("thresholdForPlate"));
@@ -316,7 +333,27 @@ public:
         thresholdForPlate->setMaximum(1.000000000000000);
         thresholdForPlate->setSingleStep(0.010000000000000);
 
-        gridLayout_5->addWidget(thresholdForPlate, 1, 2, 1, 1);
+        gridLayout_5->addWidget(thresholdForPlate, 1, 2, 1, 4);
+
+        pushButton_2 = new QPushButton(groupBox);
+        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+
+        gridLayout_5->addWidget(pushButton_2, 3, 7, 1, 1);
+
+        plateHogWinSizeMultipleLabel = new QLabel(groupBox);
+        plateHogWinSizeMultipleLabel->setObjectName(QString::fromUtf8("plateHogWinSizeMultipleLabel"));
+        plateHogWinSizeMultipleLabel->setFont(font3);
+
+        gridLayout_5->addWidget(plateHogWinSizeMultipleLabel, 2, 6, 1, 1);
+
+        plateHogWInSizeX = new QSpinBox(groupBox);
+        plateHogWInSizeX->setObjectName(QString::fromUtf8("plateHogWInSizeX"));
+        plateHogWInSizeX->setFont(font5);
+        plateHogWInSizeX->setMinimum(8);
+        plateHogWInSizeX->setMaximum(1024);
+        plateHogWInSizeX->setSingleStep(8);
+
+        gridLayout_5->addWidget(plateHogWInSizeX, 2, 2, 1, 4);
 
 
         verticalLayout->addLayout(gridLayout_5);
@@ -352,11 +389,13 @@ public:
         plateMultiplePercentLabel->setText(QApplication::translate("PlateProperty", "%", nullptr));
         minPlateSampleLabel->setText(QApplication::translate("PlateProperty", "\346\234\200\345\260\217\346\240\267\346\234\254\346\225\260\357\274\210\345\235\207\350\241\241\345\214\226\346\227\266\345\260\221\344\272\216\350\257\245\346\225\260\351\207\217\347\232\204\346\240\267\346\234\254\351\233\206\344\274\232\350\242\253\346\227\240\350\247\206\357\274\211\357\274\232", nullptr));
         similarytyCheck->setText(QApplication::translate("PlateProperty", "\345\257\274\345\205\245\350\256\255\347\273\203\345\272\223\346\227\266\345\211\224\351\231\244\347\233\270\344\274\274\345\233\276\345\203\217", nullptr));
-        layout->setText(QString());
-        pushButton_2->setText(QApplication::translate("PlateProperty", "Cancel", nullptr));
-        OKButton->setText(QApplication::translate("PlateProperty", "OK", nullptr));
         plateSimilarity->setText(QApplication::translate("PlateProperty", "\350\275\246\347\211\214\347\233\270\344\274\274\345\272\246\351\230\210\345\200\274\357\274\232", nullptr));
+        plateHogWinSizeLabel->setText(QApplication::translate("PlateProperty", "Hog\347\252\227\345\217\243\345\260\272\345\257\270:", nullptr));
+        layout->setText(QString());
+        OKButton->setText(QApplication::translate("PlateProperty", "OK", nullptr));
         nonplateSimilarity->setText(QApplication::translate("PlateProperty", "\351\235\236\350\275\246\347\211\214\347\233\270\344\274\274\345\272\246\351\230\210\345\200\274\357\274\232", nullptr));
+        pushButton_2->setText(QApplication::translate("PlateProperty", "Cancel", nullptr));
+        plateHogWinSizeMultipleLabel->setText(QApplication::translate("PlateProperty", "X", nullptr));
     } // retranslateUi
 
 };

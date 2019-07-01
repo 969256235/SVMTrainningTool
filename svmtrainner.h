@@ -86,6 +86,22 @@ private slots:
 
     void on_testCharChangeTagButton_clicked();
 
+    void on_charRefreshButton_clicked();
+
+    void on_generateCharTestSetButton_clicked();
+
+    void on_equalizeCharTrainButton_clicked();
+
+    void on_loadCharTrainResultButton_clicked();
+
+    void on_singleCharTestButton_clicked();
+
+    void on_correctCharButton_clicked();
+
+    void on_startCharTestButton_clicked();
+
+    void on_singleOrErrorCharTree_itemClicked(QTreeWidgetItem *item, int column);
+
 private:
     class computeSimilarity *computerThread;
     class PlateTestThread *plateTestThread;
@@ -185,11 +201,11 @@ private:
 
     void finishedCharComputing();
 
-    //void testedOne(int i, int tag);
+    void testedOneChar(int i, int tag);
 
-    //void standardTestedOne(int k, int i, int index, int tag);
+    void standardTestedOneChar(int k, int i, int index, int tag);
 
-    //void finishTesting();
+    void finishTestingChar();
 };
 
 #endif // SVMTRAINNER_H

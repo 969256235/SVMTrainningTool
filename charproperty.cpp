@@ -26,6 +26,9 @@ CharProperty::CharProperty(QWidget *parent) :
     this->ui->testSetPercentage->setValue(Property::charTestSetPercent);
     this->ui->plateMultiplePercentage->setValue((int)(Property::charMaxMultiple * 100));
     this->ui->minPlateSampleBox->setValue(Property::minCharSampleNum);
+
+    this->ui->charHogWInSizeX->setValue(PlateChar_SVM::HOGWinSize.width);
+    this->ui->charHogWinSizeY->setValue(PlateChar_SVM::HOGWinSize.height);
 }
 
 CharProperty::~CharProperty()
@@ -71,13 +74,19 @@ void CharProperty::on_OKButton_clicked()
 
     if(this->ui->resultNameEdit->text().isEmpty())
     {
-        QMessageBox::information(NULL, "Warning!", "Filename of Result Can't Be Empty!",QMessageBox::Ok);
+        QMessageBox::information(NULL, "Warning!", "Filename of Result Can't Be Empty!", QMessageBox::Ok);
         return;
     }
 
     if(!QDir(this->ui->trainPathEdit->text()).exists())
     {
         QMessageBox::information(this, "Warnning!", "TrainSet Path Invalid!");
+    }
+
+    if(this->ui->charHogWInSizeX->value() % 8 != 0 || this->ui->charHogWinSizeY->value() % 8 != 0)
+    {
+        QMessageBox::information(this, "Warnning!", "HogWinSize must be a multiple of 8!", QMessageBox::Ok);
+        return;
     }
 
     Property::charTrainPath = this->ui->trainPathEdit->text();
@@ -100,6 +109,9 @@ void CharProperty::on_OKButton_clicked()
     Property::charTestSetPercent = this->ui->testSetPercentage->value();
     Property::charMaxMultiple = (float)this->ui->plateMultiplePercentage->value() / 100.0f;
     Property::minCharSampleNum = this->ui->minPlateSampleBox->value();
+
+    PlateChar_SVM::HOGWinSize = cv::Size(this->ui->charHogWInSizeX->value(), this->ui->charHogWinSizeY->value());
+    PlateChar_SVM::HOGSize = 36 * ((PlateChar_SVM::HOGWinSize.width - PlateChar_SVM::HOGBlockSize.width) / PlateChar_SVM::HOGBlockStride.width + 1) * ((PlateChar_SVM::HOGWinSize.height - PlateChar_SVM::HOGBlockSize.height) / PlateChar_SVM::HOGBlockStride.height + 1);
 
     this->close();
 }

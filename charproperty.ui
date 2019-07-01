@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>389</width>
-    <height>622</height>
+    <height>651</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -301,54 +301,7 @@
       </item>
       <item>
        <layout class="QGridLayout" name="gridLayout_5">
-        <item row="6" column="2">
-         <widget class="QPushButton" name="OKButton">
-          <property name="text">
-           <string>OK</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="letterSimilarity">
-          <property name="font">
-           <font>
-            <family>Times New Roman</family>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>字母相似度阈值：</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QDoubleSpinBox" name="thresholdForNonChar">
-          <property name="decimals">
-           <number>3</number>
-          </property>
-          <property name="maximum">
-           <double>1.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.010000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="3">
-         <widget class="QPushButton" name="cancelButton">
-          <property name="text">
-           <string>Cancel</string>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="0">
-         <widget class="QLabel" name="layout">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
+        <item row="1" column="0" colspan="2">
          <widget class="QLabel" name="numSimilarity">
           <property name="font">
            <font>
@@ -361,21 +314,8 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="2">
-         <widget class="QDoubleSpinBox" name="thresholdForLetter">
-          <property name="decimals">
-           <number>3</number>
-          </property>
-          <property name="maximum">
-           <double>1.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.010000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="noncharSimilarity">
+        <item row="3" column="0" colspan="2">
+         <widget class="QLabel" name="cncharSimilarity">
           <property name="font">
            <font>
             <family>Times New Roman</family>
@@ -383,11 +323,11 @@
            </font>
           </property>
           <property name="text">
-           <string>非字符相似度阈值：</string>
+           <string>数字相似度阈值：</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="2">
+        <item row="1" column="3" colspan="3">
          <widget class="QDoubleSpinBox" name="thresholdForNum">
           <property name="decimals">
            <number>3</number>
@@ -400,7 +340,34 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="2">
+        <item row="5" column="0" colspan="2">
+         <widget class="QLabel" name="layout">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="2" colspan="4">
+         <widget class="QPushButton" name="OKButton">
+          <property name="text">
+           <string>OK</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3" colspan="3">
+         <widget class="QDoubleSpinBox" name="thresholdForNonChar">
+          <property name="decimals">
+           <number>3</number>
+          </property>
+          <property name="maximum">
+           <double>1.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.010000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="3" colspan="3">
          <widget class="QDoubleSpinBox" name="thresholdForCnchar">
           <property name="decimals">
            <number>3</number>
@@ -413,8 +380,15 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="0">
-         <widget class="QLabel" name="cncharSimilarity">
+        <item row="5" column="7">
+         <widget class="QPushButton" name="cancelButton">
+          <property name="text">
+           <string>Cancel</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0" colspan="2">
+         <widget class="QLabel" name="charHogWinSizeLabel">
           <property name="font">
            <font>
             <family>Times New Roman</family>
@@ -422,7 +396,97 @@
            </font>
           </property>
           <property name="text">
-           <string>数字相似度阈值：</string>
+           <string>Hog窗口尺寸:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0" colspan="2">
+         <widget class="QLabel" name="letterSimilarity">
+          <property name="font">
+           <font>
+            <family>Times New Roman</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>字母相似度阈值：</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3" colspan="3">
+         <widget class="QDoubleSpinBox" name="thresholdForLetter">
+          <property name="decimals">
+           <number>3</number>
+          </property>
+          <property name="maximum">
+           <double>1.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.010000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="3">
+         <widget class="QLabel" name="noncharSimilarity">
+          <property name="font">
+           <font>
+            <family>Times New Roman</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>非字符相似度阈值：</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="7">
+         <widget class="QSpinBox" name="charHogWinSizeY">
+          <property name="font">
+           <font>
+            <family>ADMUI3Lg</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="minimum">
+           <number>8</number>
+          </property>
+          <property name="maximum">
+           <number>1024</number>
+          </property>
+          <property name="singleStep">
+           <number>8</number>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="6">
+         <widget class="QLabel" name="charHogWinSizeMultipleLabel">
+          <property name="font">
+           <font>
+            <family>Times New Roman</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>X</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2" colspan="4">
+         <widget class="QSpinBox" name="charHogWInSizeX">
+          <property name="font">
+           <font>
+            <family>ADMUI3Lg</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="minimum">
+           <number>8</number>
+          </property>
+          <property name="maximum">
+           <number>1024</number>
+          </property>
+          <property name="singleStep">
+           <number>8</number>
           </property>
          </widget>
         </item>

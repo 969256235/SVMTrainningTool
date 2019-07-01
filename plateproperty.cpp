@@ -26,6 +26,9 @@ PlateProperty::PlateProperty(QWidget *parent) :
     this->ui->testSetPercentage->setValue(Property::testSetPercent);
     this->ui->plateMultiplePercentage->setValue((int)(Property::maxMultiple * 100));
     this->ui->minPlateSampleBox->setValue(Property::minPlateSampleNum);
+
+    this->ui->plateHogWInSizeX->setValue(PlateCategory_SVM::HOGWinSize.width);
+    this->ui->plateHogWinSizeY->setValue(PlateCategory_SVM::HOGWinSize.height);
 }
 
 PlateProperty::~PlateProperty()
@@ -74,6 +77,12 @@ void PlateProperty::on_OKButton_clicked()
         return;
     }
 
+    if(this->ui->plateHogWInSizeX->value() % 8 != 0 || this->ui->plateHogWinSizeY->value() % 8 != 0)
+    {
+        QMessageBox::information(this, "Warnning!", "HogWinSize must be a multiple of 8!", QMessageBox::Ok);
+        return;
+    }
+
     Property::plateTrainPath = this->ui->trainPathEdit->text();
     Property::plateResultPath = this->ui->resultPathEdit->text();
     Property:: plateResultName = this->ui->resultNameEdit->text();
@@ -92,6 +101,9 @@ void PlateProperty::on_OKButton_clicked()
     Property::testSetPercent = this->ui->testSetPercentage->value();
     Property::maxMultiple = (float)this->ui->plateMultiplePercentage->value() / 100.0f;
     Property::minPlateSampleNum = this->ui->minPlateSampleBox->value();
+
+    PlateCategory_SVM::HOGWinSize = cv::Size(this->ui->plateHogWInSizeX->value(), this->ui->plateHogWinSizeY->value());
+    PlateCategory_SVM::HOGSize = 36 * ((PlateCategory_SVM::HOGWinSize.width - PlateCategory_SVM::HOGBlockSize.width) / PlateCategory_SVM::HOGBlockStride.width + 1) * ((PlateCategory_SVM::HOGWinSize.height - PlateCategory_SVM::HOGBlockSize.height) / PlateCategory_SVM::HOGBlockStride.height + 1);
 
     this->close();
 }

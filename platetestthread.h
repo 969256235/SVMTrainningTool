@@ -9,12 +9,13 @@
 
 #include "property.h"
 #include "platecategory_svm.h"
+#include "platechar_svm.h"
 
 class PlateTestThread : public QThread
 {
     Q_OBJECT
 public:
-    PlateTestThread(bool standard_, QList<QDir*> dirs_, QList<QStringList> imgFileNames_);
+    PlateTestThread(bool standard_, QList<QDir*> dirs_, QList<QStringList> imgFileNames_, bool mode_);
 
 
 signals:
@@ -29,6 +30,7 @@ protected:
 
 private:
     bool standard;
+    bool mode; //true-plate false-char
 
     QList<QDir*> dirs;
     QList<QStringList> imgFileNames;

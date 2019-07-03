@@ -55,11 +55,13 @@ SOURCES       = charproperty.cpp \
 		plateproperty.cpp \
 		platetestthread.cpp \
 		property.cpp \
-		svmtrainner.cpp debug\moc_charproperty.cpp \
+		svmtrainner.cpp \
+		trainthread.cpp debug\moc_charproperty.cpp \
 		debug\moc_computesimilarity.cpp \
 		debug\moc_plateproperty.cpp \
 		debug\moc_platetestthread.cpp \
-		debug\moc_svmtrainner.cpp
+		debug\moc_svmtrainner.cpp \
+		debug\moc_trainthread.cpp
 OBJECTS       = debug\charproperty.obj \
 		debug\computesimilarity.obj \
 		debug\main.obj \
@@ -69,11 +71,13 @@ OBJECTS       = debug\charproperty.obj \
 		debug\platetestthread.obj \
 		debug\property.obj \
 		debug\svmtrainner.obj \
+		debug\trainthread.obj \
 		debug\moc_charproperty.obj \
 		debug\moc_computesimilarity.obj \
 		debug\moc_plateproperty.obj \
 		debug\moc_platetestthread.obj \
-		debug\moc_svmtrainner.obj
+		debug\moc_svmtrainner.obj \
+		debug\moc_trainthread.obj
 
 DIST          =  charproperty.h \
 		computesimilarity.h \
@@ -83,7 +87,8 @@ DIST          =  charproperty.h \
 		plateproperty.h \
 		platetestthread.h \
 		property.h \
-		svmtrainner.h charproperty.cpp \
+		svmtrainner.h \
+		trainthread.h charproperty.cpp \
 		computesimilarity.cpp \
 		main.cpp \
 		platecategory_svm.cpp \
@@ -91,7 +96,8 @@ DIST          =  charproperty.h \
 		plateproperty.cpp \
 		platetestthread.cpp \
 		property.cpp \
-		svmtrainner.cpp
+		svmtrainner.cpp \
+		trainthread.cpp
 QMAKE_TARGET  = SVMTrainningTool
 DESTDIR        = debug\ #avoid trailing-slash linebreak
 TARGET         = SVMTrainningTool.exe
@@ -148,7 +154,7 @@ all: Makefile.Debug  debug\SVMTrainningTool.exe
 
 debug\SVMTrainningTool.exe: ui_charproperty.h ui_plateproperty.h ui_svmtrainner.h $(OBJECTS) debug\SVMTrainningTool_resource.res
 	$(LINKER) $(LFLAGS) /MANIFEST:embed /OUT:$(DESTDIR_TARGET) @<<
-debug\charproperty.obj debug\computesimilarity.obj debug\main.obj debug\platecategory_svm.obj debug\platechar_svm.obj debug\plateproperty.obj debug\platetestthread.obj debug\property.obj debug\svmtrainner.obj debug\moc_charproperty.obj debug\moc_computesimilarity.obj debug\moc_plateproperty.obj debug\moc_platetestthread.obj debug\moc_svmtrainner.obj
+debug\charproperty.obj debug\computesimilarity.obj debug\main.obj debug\platecategory_svm.obj debug\platechar_svm.obj debug\plateproperty.obj debug\platetestthread.obj debug\property.obj debug\svmtrainner.obj debug\trainthread.obj debug\moc_charproperty.obj debug\moc_computesimilarity.obj debug\moc_plateproperty.obj debug\moc_platetestthread.obj debug\moc_svmtrainner.obj debug\moc_trainthread.obj
 $(LIBS)
 <<
 
@@ -161,10 +167,10 @@ qmake: FORCE
 qmake_all: FORCE
 
 dist:
-	$(ZIP) SVMTrainningTool.zip $(SOURCES) $(DIST) SVMTrainningTool.pro ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\spec_pre.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\common\angle.conf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\common\windows-vulkan.conf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\common\msvc-desktop.conf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\qconfig.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3danimation.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3danimation_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dcore.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dcore_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dextras.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dextras_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dinput.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dinput_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dlogic.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dlogic_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dquick.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dquick_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dquickanimation.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dquickanimation_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dquickextras.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dquickextras_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dquickinput.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dquickinput_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dquickrender.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dquickrender_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dquickscene2d.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dquickscene2d_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3drender.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3drender_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_accessibility_support_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_axbase.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_axbase_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_axcontainer.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_axcontainer_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_axserver.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_axserver_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_bluetooth.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_bluetooth_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_bootstrap_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_charts.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_charts_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_concurrent.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_concurrent_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_core.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_core_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_datavisualization.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_datavisualization_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_dbus.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_dbus_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_designer.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_designer_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_designercomponents_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_edid_support_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_egl_support_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_eventdispatcher_support_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_fb_support_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_fontdatabase_support_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_gamepad.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_gamepad_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_gui.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_gui_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_help.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_help_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_location.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_location_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_multimedia.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_multimedia_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_multimediawidgets.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_network.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_network_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_networkauth.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_networkauth_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_nfc.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_nfc_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_opengl.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_opengl_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_openglextensions.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_openglextensions_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_packetprotocol_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_platformcompositor_support_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_positioning.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_positioning_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_positioningquick.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_positioningquick_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_printsupport.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_printsupport_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_purchasing.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_purchasing_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_qml.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_qml_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_qmldebug_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_qmldevtools_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_qmltest.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_qmltest_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_quick.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_quick_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_quickcontrols2.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_quickparticles_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_quickshapes_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_quicktemplates2.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_quickwidgets.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_quickwidgets_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_remoteobjects.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_remoteobjects_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_repparser.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_repparser_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_script.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_script_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_scripttools.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_scripttools_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_scxml.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_scxml_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_sensors.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_sensors_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_serialbus.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_serialbus_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_serialport.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_serialport_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_sql.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_sql_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_svg.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_svg_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_testlib.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_testlib_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_texttospeech.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_texttospeech_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_theme_support_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_uiplugin.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_uitools.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_uitools_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_virtualkeyboard.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_virtualkeyboard_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_vulkan_support_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_webchannel.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_webchannel_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_webengine.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_webengine_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_webenginecore.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_webenginecore_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_webenginecoreheaders_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_webenginewidgets.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_webenginewidgets_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_websockets.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_websockets_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_webview.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_webview_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_widgets.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_widgets_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_windowsuiautomation_support_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_winextras.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_winextras_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_xml.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_xml_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_xmlpatterns.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_xmlpatterns_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_zlib_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\qt_functions.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\qt_config.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\win32-msvc\qmake.conf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\spec_post.prf .qmake.stash ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\exclusive_builds.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\common\msvc-version.conf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\toolchain.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\default_pre.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\win32\default_pre.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\resolve_config.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\exclusive_builds_post.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\default_post.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\build_pass.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\qml_debug.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\precompile_header.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\warn_on.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\qt.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\resources.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\moc.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\win32\opengl.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\uic.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\qmake_use.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\file_copies.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\win32\windows.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\testcase_targets.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\exceptions.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\yacc.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\lex.prf SVMTrainningTool.pro ..\..\..\Functional\Qt\5.12.3\msvc2017_64\lib\Qt5Widgetsd.prl ..\..\..\Functional\Qt\5.12.3\msvc2017_64\lib\Qt5Guid.prl ..\..\..\Functional\Qt\5.12.3\msvc2017_64\lib\Qt5Cored.prl ..\..\..\Functional\Qt\5.12.3\msvc2017_64\lib\qtmaind.prl    ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\data\dummy.cpp charproperty.h computesimilarity.h platecategory.h platecategory_svm.h platechar_svm.h plateproperty.h platetestthread.h property.h svmtrainner.h  charproperty.cpp computesimilarity.cpp main.cpp platecategory_svm.cpp platechar_svm.cpp plateproperty.cpp platetestthread.cpp property.cpp svmtrainner.cpp charproperty.ui plateproperty.ui svmtrainner.ui    
+	$(ZIP) SVMTrainningTool.zip $(SOURCES) $(DIST) SVMTrainningTool.pro ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\spec_pre.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\common\angle.conf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\common\windows-vulkan.conf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\common\msvc-desktop.conf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\qconfig.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3danimation.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3danimation_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dcore.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dcore_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dextras.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dextras_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dinput.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dinput_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dlogic.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dlogic_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dquick.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dquick_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dquickanimation.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dquickanimation_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dquickextras.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dquickextras_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dquickinput.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dquickinput_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dquickrender.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dquickrender_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dquickscene2d.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3dquickscene2d_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3drender.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_3drender_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_accessibility_support_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_axbase.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_axbase_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_axcontainer.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_axcontainer_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_axserver.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_axserver_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_bluetooth.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_bluetooth_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_bootstrap_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_charts.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_charts_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_concurrent.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_concurrent_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_core.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_core_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_datavisualization.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_datavisualization_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_dbus.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_dbus_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_designer.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_designer_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_designercomponents_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_edid_support_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_egl_support_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_eventdispatcher_support_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_fb_support_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_fontdatabase_support_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_gamepad.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_gamepad_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_gui.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_gui_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_help.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_help_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_location.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_location_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_multimedia.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_multimedia_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_multimediawidgets.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_network.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_network_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_networkauth.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_networkauth_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_nfc.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_nfc_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_opengl.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_opengl_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_openglextensions.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_openglextensions_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_packetprotocol_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_platformcompositor_support_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_positioning.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_positioning_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_positioningquick.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_positioningquick_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_printsupport.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_printsupport_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_purchasing.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_purchasing_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_qml.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_qml_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_qmldebug_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_qmldevtools_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_qmltest.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_qmltest_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_quick.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_quick_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_quickcontrols2.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_quickparticles_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_quickshapes_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_quicktemplates2.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_quickwidgets.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_quickwidgets_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_remoteobjects.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_remoteobjects_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_repparser.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_repparser_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_script.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_script_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_scripttools.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_scripttools_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_scxml.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_scxml_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_sensors.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_sensors_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_serialbus.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_serialbus_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_serialport.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_serialport_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_sql.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_sql_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_svg.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_svg_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_testlib.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_testlib_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_texttospeech.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_texttospeech_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_theme_support_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_uiplugin.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_uitools.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_uitools_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_virtualkeyboard.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_virtualkeyboard_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_vulkan_support_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_webchannel.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_webchannel_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_webengine.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_webengine_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_webenginecore.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_webenginecore_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_webenginecoreheaders_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_webenginewidgets.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_webenginewidgets_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_websockets.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_websockets_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_webview.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_webview_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_widgets.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_widgets_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_windowsuiautomation_support_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_winextras.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_winextras_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_xml.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_xml_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_xmlpatterns.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_xmlpatterns_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\modules\qt_lib_zlib_private.pri ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\qt_functions.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\qt_config.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\win32-msvc\qmake.conf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\spec_post.prf .qmake.stash ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\exclusive_builds.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\common\msvc-version.conf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\toolchain.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\default_pre.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\win32\default_pre.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\resolve_config.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\exclusive_builds_post.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\default_post.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\build_pass.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\qml_debug.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\precompile_header.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\warn_on.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\qt.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\resources.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\moc.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\win32\opengl.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\uic.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\qmake_use.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\file_copies.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\win32\windows.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\testcase_targets.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\exceptions.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\yacc.prf ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\lex.prf SVMTrainningTool.pro ..\..\..\Functional\Qt\5.12.3\msvc2017_64\lib\Qt5Widgetsd.prl ..\..\..\Functional\Qt\5.12.3\msvc2017_64\lib\Qt5Guid.prl ..\..\..\Functional\Qt\5.12.3\msvc2017_64\lib\Qt5Cored.prl ..\..\..\Functional\Qt\5.12.3\msvc2017_64\lib\qtmaind.prl    ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\data\dummy.cpp charproperty.h computesimilarity.h platecategory.h platecategory_svm.h platechar_svm.h plateproperty.h platetestthread.h property.h svmtrainner.h trainthread.h  charproperty.cpp computesimilarity.cpp main.cpp platecategory_svm.cpp platechar_svm.cpp plateproperty.cpp platetestthread.cpp property.cpp svmtrainner.cpp trainthread.cpp charproperty.ui plateproperty.ui svmtrainner.ui    
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug\charproperty.obj debug\computesimilarity.obj debug\main.obj debug\platecategory_svm.obj debug\platechar_svm.obj debug\plateproperty.obj debug\platetestthread.obj debug\property.obj debug\svmtrainner.obj debug\moc_charproperty.obj debug\moc_computesimilarity.obj debug\moc_plateproperty.obj debug\moc_platetestthread.obj debug\moc_svmtrainner.obj
+	-$(DEL_FILE) debug\charproperty.obj debug\computesimilarity.obj debug\main.obj debug\platecategory_svm.obj debug\platechar_svm.obj debug\plateproperty.obj debug\platetestthread.obj debug\property.obj debug\svmtrainner.obj debug\trainthread.obj debug\moc_charproperty.obj debug\moc_computesimilarity.obj debug\moc_plateproperty.obj debug\moc_platetestthread.obj debug\moc_svmtrainner.obj debug\moc_trainthread.obj
 	-$(DEL_FILE) debug\SVMTrainningTool.vc.pdb debug\SVMTrainningTool.ilk debug\SVMTrainningTool.idb
 	-$(DEL_FILE) debug\SVMTrainningTool_resource.res
 
@@ -191,9 +197,9 @@ compiler_moc_predefs_clean:
 debug\moc_predefs.h: ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\data\dummy.cpp
 	cl -BxD:\Functional\Qt\5.12.3\msvc2017_64\bin\qmake.exe -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -Zi -MDd -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E ..\..\..\Functional\Qt\5.12.3\msvc2017_64\mkspecs\features\data\dummy.cpp 2>NUL >debug\moc_predefs.h
 
-compiler_moc_header_make_all: debug\moc_charproperty.cpp debug\moc_computesimilarity.cpp debug\moc_plateproperty.cpp debug\moc_platetestthread.cpp debug\moc_svmtrainner.cpp
+compiler_moc_header_make_all: debug\moc_charproperty.cpp debug\moc_computesimilarity.cpp debug\moc_plateproperty.cpp debug\moc_platetestthread.cpp debug\moc_svmtrainner.cpp debug\moc_trainthread.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) debug\moc_charproperty.cpp debug\moc_computesimilarity.cpp debug\moc_plateproperty.cpp debug\moc_platetestthread.cpp debug\moc_svmtrainner.cpp
+	-$(DEL_FILE) debug\moc_charproperty.cpp debug\moc_computesimilarity.cpp debug\moc_plateproperty.cpp debug\moc_platetestthread.cpp debug\moc_svmtrainner.cpp debug\moc_trainthread.cpp
 debug\moc_charproperty.cpp: charproperty.h \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtWidgets\QDialog \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtWidgets\qdialog.h \
@@ -1130,6 +1136,9 @@ debug\moc_svmtrainner.cpp: svmtrainner.h \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtWidgets\qlistview.h \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\QThread \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qthread.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\QTimer \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qtimer.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qbasictimer.h \
 		plateproperty.h \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtWidgets\QDialog \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtWidgets\qdialog.h \
@@ -1250,9 +1259,205 @@ debug\moc_svmtrainner.cpp: svmtrainner.h \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\QObject \
 		platetestthread.h \
 		charproperty.h \
+		trainthread.h \
 		debug\moc_predefs.h \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\bin\moc.exe
 	D:\Functional\Qt\5.12.3\msvc2017_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include D:/Major/Projects/SVMTrainningTool/debug/moc_predefs.h -ID:/Functional/Qt/5.12.3/msvc2017_64/mkspecs/win32-msvc -ID:/Major/Projects/SVMTrainningTool -ID:/Functional/OpenCV/opencv/build/include -ID:/Functional/Qt/5.12.3/msvc2017_64/include -ID:/Functional/Qt/5.12.3/msvc2017_64/include/QtWidgets -ID:/Functional/Qt/5.12.3/msvc2017_64/include/QtGui -ID:/Functional/Qt/5.12.3/msvc2017_64/include/QtANGLE -ID:/Functional/Qt/5.12.3/msvc2017_64/include/QtCore -ID:\Major\VS2017\VC\Tools\MSVC\14.16.27023\ATLMFC\include -ID:\Major\VS2017\VC\Tools\MSVC\14.16.27023\include -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\cppwinrt" svmtrainner.h -o debug\moc_svmtrainner.cpp
+
+debug\moc_trainthread.cpp: trainthread.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\QThread \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qthread.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qobject.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qobjectdefs.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qnamespace.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qglobal.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qconfig-bootstrapped.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qconfig.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qtcore-config.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qsystemdetection.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qprocessordetection.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qcompilerdetection.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qtypeinfo.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qsysinfo.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qlogging.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qflags.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qatomic.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qbasicatomic.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qatomic_bootstrap.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qgenericatomic.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qatomic_cxx11.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qatomic_msvc.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qglobalstatic.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qmutex.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qnumeric.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qversiontagging.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qobjectdefs_impl.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qstring.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qchar.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qbytearray.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qrefcount.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qarraydata.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qstringliteral.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qstringalgorithms.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qstringview.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qstringbuilder.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qlist.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qalgorithms.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qiterator.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qhashfunctions.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qpair.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qbytearraylist.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qstringlist.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qregexp.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qstringmatcher.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qcoreevent.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qscopedpointer.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qmetatype.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qvarlengtharray.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qcontainerfwd.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qobject_impl.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\QDir \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qdir.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qfileinfo.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qfile.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qfiledevice.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qiodevice.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qshareddata.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qhash.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\opencv.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\opencv_modules.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\cvdef.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\hal\interface.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\cv_cpu_dispatch.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\cv_cpu_helper.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\fast_math.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\version.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\base.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\cvstd.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\cvstd_wrapper.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\neon_utils.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\vsx_utils.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\check.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\traits.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\matx.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\saturate.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\types.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\mat.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\bufferpool.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\mat.inl.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\persistence.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\operations.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\cvstd.inl.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\utility.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\optim.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\ovx.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\calib3d.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\features2d.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\miniflann.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\defines.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\config.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\affine.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\dnn.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\dnn\dnn.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\dnn\version.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\dnn\dict.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\dnn\layer.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\dnn\dnn.inl.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\dnn\utils\inference_engine.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\flann_base.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\general.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\matrix.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\params.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\any.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\saving.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\nn_index.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\result_set.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\all_indices.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\kdtree_index.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\dynamic_bitset.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\dist.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\heap.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\allocator.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\random.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\kdtree_single_index.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\kmeans_index.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\logger.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\composite_index.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\linear_index.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\hierarchical_clustering_index.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\lsh_index.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\lsh_table.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\autotuned_index.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\ground_truth.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\index_testing.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\timer.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\sampling.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\highgui.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\imgcodecs.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\videoio.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\imgproc.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\ml.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\ml\ml.inl.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\objdetect.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\objdetect\detection_based_tracker.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\photo.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\stitching.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\stitching\warpers.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\stitching\detail\warpers.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\cuda.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\cuda_types.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\cuda.inl.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\stitching\detail\warpers_inl.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\stitching\detail\matchers.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\stitching\detail\motion_estimators.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\stitching\detail\util.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\stitching\detail\util_inl.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\stitching\detail\camera.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\stitching\detail\exposure_compensate.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\stitching\detail\seam_finders.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\stitching\detail\blenders.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\video.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\video\tracking.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\video\background_segm.hpp \
+		platecategory_svm.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\ml\ml.hpp \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\QTime \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qdatetime.h \
+		platecategory.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\QString \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtGui\QList \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtGui\qevent.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtGui\qtguiglobal.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtGui\qtgui-config.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtGui\qwindowdefs.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtGui\qwindowdefs_win.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtGui\qregion.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qrect.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qmargins.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qsize.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qpoint.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qdatastream.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtGui\qkeysequence.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qvariant.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qmap.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qdebug.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qtextstream.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qlocale.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qvector.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qset.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qcontiguouscache.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qsharedpointer.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qsharedpointer_impl.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qurl.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qurlquery.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtGui\qvector2d.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtGui\qtouchdevice.h \
+		platechar_svm.h \
+		debug\moc_predefs.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\bin\moc.exe
+	D:\Functional\Qt\5.12.3\msvc2017_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include D:/Major/Projects/SVMTrainningTool/debug/moc_predefs.h -ID:/Functional/Qt/5.12.3/msvc2017_64/mkspecs/win32-msvc -ID:/Major/Projects/SVMTrainningTool -ID:/Functional/OpenCV/opencv/build/include -ID:/Functional/Qt/5.12.3/msvc2017_64/include -ID:/Functional/Qt/5.12.3/msvc2017_64/include/QtWidgets -ID:/Functional/Qt/5.12.3/msvc2017_64/include/QtGui -ID:/Functional/Qt/5.12.3/msvc2017_64/include/QtANGLE -ID:/Functional/Qt/5.12.3/msvc2017_64/include/QtCore -ID:\Major\VS2017\VC\Tools\MSVC\14.16.27023\ATLMFC\include -ID:\Major\VS2017\VC\Tools\MSVC\14.16.27023\include -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\cppwinrt" trainthread.h -o debug\moc_trainthread.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1836,6 +2041,9 @@ debug\main.obj: main.cpp svmtrainner.h \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtWidgets\qlistview.h \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\QThread \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qthread.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\QTimer \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qtimer.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qbasictimer.h \
 		plateproperty.h \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtWidgets\QDialog \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtWidgets\qdialog.h \
@@ -1956,6 +2164,7 @@ debug\main.obj: main.cpp svmtrainner.h \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\QObject \
 		platetestthread.h \
 		charproperty.h \
+		trainthread.h \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtWidgets\QApplication \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtWidgets\qapplication.h \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qcoreapplication.h \
@@ -2956,6 +3165,9 @@ debug\svmtrainner.obj: svmtrainner.cpp svmtrainner.h \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtWidgets\qlistview.h \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\QThread \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qthread.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\QTimer \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qtimer.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qbasictimer.h \
 		plateproperty.h \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtWidgets\QDialog \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtWidgets\qdialog.h \
@@ -3076,6 +3288,7 @@ debug\svmtrainner.obj: svmtrainner.cpp svmtrainner.h \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\QObject \
 		platetestthread.h \
 		charproperty.h \
+		trainthread.h \
 		ui_svmtrainner.h \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\QVariant \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtWidgets\QApplication \
@@ -3120,6 +3333,198 @@ debug\svmtrainner.obj: svmtrainner.cpp svmtrainner.h \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtWidgets\QVBoxLayout \
 		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtWidgets\QWidget
 
+debug\trainthread.obj: trainthread.cpp trainthread.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\QThread \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qthread.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qobject.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qobjectdefs.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qnamespace.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qglobal.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qconfig-bootstrapped.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qconfig.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qtcore-config.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qsystemdetection.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qprocessordetection.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qcompilerdetection.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qtypeinfo.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qsysinfo.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qlogging.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qflags.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qatomic.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qbasicatomic.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qatomic_bootstrap.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qgenericatomic.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qatomic_cxx11.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qatomic_msvc.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qglobalstatic.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qmutex.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qnumeric.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qversiontagging.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qobjectdefs_impl.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qstring.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qchar.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qbytearray.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qrefcount.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qarraydata.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qstringliteral.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qstringalgorithms.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qstringview.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qstringbuilder.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qlist.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qalgorithms.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qiterator.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qhashfunctions.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qpair.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qbytearraylist.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qstringlist.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qregexp.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qstringmatcher.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qcoreevent.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qscopedpointer.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qmetatype.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qvarlengtharray.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qcontainerfwd.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qobject_impl.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\QDir \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qdir.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qfileinfo.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qfile.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qfiledevice.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qiodevice.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qshareddata.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qhash.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\opencv.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\opencv_modules.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\cvdef.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\hal\interface.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\cv_cpu_dispatch.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\cv_cpu_helper.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\fast_math.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\version.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\base.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\cvstd.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\cvstd_wrapper.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\neon_utils.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\vsx_utils.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\check.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\traits.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\matx.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\saturate.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\types.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\mat.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\bufferpool.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\mat.inl.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\persistence.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\operations.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\cvstd.inl.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\utility.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\optim.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\ovx.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\calib3d.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\features2d.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\miniflann.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\defines.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\config.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\affine.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\dnn.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\dnn\dnn.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\dnn\version.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\dnn\dict.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\dnn\layer.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\dnn\dnn.inl.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\dnn\utils\inference_engine.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\flann_base.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\general.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\matrix.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\params.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\any.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\saving.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\nn_index.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\result_set.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\all_indices.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\kdtree_index.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\dynamic_bitset.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\dist.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\heap.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\allocator.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\random.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\kdtree_single_index.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\kmeans_index.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\logger.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\composite_index.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\linear_index.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\hierarchical_clustering_index.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\lsh_index.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\lsh_table.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\autotuned_index.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\ground_truth.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\index_testing.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\timer.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\flann\sampling.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\highgui.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\imgcodecs.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\videoio.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\imgproc.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\ml.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\ml\ml.inl.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\objdetect.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\objdetect\detection_based_tracker.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\photo.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\stitching.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\stitching\warpers.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\stitching\detail\warpers.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\cuda.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\cuda_types.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\core\cuda.inl.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\stitching\detail\warpers_inl.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\stitching\detail\matchers.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\stitching\detail\motion_estimators.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\stitching\detail\util.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\stitching\detail\util_inl.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\stitching\detail\camera.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\stitching\detail\exposure_compensate.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\stitching\detail\seam_finders.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\stitching\detail\blenders.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\video.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\video\tracking.hpp \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\video\background_segm.hpp \
+		platecategory_svm.h \
+		..\..\..\Functional\OpenCV\opencv\build\include\opencv2\ml\ml.hpp \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\QTime \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qdatetime.h \
+		platecategory.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\QString \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtGui\QList \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtGui\qevent.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtGui\qtguiglobal.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtGui\qtgui-config.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtGui\qwindowdefs.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtGui\qwindowdefs_win.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtGui\qregion.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qrect.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qmargins.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qsize.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qpoint.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qdatastream.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtGui\qkeysequence.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qvariant.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qmap.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qdebug.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qtextstream.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qlocale.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qvector.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qset.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qcontiguouscache.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qsharedpointer.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qsharedpointer_impl.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qurl.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtCore\qurlquery.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtGui\qvector2d.h \
+		..\..\..\Functional\Qt\5.12.3\msvc2017_64\include\QtGui\qtouchdevice.h \
+		platechar_svm.h
+
 debug\moc_charproperty.obj: debug\moc_charproperty.cpp 
 
 debug\moc_computesimilarity.obj: debug\moc_computesimilarity.cpp 
@@ -3129,6 +3534,8 @@ debug\moc_plateproperty.obj: debug\moc_plateproperty.cpp
 debug\moc_platetestthread.obj: debug\moc_platetestthread.cpp 
 
 debug\moc_svmtrainner.obj: debug\moc_svmtrainner.cpp 
+
+debug\moc_trainthread.obj: debug\moc_trainthread.cpp 
 
 ####### Install
 

@@ -5,6 +5,8 @@ computeSimilarity::computeSimilarity(QList<QDir *> dirs_, QList<QStringList> img
     this->dirs = dirs_;
     this->imgFileNames = imgFileNames_;
     this->mode = mode_;
+
+    this->doing = true;
 }
 
 float computeSimilarity::computeSimilarityOfMats(QString matPath1, QString matPath2)
@@ -25,25 +27,23 @@ float computeSimilarity::computeSimilarityOfMats(QString matPath1, QString matPa
     std::vector<float> vector2;
     hog->compute(mat2, vector2, HOGBlockStride, cv::Size(0,0));
 
+    float sum = 0.0f;
     int i = 0;
     int n = vector1.size();
-    float sum = 0.0f;
-    for (i = 0; i<n; ++i)
-        sum += vector1[i] * vector1[i];
-    float vecM1 = sqrt(sum);
 
-    n = vector2.size();
-    sum = 0.0f;
-    for (i = 0; i<n; ++i)
-        sum += vector2[i] * vector2[i];
-    float vecM2 = sqrt(sum);
-
+    //求余弦
     sum = 0.0f;
     for (i = 0; i<n; ++i)
         sum += vector1[i] * vector2[i];
-    float dis = sum / (vecM1*vecM2);
+    float dis = sum;
+
 
     return dis;
+}
+
+void computeSimilarity::stopComputing()
+{
+    this->doing = false;
 }
 
 void computeSimilarity::run()
@@ -53,15 +53,19 @@ void computeSimilarity::run()
     float dis;
     for(k = 0; k < dirs.size(); k++)
     {
+        if(!doing) break;
+
         for(i = 0; i < imgFileNames[k].size() - 1; i++)
             for(j = i + 1; j < imgFileNames[k].size(); j++)
             {
+                if(!doing) break;
+
                 QString consoleLine = "Computing the similarity of " + QString::number(i) + "th and " + QString::number(j) + "th images from the " + QString::number(k) + "th dircetory";
                 emit consoleWrite(consoleLine);
                 dis = computeSimilarityOfMats(dirs[k]->path() + "\\" + imgFileNames[k].at(i), dirs[k]->path() + "\\" + imgFileNames[k].at(j));
                 if(mode)
                 {
-                    if(dis > (k > 1 ? 1:Property::thresholdForSimilarity[k]))
+                    if(dis > (((k > 1) ? Property::thresholdForSimilarity[1]:Property::thresholdForSimilarity[k])))
                     {
                         imgFileNames[k].removeAt(j);
                         emit deleteItem(k, j);
@@ -82,5 +86,5 @@ void computeSimilarity::run()
                 }
             }
     }
-    emit finished();
+    emit finishedWork();
 }

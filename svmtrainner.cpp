@@ -12,6 +12,8 @@ SVMTrainner::SVMTrainner(QWidget *parent) :
     this->charComputerThread = nullptr;
     this->charTestThread = nullptr;
     this->plateTestThread = nullptr;
+    this->plateTrainThread = nullptr;
+    this->charTrainThread = nullptr;
 
     this->ui->plateSampleImfo->hide();
     this->ui->plateTestResult->hide();
@@ -378,7 +380,7 @@ void SVMTrainner::generateTestSetByTrainSet()
     QString output = "生成了" + QString::number(testSum) + "张标准测试样本，其中\n";
     for(k = 0; k < plateTestDirs.size(); k++)
     {
-        output += PlateCategoryString[k] + QString::number(plateTestImgFileNames[k].size()) + "张\n";
+        output += PlateCategoryString[k] + " " + QString::number(plateTestImgFileNames[k].size()) + "张\n";
     }
     output += "已保存至 " + Property::plateTestPath;
 
@@ -396,6 +398,18 @@ void SVMTrainner::on_platePropertyButton_clicked()
 //加载车牌训练库
 void SVMTrainner::on_loadPlateSetButton_clicked()
 {
+    if(computerThread != nullptr)
+    {
+        emit stopComputingSimilarity();
+        return;
+    }
+
+    if(plateTrainThread != nullptr)
+    {
+        QMessageBox::information(this, "Warnning!", "请等待训练完成!", QMessageBox::Ok);
+        return;
+    }
+
     if(!Property::plateTrainPathDefault)
     {
         Property::plateTrainPath = QFileDialog::getExistingDirectory(this,tr("Select Trainning Set Path"),Property::plateTrainPath);
@@ -445,14 +459,17 @@ void SVMTrainner::on_loadPlateSetButton_clicked()
         //比较相似度
         connect(computerThread,&computeSimilarity::deleteItem,this,&SVMTrainner::sampleFilter);
         connect(computerThread,&computeSimilarity::consoleWrite,this,&SVMTrainner::consoleOutput);
-        connect(computerThread,&computeSimilarity::finished,this,&SVMTrainner::finishedComputing);
+        connect(computerThread,&computeSimilarity::finishedWork,this,&SVMTrainner::finishedComputing);
+        connect(this,&SVMTrainner::stopComputingSimilarity,computerThread,&computeSimilarity::stopComputing);
         computerThread->start();
+        this->ui->loadPlateSetButton->setText("停止比对");
     }else
     {
         consoleOutput(Property::plateTrainPath +  " 载入完成");
         trainSetLoaded = true;
     }
 
+    plateTrainned = false;
     refreshPlateSampleTree();
 }
 
@@ -465,12 +482,15 @@ void SVMTrainner::sampleFilter(int k, int j)
 
 void SVMTrainner::finishedComputing()
 {
+    std::cout<<"It ends"<<std::endl;
     trainSetLoaded = true;
-    computerThread->exit();
+    computerThread->wait();
+    computerThread->terminate();
     computerThread->destroyed();
     free(computerThread);
     computerThread = nullptr;
     consoleOutput("载入完成");
+    this->ui->loadPlateSetButton->setText("装入训练库");
 }
 
 //点击查看车牌样本
@@ -524,6 +544,12 @@ void SVMTrainner::on_plateSampleTree_itemClicked(QTreeWidgetItem *item, int colu
 //开始车牌训练
 void SVMTrainner::on_plateTrainButton_clicked()
 {
+    if(plateTrainThread != nullptr)
+    {
+        QMessageBox::information(this, "Warnning!", "请等待训练完成!", QMessageBox::Ok);
+        return;
+    }
+
     if(plateTestThread != nullptr)
     {
         QMessageBox::information(this, "Warnning!", "当前仍有测试在进行", QMessageBox::Ok);
@@ -544,45 +570,23 @@ void SVMTrainner::on_plateTrainButton_clicked()
         return;
     }
 
-    int i, k;
+    consoleOutput("训练开始，请稍等...");
 
-    QList<int> labels;
+    plateTrainThread = new class TrainThread(plateTrainDirs, plateTrainImgFileNames, sampleSum, true);
+    connect(plateTrainThread,&TrainThread::finishedWork,this,&SVMTrainner::finishPlateTrain);
+    plateTrainThread->start();
+}
 
-    cv::Mat mat;
-    std::vector<float> descriptor;
+void SVMTrainner::finishPlateTrain()
+{
+    plateTrainned = true;
 
-    cv::Mat descriptorMat = cv::Mat::zeros(sampleSum, PlateCategory_SVM::HOGSize, CV_32FC1);
+    plateTrainThread->wait();
+    free(plateTrainThread);
+    plateTrainThread = nullptr;
 
-    i = 0;
-    for(k = 0; k < plateTrainImgFileNames.size(); k++)
-    {
-        for (QString imgFileName : plateTrainImgFileNames[k])
-        {
-            QString filePath = plateTrainDirs[k]->path() + "\\" + imgFileName;
-            std::string str = filePath.toLocal8Bit().toStdString();
-            mat = cv::imread(str, cv::ImreadModes::IMREAD_GRAYSCALE);
-
-            descriptor = PlateCategory_SVM::ComputeHogDescriptors(mat);
-
-            for(int j = 0; j < PlateCategory_SVM::HOGSize; j++)
-            {
-                descriptorMat.at<float>(i, j) = descriptor.at(j);
-            }
-            labels.insert(labels.size(), k);
-            i++;
-        }
-    }
-
-    cv::Mat labelMat = cv::Mat(sampleSum, 1, CV_32SC1);
-
-    for(i = 0; i < sampleSum; i++)
-    {
-        labelMat.at<int>(i, 0) = labels[i];
-    }
-
-    plateTrainned = PlateCategory_SVM::Train(descriptorMat, labelMat);
     QString output = "训练完成，共有" + QString::number(sampleSum) + "张样本， 其中\n";
-    for(k = 0; k < PlateCategoryString.size(); k++)
+    for(int k = 0; k < PlateCategoryString.size(); k++)
     {
         output += PlateCategoryString[k] + QString::number(plateTrainImgFileNames[k].size()) + "张";
         if(k != PlateCategoryString.size() - 1) output += "\n";
@@ -595,6 +599,12 @@ void SVMTrainner::on_plateTrainButton_clicked()
 //更改车牌训练集样本标签
 void SVMTrainner::on_plateSampleChangeButton_clicked()
 {
+    if(plateTrainThread != nullptr)
+    {
+        QMessageBox::information(this, "Warnning!", "请等待训练完成!", QMessageBox::Ok);
+        return;
+    }
+
     if((this->ui->plateSampleLabelCombo->currentIndex()== this->ui->plateSampleTree->currentItem()->whatsThis(0).section(".",0 ,0).toInt())) return;
 
     QMessageBox:: StandardButton result= QMessageBox::information(NULL, "Make Sure", "确认要更改标签吗?",QMessageBox::Yes|QMessageBox::No);
@@ -634,6 +644,12 @@ void SVMTrainner::on_plateSampleChangeButton_clicked()
 //删除车牌训练集样本
 void SVMTrainner::on_plateSampleDeleteButton_clicked()
 {
+    if(plateTrainThread != nullptr)
+    {
+        QMessageBox::information(this, "Warnning!", "请等待训练完成!", QMessageBox::Ok);
+        return;
+    }
+
     bool deleteLocal = false;
 
     QMessageBox:: StandardButton result = QMessageBox::information(NULL, "Make Sure", "确认删除?",QMessageBox::Yes|QMessageBox::No);
@@ -931,6 +947,12 @@ void SVMTrainner::on_plateRefreshButton_clicked()
 //生成测试集
 void SVMTrainner::on_generatePlateTestSetButton_clicked()
 {
+    if(plateTrainThread != nullptr)
+    {
+        QMessageBox::information(this, "Warnning!", "请等待训练完成!", QMessageBox::Ok);
+        return;
+    }
+
     if(plateTestThread != nullptr)
     {
         QMessageBox::information(this, "Warnning!", "当前仍有测试在进行", QMessageBox::Ok);
@@ -942,6 +964,12 @@ void SVMTrainner::on_generatePlateTestSetButton_clicked()
 //均衡训练集
 void SVMTrainner::on_equalizePlateTrainButton_clicked()
 {
+    if(plateTrainThread != nullptr)
+    {
+        QMessageBox::information(this, "Warnning!", "请等待训练完成!", QMessageBox::Ok);
+        return;
+    }
+
     if(plateTrainDirs.empty())
     {
         QMessageBox::information(this, "Warnning!", "未装载训练集！", QMessageBox::Ok);
@@ -953,13 +981,15 @@ void SVMTrainner::on_equalizePlateTrainButton_clicked()
     int i, k;
     for(k = 0; k < plateTrainImgFileNames.size() - 1; k++)
     {
-        if(plateTrainImgFileNames[k + 1].size() < plateTrainImgFileNames[k].size() || plateTrainImgFileNames[k].size() < Property::minPlateSampleNum)
+        if(plateTrainImgFileNames[k + 1].size() < Property::minPlateSampleNum) continue;
+
+        if(plateTrainImgFileNames[k + 1].size() < plateTrainImgFileNames[leastIndex].size())
         {
             leastIndex = k + 1;
         }
     }
 
-    if(plateTrainImgFileNames[k].size() < Property::minPlateSampleNum)
+    if(plateTrainImgFileNames[leastIndex].size() < Property::minPlateSampleNum)
     {
         consoleOutput("已无法再削减");
         return;
@@ -998,6 +1028,12 @@ void SVMTrainner::on_equalizePlateTrainButton_clicked()
 //加载训练成果
 void SVMTrainner::on_loadPlateTrainResultButton_clicked()
 {
+    if(plateTrainThread != nullptr)
+    {
+        QMessageBox::information(this, "Warnning!", "请等待训练完成!", QMessageBox::Ok);
+        return;
+    }
+
     if(plateTestThread != nullptr)
     {
         QMessageBox::information(this, "Warnning!", "当前仍有测试在进行", QMessageBox::Ok);
@@ -1038,6 +1074,12 @@ void SVMTrainner::on_loadPlateTrainResultButton_clicked()
 //单图测试
 void SVMTrainner::on_singlePlateTestButton_clicked()
 {
+    if(plateTrainThread != nullptr)
+    {
+        QMessageBox::information(this, "Warnning!", "请等待训练完成!", QMessageBox::Ok);
+        return;
+    }
+
     plateTestResults.clear();
     standardPlateTestSet = false;
 
@@ -1183,6 +1225,12 @@ void SVMTrainner::on_correctPlateButton_clicked()
 //批量测试车牌
 void SVMTrainner::on_startPlateTestButton_clicked()
 {
+    if(plateTrainThread != nullptr)
+    {
+        QMessageBox::information(this, "Warnning!", "请等待训练完成!", QMessageBox::Ok);
+        return;
+    }
+
     if(plateTestDirs.empty())
     {
         QMessageBox::information(this, "Warnning!", "无效的测试集!", QMessageBox::Ok);
@@ -1217,7 +1265,7 @@ void SVMTrainner::on_startPlateTestButton_clicked()
     plateTestThread = new PlateTestThread(standardPlateTestSet, plateTestDirs, plateTestImgFileNames, true);
     connect(plateTestThread,&PlateTestThread::testResult,this,&SVMTrainner::testedOne);
     connect(plateTestThread,&PlateTestThread::standardTestResult,this,&SVMTrainner::standardTestedOne);
-    connect(plateTestThread,&PlateTestThread::finished,this,&SVMTrainner::finishTesting);
+    connect(plateTestThread,&PlateTestThread::finishedWork,this,&SVMTrainner::finishTesting);
 
     plateTestThread->start();
 }
@@ -1397,7 +1445,7 @@ void SVMTrainner::refreshCharTestSampleTree()
             {
                 tempSample = new QTreeWidgetItem(this->ui->charTestTree);
                 tempSample->setText(0, charTestImgFileNames[k].at(i));
-                if(!afterTest)
+                if(!afterCharTest)
                     tempSample->setWhatsThis(0,QString::number(-1) + "." + QString::number(i));
                 else {
                     tempSample->setWhatsThis(0,QString::number(-1) + "." + QString::number(i) + "." + QString::number(charTestResults[i]));
@@ -1493,7 +1541,7 @@ void SVMTrainner::generateCharTestSetByTrainSet()
     QString output = "生成了" + QString::number(charTestSum) + "张标准测试样本，其中\n";
     for(k = 0; k < charTestDirs.size(); k++)
     {
-        output += PlateCharString[k] + QString::number(charTestImgFileNames[k].size()) + "张\n";
+        output += PlateCharString[k] + " " + QString::number(charTestImgFileNames[k].size()) + "张\n";
     }
     output += "已保存至 " + Property::charTestPath;
 
@@ -1519,6 +1567,18 @@ void SVMTrainner::on_charPropertyButton_clicked()
 //加载字符训练库
 void SVMTrainner::on_loadCharSetButton_clicked()
 {
+    if(charTrainThread != nullptr)
+    {
+        QMessageBox::information(this, "Warnning!", "请等待训练完成!", QMessageBox::Ok);
+        return;
+    }
+
+    if(charComputerThread != nullptr)
+    {
+        emit stopComputingSimilarity();
+        return;
+    }
+
     if(!Property::charTrainPathDefault)
     {
         Property::charTrainPath = QFileDialog::getExistingDirectory(this,tr("Select Trainning Set Path"),Property::charTrainPath);
@@ -1568,14 +1628,17 @@ void SVMTrainner::on_loadCharSetButton_clicked()
         //比较相似度
         connect(charComputerThread,&computeSimilarity::deleteItem,this,&SVMTrainner::charSampleFilter);
         connect(charComputerThread,&computeSimilarity::consoleWrite,this,&SVMTrainner::charConsoleOutput);
-        connect(charComputerThread,&computeSimilarity::finished,this,&SVMTrainner::finishedCharComputing);
+        connect(charComputerThread,&computeSimilarity::finishedWork,this,&SVMTrainner::finishedCharComputing);
+        connect(this,&SVMTrainner::stopComputingSimilarity,charComputerThread,&computeSimilarity::stopComputing);
         charComputerThread->start();
+        this->ui->loadPlateSetButton->setText("停止比对");
     }else
     {
         charConsoleOutput(Property::charTrainPath +  " 载入完成");
         charTrainSetLoaded = true;
     }
 
+    charTrainned = false;
     refreshCharSampleTree();
 }
 
@@ -1589,11 +1652,12 @@ void SVMTrainner::charSampleFilter(int k, int j)
 void SVMTrainner::finishedCharComputing()
 {
     charTrainSetLoaded = true;
-    charComputerThread->exit();
+    charComputerThread->terminate();
     charComputerThread->destroyed();
     free(charComputerThread);
     charComputerThread = nullptr;
     charConsoleOutput("载入完成");
+    this->ui->loadCharSetButton->setText("装入训练库");
 }
 
 //查看字符训练集样本
@@ -1647,6 +1711,12 @@ void SVMTrainner::on_charSampleTree_itemClicked(QTreeWidgetItem *item, int colum
 //训练字符
 void SVMTrainner::on_charTrainButton_clicked()
 {
+    if(charTrainThread != nullptr)
+    {
+        QMessageBox::information(this, "Warnning!", "请等待训练完成!", QMessageBox::Ok);
+        return;
+    }
+
     if(charTestThread != nullptr)
     {
         QMessageBox::information(this, "Warnning!", "当前仍有测试在进行", QMessageBox::Ok);
@@ -1667,47 +1737,24 @@ void SVMTrainner::on_charTrainButton_clicked()
         return;
     }
 
-    int i, k;
+    charConsoleOutput("训练开始，请稍等...");
 
-    QList<int> labels;
+    charTrainThread = new class TrainThread(charTrainDirs, charTrainImgFileNames, charSampleSum, false);
+    connect(charTrainThread,&TrainThread::finishedWork,this,&SVMTrainner::finishCharTrain);
+    charTrainThread->start();
+}
 
-    cv::Mat mat;
-    std::vector<float> descriptor;
+void SVMTrainner::finishCharTrain()
+{
+    charTrainned = true;
 
-    cv::Mat descriptorMat = cv::Mat::zeros(charSampleSum, PlateChar_SVM::HOGSize, CV_32FC1);
+    free(charTrainThread);
+    charTrainThread = nullptr;
 
-    i = 0;
-    for(k = 0; k < charTrainImgFileNames.size(); k++)
-    {
-        for (QString imgFileName : charTrainImgFileNames[k])
-        {
-            QString filePath = charTrainDirs[k]->path() + "\\" + imgFileName;
-            std::string str = filePath.toLocal8Bit().toStdString();
-            mat = cv::imread(str, cv::ImreadModes::IMREAD_GRAYSCALE);
-
-            descriptor = PlateChar_SVM::ComputeHogDescriptors(mat);
-
-            for(int j = 0; j < PlateChar_SVM::HOGSize; j++)
-            {
-                descriptorMat.at<float>(i, j) = descriptor.at(j);
-            }
-            labels.insert(labels.size(), k);
-            i++;
-        }
-    }
-
-    cv::Mat labelMat = cv::Mat(charSampleSum, 1, CV_32SC1);
-
-    for(i = 0; i < charSampleSum; i++)
-    {
-        labelMat.at<int>(i, 0) = labels[i];
-    }
-
-    charTrainned = PlateChar_SVM::Train(descriptorMat, labelMat);
     QString output = "训练完成，共有" + QString::number(charSampleSum) + "张样本， 其中\n";
-    for(k = 0; k < PlateCharString.size(); k++)
+    for(int k = 0; k < PlateCharString.size(); k++)
     {
-        output += PlateCharString[k] + QString::number(charTrainImgFileNames[k].size()) + "张";
+        output += PlateCharString[k] + " " + QString::number(charTrainImgFileNames[k].size()) + "张";
         if(k != PlateCharString.size() - 1) output += "\n";
     }
     charConsoleOutput(output);
@@ -1718,6 +1765,12 @@ void SVMTrainner::on_charTrainButton_clicked()
 //更改字符训练样本的标签
 void SVMTrainner::on_charSampleChangeButton_clicked()
 {
+    if(charTrainThread != nullptr)
+    {
+        QMessageBox::information(this, "Warnning!", "请等待训练完成!", QMessageBox::Ok);
+        return;
+    }
+
     if((this->ui->charSampleLabelCombo->currentIndex()== this->ui->charSampleTree->currentItem()->whatsThis(0).section(".",0 ,0).toInt())) return;
 
     QMessageBox:: StandardButton result = QMessageBox::information(NULL, "Make Sure", "确认要更改标签吗?",QMessageBox::Yes|QMessageBox::No);
@@ -1757,6 +1810,12 @@ void SVMTrainner::on_charSampleChangeButton_clicked()
 //删除车牌训练集样本
 void SVMTrainner::on_charSampleDeleteButton_clicked()
 {
+    if(charTrainThread != nullptr)
+    {
+        QMessageBox::information(this, "Warnning!", "请等待训练完成!", QMessageBox::Ok);
+        return;
+    }
+
     bool deleteLocal = false;
 
     QMessageBox:: StandardButton result = QMessageBox::information(NULL, "Make Sure", "确认删除?",QMessageBox::Yes|QMessageBox::No);
@@ -1945,6 +2004,12 @@ void SVMTrainner::on_saveCharTrainButton_clicked()
 //更改字符测试集样本的标签
 void SVMTrainner::on_testCharChangeTagButton_clicked()
 {
+    if(charTrainThread != nullptr)
+    {
+        QMessageBox::information(this, "Warnning!", "请等待训练完成!", QMessageBox::Ok);
+        return;
+    }
+
     if(charTestThread != nullptr)
     {
         QMessageBox::information(this, "Warnning!", "当前仍有测试在进行", QMessageBox::Ok);
@@ -2054,6 +2119,12 @@ void SVMTrainner::on_charRefreshButton_clicked()
 //生成测试集
 void SVMTrainner::on_generateCharTestSetButton_clicked()
 {
+    if(charTrainThread != nullptr)
+    {
+        QMessageBox::information(this, "Warnning!", "请等待训练完成!", QMessageBox::Ok);
+        return;
+    }
+
     if(charTestThread != nullptr)
     {
         QMessageBox::information(this, "Warnning!", "当前仍有测试在进行", QMessageBox::Ok);
@@ -2065,6 +2136,12 @@ void SVMTrainner::on_generateCharTestSetButton_clicked()
 //均衡化字符训练样本集
 void SVMTrainner::on_equalizeCharTrainButton_clicked()
 {
+    if(charTrainThread != nullptr)
+    {
+        QMessageBox::information(this, "Warnning!", "请等待训练完成!", QMessageBox::Ok);
+        return;
+    }
+
     if(charTrainDirs.empty())
     {
         QMessageBox::information(this, "Warnning!", "未装载训练集！", QMessageBox::Ok);
@@ -2086,7 +2163,6 @@ void SVMTrainner::on_equalizeCharTrainButton_clicked()
 
     if(charTrainImgFileNames[leastIndex].size() < Property::minCharSampleNum)
     {
-        std::cout<<Property::minCharSampleNum<<" "<<charTrainImgFileNames[k].size()<<std::endl;
         charConsoleOutput("已无法再削减");
         return;
     }
@@ -2124,6 +2200,12 @@ void SVMTrainner::on_equalizeCharTrainButton_clicked()
 //加载字符训练成果
 void SVMTrainner::on_loadCharTrainResultButton_clicked()
 {
+    if(charTrainThread != nullptr)
+    {
+        QMessageBox::information(this, "Warnning!", "请等待训练完成!", QMessageBox::Ok);
+        return;
+    }
+
     if(charTestThread != nullptr)
     {
         QMessageBox::information(this, "Warnning!", "当前仍有测试在进行", QMessageBox::Ok);
@@ -2164,6 +2246,12 @@ void SVMTrainner::on_loadCharTrainResultButton_clicked()
 //字符单图测试
 void SVMTrainner::on_singleCharTestButton_clicked()
 {
+    if(charTrainThread != nullptr)
+    {
+        QMessageBox::information(this, "Warnning!", "请等待训练完成!", QMessageBox::Ok);
+        return;
+    }
+
     charTestResults.clear();
     standardCharTestSet = false;
 
@@ -2309,6 +2397,12 @@ void SVMTrainner::on_correctCharButton_clicked()
 //批量测试字符
 void SVMTrainner::on_startCharTestButton_clicked()
 {
+    if(charTrainThread != nullptr)
+    {
+        QMessageBox::information(this, "Warnning!", "请等待训练完成!", QMessageBox::Ok);
+        return;
+    }
+
     if(charTestDirs.empty())
     {
         QMessageBox::information(this, "Warnning!", "无效的测试集!", QMessageBox::Ok);
@@ -2343,7 +2437,7 @@ void SVMTrainner::on_startCharTestButton_clicked()
     charTestThread = new PlateTestThread(standardCharTestSet, charTestDirs, charTestImgFileNames, false);
     connect(charTestThread,&PlateTestThread::testResult,this,&SVMTrainner::testedOneChar);
     connect(charTestThread,&PlateTestThread::standardTestResult,this,&SVMTrainner::standardTestedOneChar);
-    connect(charTestThread,&PlateTestThread::finished,this,&SVMTrainner::finishTestingChar);
+    connect(charTestThread,&PlateTestThread::finishedWork,this,&SVMTrainner::finishTestingChar);
 
     charTestThread->start();
 }
@@ -2442,3 +2536,4 @@ void SVMTrainner::on_singleOrErrorCharTree_itemClicked(QTreeWidgetItem *item, in
     this->ui->charTestResult->show();
     this->ui->rightCharTag->show();
 }
+

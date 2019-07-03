@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_computeSimilarity_t {
     QByteArrayData data[8];
-    char stringdata0[68];
+    char stringdata0[72];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -38,11 +38,11 @@ QT_MOC_LITERAL(3, 30, 1), // "k"
 QT_MOC_LITERAL(4, 32, 1), // "j"
 QT_MOC_LITERAL(5, 34, 12), // "consoleWrite"
 QT_MOC_LITERAL(6, 47, 11), // "consoleLine"
-QT_MOC_LITERAL(7, 59, 8) // "finished"
+QT_MOC_LITERAL(7, 59, 12) // "finishedWork"
 
     },
     "computeSimilarity\0deleteItem\0\0k\0j\0"
-    "consoleWrite\0consoleLine\0finished"
+    "consoleWrite\0consoleLine\0finishedWork"
 };
 #undef QT_MOC_LITERAL
 
@@ -80,7 +80,7 @@ void computeSimilarity::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
         switch (_id) {
         case 0: _t->deleteItem((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 1: _t->consoleWrite((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 2: _t->finished(); break;
+        case 2: _t->finishedWork(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -101,7 +101,7 @@ void computeSimilarity::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
         }
         {
             using _t = void (computeSimilarity::*)();
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&computeSimilarity::finished)) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&computeSimilarity::finishedWork)) {
                 *result = 2;
                 return;
             }
@@ -164,7 +164,7 @@ void computeSimilarity::consoleWrite(QString _t1)
 }
 
 // SIGNAL 2
-void computeSimilarity::finished()
+void computeSimilarity::finishedWork()
 {
     QMetaObject::activate(this, &staticMetaObject, 2, nullptr);
 }

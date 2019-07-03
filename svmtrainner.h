@@ -5,6 +5,7 @@
 #include <QTreeWidgetItem>
 #include <QListWidgetItem>
 #include <QThread>
+#include <QTimer>
 
 #include "plateproperty.h"
 #include "platecategory_svm.h"
@@ -12,6 +13,7 @@
 #include "computesimilarity.h"
 #include "platetestthread.h"
 #include "charproperty.h"
+#include "trainthread.h"
 
 namespace Ui {
 class SVMTrainner;
@@ -28,6 +30,9 @@ public:
     bool trainSetLoaded = false;
 
     bool charTrainSetLoaded = false;
+
+signals:
+    void stopComputingSimilarity();
 
 private slots:
     void on_platePropertyButton_clicked();
@@ -103,57 +108,60 @@ private slots:
     void on_singleOrErrorCharTree_itemClicked(QTreeWidgetItem *item, int column);
 
 private:
-    class computeSimilarity *computerThread;
-    class PlateTestThread *plateTestThread;
+    class computeSimilarity *computerThread; //车牌相似度比较线程
+    class PlateTestThread *plateTestThread; //车牌批量测试线程
 
-    class computeSimilarity *charComputerThread;
-    class PlateTestThread *charTestThread;
+    class computeSimilarity *charComputerThread; //字符相似度比对线程
+    class PlateTestThread *charTestThread; //字符批量测试线程
 
-    int sampleSum;
-    int testSum;
-    int currentPlateFrom = 0;
+    class TrainThread *plateTrainThread; //车牌训练线程
+    class TrainThread *charTrainThread; //车牌训练线程
 
-    int charSampleSum;
-    int charTestSum;
-    int currentCharFrom = 0;
+    int sampleSum; //车牌训练集样本数
+    int testSum; //车牌测试集样本数
+    int currentPlateFrom = 0; //表示用户正在窗口中查看的图片来自哪个集
 
-    QList<int> plateTestResults;
-    QList<int> errorPlateTag;
-    bool standardPlateTestSet = false;
+    int charSampleSum; //字符训练集样本数
+    int charTestSum; //字符测试集样本数
+    int currentCharFrom = 0; //表示用户正在窗口中查看的字符图片来自哪个集
 
-    QList<int> charTestResults;
-    QList<int> errorCharTag;
-    bool standardCharTestSet = false;
+    QList<int> plateTestResults; //测试集测试结果列
+    QList<int> errorPlateTag;   //车牌错误标签列
+    bool standardPlateTestSet = false;  //车牌测试集是否已标签化
 
-    bool plateTrainned = false;
+    QList<int> charTestResults; //字符测试结果列
+    QList<int> errorCharTag;    //错误的车牌测试结果列
+    bool standardCharTestSet = false;   //字符测试集是否标签化
 
-    bool afterTest = false;
+    bool plateTrainned = false; //已进行了车牌训练
 
-    bool singleTest = false;
+    bool afterTest = false; //已进行了车牌测试
 
-    bool charTrainned = false;
+    bool singleTest = false;    //测试了单张车牌
 
-    bool afterCharTest = false;
+    bool charTrainned = false;  //已进行了字符训练
 
-    bool singleCharTest = false;
+    bool afterCharTest = false; //已进行了字符测试
 
-    QList<QDir*> plateTrainDirs;
-    QList<QStringList> plateTrainImgFileNames;
+    bool singleCharTest = false; //测试了单张字符
 
-    QList<QDir*> plateTestDirs;
-    QList<QStringList> plateTestImgFileNames;
+    QList<QDir*> plateTrainDirs;    //车牌训练集根文件夹目录
+    QList<QStringList> plateTrainImgFileNames;  //车牌训练集文件名
 
-    QList<QDir*> plateSingleOrErrorDirs;
-    QList<QStringList> plateSingleOrErrorImgFileNames;
+    QList<QDir*> plateTestDirs; //车牌测试集文件夹目录
+    QList<QStringList> plateTestImgFileNames;   //车牌测试集文件名
 
-    QList<QDir*> charTrainDirs;
-    QList<QStringList> charTrainImgFileNames;
+    QList<QDir*> plateSingleOrErrorDirs;    //标准车牌测试集测试后找到的错误图路径队列
+    QList<QStringList> plateSingleOrErrorImgFileNames;  //标准车牌测试集测试后找到的错误图文件名
 
-    QList<QDir*> charTestDirs;
-    QList<QStringList> charTestImgFileNames;
+    QList<QDir*> charTrainDirs; //字符训练集文件夹目录
+    QList<QStringList> charTrainImgFileNames;   //字符训练集文件名目录
 
-    QList<QDir*> charSingleOrErrorDirs;
-    QList<QStringList> charSingleOrErrorImgFileNames;
+    QList<QDir*> charTestDirs;  //字符测试集文件夹目录
+    QList<QStringList> charTestImgFileNames;    //字符测试集文件名目录
+
+    QList<QDir*> charSingleOrErrorDirs; //标准字符测试集测试后找到的错误图的文件夹队列
+    QList<QStringList> charSingleOrErrorImgFileNames;   //标准字符测试集测试后找到的错误图文件名目录
 
     Ui::SVMTrainner *ui;
 
@@ -186,6 +194,8 @@ private:
 
     void finishTesting();
 
+    void finishPlateTrain();
+
     //字符训练操作
     void refreshCharSampleTree();
 
@@ -206,6 +216,8 @@ private:
     void standardTestedOneChar(int k, int i, int index, int tag);
 
     void finishTestingChar();
+
+    void finishCharTrain();
 };
 
 #endif // SVMTRAINNER_H

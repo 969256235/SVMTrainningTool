@@ -31,7 +31,6 @@ void PlateTestThread::run()
             }
         }
     }
-    std::cout<<"here"<<std::endl;
 
-    emit finished();
+    emit finishedWork();
 }

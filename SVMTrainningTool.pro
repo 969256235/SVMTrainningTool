@@ -33,7 +33,8 @@ SOURCES += \
         plateproperty.cpp \
         platetestthread.cpp \
         property.cpp \
-        svmtrainner.cpp
+        svmtrainner.cpp \
+        trainthread.cpp
 
 HEADERS += \
         charproperty.h \
@@ -44,7 +45,8 @@ HEADERS += \
         plateproperty.h \
         platetestthread.h \
         property.h \
-        svmtrainner.h
+        svmtrainner.h \
+        trainthread.h
 
 FORMS += \
         charproperty.ui \

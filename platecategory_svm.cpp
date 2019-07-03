@@ -56,6 +56,8 @@ std::vector<float> PlateCategory_SVM::ComputeHogDescriptors(cv::Mat image)
 
 bool PlateCategory_SVM::Train(cv::Mat samples, cv::Mat responses)
 {
+    if(svm != nullptr)
+        svm->clear();
     svm = cv::ml::SVM::create();
     svm->setType(cv::ml::SVM::C_SVC);
     svm->setKernel(cv::ml::SVM::KernelTypes::LINEAR);

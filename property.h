@@ -24,7 +24,7 @@ public:
     static bool generateTestSetByTrainSet; //是否从训练集中抽取除测试集
     static short testSetPercent; //抽取测试集的比例
     static float maxMultiple; //允许的样本训练数据倍数差
-    static int minPlateSampleNum;
+    static int minPlateSampleNum; //低于该值的样本会在均衡化时被无视
 
     static QString charTrainPath; //车牌训练库路径
     static QString charResultPath; //车牌训练结果路径

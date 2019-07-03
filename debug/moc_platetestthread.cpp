@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_PlateTestThread_t {
     QByteArrayData data[9];
-    char stringdata0[70];
+    char stringdata0[74];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -39,11 +39,11 @@ QT_MOC_LITERAL(4, 30, 3), // "tag"
 QT_MOC_LITERAL(5, 34, 18), // "standardTestResult"
 QT_MOC_LITERAL(6, 53, 1), // "k"
 QT_MOC_LITERAL(7, 55, 5), // "index"
-QT_MOC_LITERAL(8, 61, 8) // "finished"
+QT_MOC_LITERAL(8, 61, 12) // "finishedWork"
 
     },
     "PlateTestThread\0testResult\0\0i\0tag\0"
-    "standardTestResult\0k\0index\0finished"
+    "standardTestResult\0k\0index\0finishedWork"
 };
 #undef QT_MOC_LITERAL
 
@@ -81,7 +81,7 @@ void PlateTestThread::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         switch (_id) {
         case 0: _t->testResult((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 1: _t->standardTestResult((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< int(*)>(_a[4]))); break;
-        case 2: _t->finished(); break;
+        case 2: _t->finishedWork(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -102,7 +102,7 @@ void PlateTestThread::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         }
         {
             using _t = void (PlateTestThread::*)();
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&PlateTestThread::finished)) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&PlateTestThread::finishedWork)) {
                 *result = 2;
                 return;
             }
@@ -165,7 +165,7 @@ void PlateTestThread::standardTestResult(int _t1, int _t2, int _t3, int _t4)
 }
 
 // SIGNAL 2
-void PlateTestThread::finished()
+void PlateTestThread::finishedWork()
 {
     QMetaObject::activate(this, &staticMetaObject, 2, nullptr);
 }

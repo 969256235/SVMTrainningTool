@@ -17,10 +17,14 @@ public:
 
     float computeSimilarityOfMats(QString matPath1, QString matPath2);
 
+    bool doing;
+
+    void stopComputing();
+
 signals:
     void deleteItem(int k, int j);
     void consoleWrite(QString consoleLine);
-    void finished();
+    void finishedWork();
 
 public slots:
 

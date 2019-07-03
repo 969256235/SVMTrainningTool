@@ -327,6 +327,66 @@
                           <string>普通车牌</string>
                          </property>
                         </item>
+                        <item>
+                         <property name="text">
+                          <string>普通车牌_两行</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>內集车牌</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>澳门车牌_内</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>澳门车牌</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>澳门车牌_两行</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>香港车牌_内</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>香港车牌</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>香港车牌_两行</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>警牌</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>军牌</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>军牌两行</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>新能源</string>
+                         </property>
+                        </item>
                        </widget>
                       </item>
                       <item row="3" column="0">
@@ -519,6 +579,66 @@
                              <string>普通车牌</string>
                             </property>
                            </item>
+                           <item>
+                            <property name="text">
+                             <string>普通车牌_两行</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>内集车牌</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>澳门车牌_内</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>澳门车牌</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>澳门车牌_两行</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>香港车牌_内</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>香港车牌</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>香港车牌_两行</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>警牌</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>军牌</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>军牌_两行</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>新能源</string>
+                            </property>
+                           </item>
                           </widget>
                          </item>
                          <item>
@@ -569,6 +689,66 @@
                            <item>
                             <property name="text">
                              <string>普通车牌</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>普通车牌_两行</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>內集车牌</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>澳门车牌_内</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>澳门车牌</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>澳门车牌_两行</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>香港车牌_内</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>香港车牌</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>香港车牌_两行</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>警牌</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>军牌</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>军牌_两行</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>新能源</string>
                             </property>
                            </item>
                           </widget>

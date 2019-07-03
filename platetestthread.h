@@ -21,7 +21,7 @@ public:
 signals:
     void testResult(int i, int tag);
     void standardTestResult(int k, int i, int index, int tag);
-    void finished();
+    void finishedWork();
 
 public slots:
 

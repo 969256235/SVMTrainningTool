@@ -35,7 +35,7 @@ public:
     QVBoxLayout *verticalLayout_7;
     QTabWidget *Console;
     QWidget *plateTab;
-    QVBoxLayout *verticalLayout_16;
+    QVBoxLayout *verticalLayout_6;
     QHBoxLayout *horizontalLayout_9;
     QPushButton *platePropertyButton;
     QPushButton *loadPlateSetButton;
@@ -96,7 +96,7 @@ public:
     QComboBox *plateTestResultCombo;
     QPushButton *correctPlateButton;
     QGroupBox *plateTestSetBox;
-    QVBoxLayout *verticalLayout_6;
+    QHBoxLayout *horizontalLayout_19;
     QTreeWidget *plateTestTree;
     QVBoxLayout *verticalLayout_5;
     QGroupBox *plateErrorBox;
@@ -194,10 +194,10 @@ public:
         Console->setIconSize(QSize(32, 32));
         plateTab = new QWidget();
         plateTab->setObjectName(QString::fromUtf8("plateTab"));
-        verticalLayout_16 = new QVBoxLayout(plateTab);
-        verticalLayout_16->setSpacing(6);
-        verticalLayout_16->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_16->setObjectName(QString::fromUtf8("verticalLayout_16"));
+        verticalLayout_6 = new QVBoxLayout(plateTab);
+        verticalLayout_6->setSpacing(6);
+        verticalLayout_6->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
         horizontalLayout_9 = new QHBoxLayout();
         horizontalLayout_9->setSpacing(6);
         horizontalLayout_9->setObjectName(QString::fromUtf8("horizontalLayout_9"));
@@ -257,7 +257,7 @@ public:
         horizontalLayout_9->addWidget(singlePlateTestButton);
 
 
-        verticalLayout_16->addLayout(horizontalLayout_9);
+        verticalLayout_6->addLayout(horizontalLayout_9);
 
         horizontalLayout_17 = new QHBoxLayout();
         horizontalLayout_17->setSpacing(6);
@@ -586,10 +586,10 @@ public:
         plateTestSetBox->setObjectName(QString::fromUtf8("plateTestSetBox"));
         plateTestSetBox->setMinimumSize(QSize(129, 536));
         plateTestSetBox->setMaximumSize(QSize(450, 16777215));
-        verticalLayout_6 = new QVBoxLayout(plateTestSetBox);
-        verticalLayout_6->setSpacing(6);
-        verticalLayout_6->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
+        horizontalLayout_19 = new QHBoxLayout(plateTestSetBox);
+        horizontalLayout_19->setSpacing(6);
+        horizontalLayout_19->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_19->setObjectName(QString::fromUtf8("horizontalLayout_19"));
         plateTestTree = new QTreeWidget(plateTestSetBox);
         plateTestTree->headerItem()->setText(0, QString());
         plateTestTree->setObjectName(QString::fromUtf8("plateTestTree"));
@@ -599,7 +599,7 @@ public:
         plateTestTree->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
         plateTestTree->setHeaderHidden(true);
 
-        verticalLayout_6->addWidget(plateTestTree);
+        horizontalLayout_19->addWidget(plateTestTree);
 
 
         horizontalLayout_17->addWidget(plateTestSetBox);
@@ -651,7 +651,7 @@ public:
         horizontalLayout_17->addLayout(verticalLayout_5);
 
 
-        verticalLayout_16->addLayout(horizontalLayout_17);
+        verticalLayout_6->addLayout(horizontalLayout_17);
 
         Console->addTab(plateTab, QString());
         charTab = new QWidget();

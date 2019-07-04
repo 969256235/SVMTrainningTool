@@ -15,9 +15,9 @@ class computeSimilarity : public QThread
 public:
     computeSimilarity(QList<QDir*> dirs_, QList<QStringList> imgFileNames_, bool mode_);
 
-    float computeSimilarityOfMats(QString matPath1, QString matPath2);
+    float computeSimilarityOfMats(cv::Mat mat1, QString matPath2);
 
-    bool doing;
+    bool doing; //判断是否继续运算
 
     void stopComputing();
 
@@ -41,8 +41,8 @@ private:
 
     bool mode; //true:Plate false:Char
 
-    QList<QDir*> dirs;
-    QList<QStringList> imgFileNames;
+    QList<QDir*> dirs; //文件夹路径
+    QList<QStringList> imgFileNames; //文件名
 };
 
 #endif // COMPUTESIMILARITY_H

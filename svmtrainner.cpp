@@ -1132,7 +1132,7 @@ void SVMTrainner::on_correctPlateButton_clicked()
     {
         QTreeWidgetItem *temp;
         switch (currentPlateFrom) {
-            case 2:
+        case 2:
             temp = this->ui->plateTestTree->currentItem();break;
         case 3:
             temp = this->ui->singleOrErrorPlateTree->currentItem();break;
@@ -1159,13 +1159,18 @@ void SVMTrainner::on_correctPlateButton_clicked()
         if(currentPlateFrom == 3)
         {
             QTreeWidgetItem *temp = this->ui->singleOrErrorPlateTree->currentItem();
-            plateSingleOrErrorImgFileNames[temp->whatsThis(0).section(".",0,0).toInt()].removeAt(temp->whatsThis(0).section(".",1,1).toInt());
-            errorPlateTag.removeAt(temp->whatsThis(0).section(".",1,1).toInt());
-            refreshSingleOrErrorTree();          
-            this->ui->singleOrErrorPlateTree->expandItem(this->ui->singleOrErrorPlateTree->topLevelItem(temp->whatsThis(0).section(".",0,0).toInt()));
+            int formerLabel = temp->whatsThis(0).section(".",0,0).toInt();
+            plateSingleOrErrorImgFileNames[formerLabel].removeAt(temp->whatsThis(0).section(".",1,1).toInt());
+            int index = 0;
+            for(int k = 0; k < temp->whatsThis(0).section(".",0,0).toInt(); k++)
+                index += plateSingleOrErrorImgFileNames[k].size();
+            errorPlateTag.removeAt(index);
+            refreshSingleOrErrorTree();
+            this->ui->singleOrErrorPlateTree->expandItem(this->ui->singleOrErrorPlateTree->topLevelItem(formerLabel));
         }
         refreshPlateSampleTree();
         this->ui->plateSampleTree->expandItem(this->ui->plateSampleTree->topLevelItem(label));
+        consoleOutput("操作完成");
         return;
     }
 
@@ -2331,10 +2336,14 @@ void SVMTrainner::on_correctCharButton_clicked()
         if(currentCharFrom == 3)
         {
             QTreeWidgetItem *temp = this->ui->singleOrErrorCharTree->currentItem();
-            charSingleOrErrorImgFileNames[temp->whatsThis(0).section(".",0,0).toInt()].removeAt(temp->whatsThis(0).section(".",1,1).toInt());
-            errorCharTag.removeAt(temp->whatsThis(0).section(".",1,1).toInt());
+            int formerLabel = temp->whatsThis(0).section(".",0,0).toInt();
+            charSingleOrErrorImgFileNames[formerLabel].removeAt(temp->whatsThis(0).section(".",1,1).toInt());
+            int index = 0;
+            for(int k = 0; k < temp->whatsThis(0).section(".",0,0).toInt(); k++)
+                index += charSingleOrErrorImgFileNames[k].size();
+            errorCharTag.removeAt(index);
             refreshCharSingleOrErrorTree();
-            this->ui->singleOrErrorCharTree->expandItem(this->ui->singleOrErrorCharTree->topLevelItem(temp->whatsThis(0).section(".",0,0).toInt()));
+            this->ui->singleOrErrorCharTree->expandItem(this->ui->singleOrErrorCharTree->topLevelItem(formerLabel));
         }
         refreshCharSampleTree();
         this->ui->charSampleTree->expandItem(this->ui->charSampleTree->topLevelItem(label));
@@ -2536,4 +2545,3 @@ void SVMTrainner::on_singleOrErrorCharTree_itemClicked(QTreeWidgetItem *item, in
     this->ui->charTestResult->show();
     this->ui->rightCharTag->show();
 }
-

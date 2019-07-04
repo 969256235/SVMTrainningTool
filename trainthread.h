@@ -23,7 +23,7 @@ protected:
 
 private:
     bool mode; //true - plate / false - char
-    int sum;
+    int sum; //训练集样本总数
 
     QList<QDir*> trainDirs;
     QList<QStringList> imgFileNames;

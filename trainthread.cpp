@@ -12,18 +12,18 @@ void TrainThread::run()
 {
     int i, k;
 
-    QList<int> labels;
+    QList<int> labels; //标签队列
 
     cv::Mat mat;
-    std::vector<float> descriptor;
+    std::vector<float> descriptor; //描述符
 
     if(sum == 0)
     {
-        emit finishedWork();
+        emit finishedWork();    //无样本，直接退出
         return;
     }
 
-    cv::Mat descriptorMat = cv::Mat::zeros(sum, mode ? (PlateCategory_SVM::HOGSize):(PlateChar_SVM::HOGSize), CV_32FC1);
+    cv::Mat descriptorMat = cv::Mat::zeros(sum, mode ? (PlateCategory_SVM::HOGSize):(PlateChar_SVM::HOGSize), CV_32FC1); //建立描述符矩阵，sum行，HOG维度列
 
     i = 0;
     for(k = 0; k < imgFileNames.size(); k++)

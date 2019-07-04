@@ -30,7 +30,7 @@
        <attribute name="title">
         <string>车牌训练</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_16">
+       <layout class="QVBoxLayout" name="verticalLayout_6">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_9">
           <item>
@@ -798,7 +798,7 @@
             <property name="title">
              <string>测试集</string>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_6">
+            <layout class="QHBoxLayout" name="horizontalLayout_19">
              <item>
               <widget class="QTreeWidget" name="plateTestTree">
                <property name="minimumSize">

@@ -1,0 +1,91 @@
+﻿#include "computesimilarity.h"
+
+computeSimilarity::computeSimilarity(QList<QDir *> dirs_, QList<QStringList> imgFileNames_, bool mode_)
+{
+    this->dirs = dirs_;
+    this->imgFileNames = imgFileNames_;
+    this->mode = mode_;
+
+    this->doing = true;
+}
+
+float computeSimilarity::computeSimilarityOfMats(cv::Mat mat1, QString matPath2)
+{
+    cv::Mat mat2 = cv::imread(matPath2.toLocal8Bit().toStdString());
+
+    if(mat1.empty() || mat2.empty())
+        return 0.0;
+
+    cv::cvtColor(mat1, mat1, cv::COLOR_BGR2GRAY);
+    cv::resize(mat1, mat1, HOGWinSize);
+    std::vector<float> vector1;
+    hog->compute(mat1, vector1, HOGBlockStride, cv::Size(0,0));
+
+    cv::cvtColor(mat2, mat2, cv::COLOR_BGR2GRAY);
+    cv::resize(mat2, mat2, HOGWinSize);
+    std::vector<float> vector2;
+    hog->compute(mat2, vector2, HOGBlockStride, cv::Size(0,0));
+
+    float sum = 0.0f;
+    int i = 0;
+    int n = vector1.size();
+
+    //求余弦
+    sum = 0.0f;
+    for (i = 0; i<n; ++i)
+        sum += vector1[i] * vector2[i];
+    float dis = sum;    //模均视为1
+
+    return dis;
+}
+
+//终止计算，打破循环
+void computeSimilarity::stopComputing()
+{
+    this->doing = false;
+}
+
+void computeSimilarity::run()
+{
+    int i, j, k, threshold;
+
+    float dis;
+    for(k = 0; k < dirs.size(); k++)
+    {
+        if(!doing) break;
+
+        for(i = 0; i < imgFileNames[k].size() - 1; i++)
+        {
+            cv::Mat mat1 = cv::imread((dirs[k]->path() + "\\" + imgFileNames[k].at(i)).toLocal8Bit().toStdString());
+            for(j = i + 1; j < imgFileNames[k].size(); j++)
+            {
+                if(!doing) break;
+                QString consoleLine = "Computing the similarity of " + QString::number(i) + "th and " + QString::number(j) + "th images from the " + QString::number(k) + "th dircetory";
+                emit consoleWrite(consoleLine);
+                dis = computeSimilarityOfMats(mat1, dirs[k]->path() + "\\" + imgFileNames[k].at(j));
+                if(mode) //计算车牌
+                {
+                    if(dis > (((k > 1) ? Property::thresholdForSimilarity[1]:Property::thresholdForSimilarity[k])))
+                    {
+                        imgFileNames[k].removeAt(j);
+                        emit deleteItem(k, j);
+                        j--;
+                    }
+                }
+                else { //计算字符
+                    if(k <= 1) threshold = 0;   //判断阈值选择
+                    else if(k <= 27) threshold = 1;
+                    else if(k <= 37) threshold = 2;
+                    else threshold = 3;
+                    if(dis > Property::charThresholdForSimilarity[threshold])
+                    {
+                        imgFileNames[k].removeAt(j);
+                        emit deleteItem(k, j);
+                        j--;
+                    }
+                }
+            }
+        }
+    }
+    emit finishedWork();
+}

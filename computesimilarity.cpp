@@ -9,9 +9,8 @@ computeSimilarity::computeSimilarity(QList<QDir *> dirs_, QList<QStringList> img
     this->doing = true;
 }
 
-float computeSimilarity::computeSimilarityOfMats(QString matPath1, QString matPath2)
+float computeSimilarity::computeSimilarityOfMats(cv::Mat mat1, QString matPath2)
 {
-    cv::Mat mat1 = cv::imread(matPath1.toLocal8Bit().toStdString());
     cv::Mat mat2 = cv::imread(matPath2.toLocal8Bit().toStdString());
 
     if(mat1.empty() || mat2.empty())
@@ -35,12 +34,12 @@ float computeSimilarity::computeSimilarityOfMats(QString matPath1, QString matPa
     sum = 0.0f;
     for (i = 0; i<n; ++i)
         sum += vector1[i] * vector2[i];
-    float dis = sum;
-
+    float dis = sum;    //模均视为1
 
     return dis;
 }
 
+//终止计算，打破循环
 void computeSimilarity::stopComputing()
 {
     this->doing = false;
@@ -56,13 +55,14 @@ void computeSimilarity::run()
         if(!doing) break;
 
         for(i = 0; i < imgFileNames[k].size() - 1; i++)
+        {
+            cv::Mat mat1 = cv::imread((dirs[k]->path() + "\\" + imgFileNames[k].at(i)).toLocal8Bit().toStdString());
             for(j = i + 1; j < imgFileNames[k].size(); j++)
             {
                 if(!doing) break;
-
                 QString consoleLine = "Computing the similarity of " + QString::number(i) + "th and " + QString::number(j) + "th images from the " + QString::number(k) + "th dircetory";
                 emit consoleWrite(consoleLine);
-                dis = computeSimilarityOfMats(dirs[k]->path() + "\\" + imgFileNames[k].at(i), dirs[k]->path() + "\\" + imgFileNames[k].at(j));
+                dis = computeSimilarityOfMats(mat1, dirs[k]->path() + "\\" + imgFileNames[k].at(j));
                 if(mode)
                 {
                     if(dis > (((k > 1) ? Property::thresholdForSimilarity[1]:Property::thresholdForSimilarity[k])))
@@ -85,6 +85,7 @@ void computeSimilarity::run()
                     }
                 }
             }
+        }
     }
     emit finishedWork();
 }
